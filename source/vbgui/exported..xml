@@ -1,0 +1,96 @@
+<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
+	xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
+	xmlns:rs='urn:schemas-microsoft-com:rowset'
+	xmlns:z='#RowsetSchema'>
+<s:Schema id='RowsetSchema'>
+	<s:ElementType name='row' content='eltOnly'>
+		<s:AttributeType name='analysis_rule_id' rs:number='1' rs:writeunknown='true'>
+			<s:datatype dt:type='int' dt:maxLength='4' rs:precision='10' rs:fixedlength='true' rs:maybenull='false'/>
+		</s:AttributeType>
+		<s:AttributeType name='type' rs:number='2' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='10' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='rule_def' rs:number='3' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='error' rs:number='4' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='254' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='name' rs:number='5' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='100' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='sf_error_deff_id' rs:number='6' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='int' dt:maxLength='4' rs:precision='10' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='active' rs:number='7' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='1' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='execution_interval' rs:number='8' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='int' dt:maxLength='4' rs:precision='10' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='description' rs:number='9' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='100' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:extends type='rs:rowbase'/>
+	</s:ElementType>
+</s:Schema>
+<rs:data>
+	<z:row analysis_rule_id='1' type='Perl      ' rule_def='use siebsrvobj;
+
+my $href;     	# refrence to a hash
+my @error;   	# list of task errors   
+
+my @allcomps; 	#  array of server task records
+
+
+my $entobj = siebsrvobj-&#x3e;newobj($datasession,$debug,&#x27;siebel&#x27;);  	#initialize the enterprise object
+@allcomps = $entobj-&#x3e;entcomps();  				#get array of all server tasks
+
+this is a error
+foreach  $href (0..$#allcomps) {  				#loop through the tasks
+		
+     my $errstring = &#x22;COMPONENT: $allcomps[$href]{cc_alias} HAS RUNNING TASKS = $allcomps[$href]{cp_num_run}\n&#x22;;  	
+     print $errstring;  							 	                 #for debugging...
+
+     #look for the string &#x22;Exited with error&#x22;.... if there is an error, add a string to the @error array, which will be emailed...eventually
+      if ($allcomps[$href]{cp_num_run} == $allcomps[$href]{cp_max_tas}) {push @error, &#x22;WARNING!! THE FOLLOWING COMPONENT HAS MAXED OUT ON ALLOWABLE TASKS: $errstring\n&#x22;}		  
+  }
+
+if (@error == 0) { #the number of errors == 0, so $retval = 1 
+	$retval = 1;
+	#errormessage overide = @errors
+}'
+		 error='WARNING: Partial analysis Rule execution Error: syntax error at (eval 165) line 13, near &#x22;$href (&#x22;
+                                                                                                                                                           '
+		 name='Component Reached max tasks                                                                         ' active='N'
+		 execution_interval='1' description='Finds any components that have reached MAX tasks for a component                                    '/>
+	<z:row analysis_rule_id='3' type='Perl      ' rule_def='require siebsrvobj;
+
+my $href;     	# refrence to a hash
+my @error;   	# list of task errors   
+
+my @alltasks; 	#  array of server task records
+
+
+my $entobj = siebsrvobj-&#x3e;newobj($datasession,$debug,&#x27;siebel&#x27;);  	#initialize the enterprise object
+@alltasks = $entobj-&#x3e;entasks();  				#get array of all server tasks
+
+
+foreach  $href (0..$#alltasks) {  				#loop through the tasks
+		
+     my $errstring = &#x22;task: $alltasks[$href]{cc_alias} = $alltasks[$href]{tk_disp_runstate}\n&#x22;;  	 #create a string definintion	
+     print $errstring;  							 	 #for debugging...
+
+     #look for the string &#x22;Exited with error&#x22;.... if there is an error, add a string to the @error array, which will be emailed...eventually
+      if ($alltasks[$href]{tk_disp_runstate} =~ /Exited with error/) {push @error, &#x22;FOUND THE FOLLOWING TXN ERROR: $errstring\n&#x22;}		  
+  }
+
+if (@error == 0) { #the number of errors == 0, so $retval = 1 
+	$retval = 1;
+	#errormessage overide = @errors
+}'
+		 error='                                                                                                                                                                                                                                                              '
+		 name='Task error in the enterprise                                                                        ' active='N'
+		 execution_interval='1' description='Finds any Tasks with status = Exited with error                                                     '/>
+</rs:data>
+</xml>

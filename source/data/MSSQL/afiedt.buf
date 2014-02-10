@@ -1,0 +1,4 @@
+insert into collector(collector_id,type,execution_interval,name,description,active,rule_def) values (2,'Perl','1440','Number of Opportunities','Number of Opportunities','Y','
+use sqlanalyze;
+$retval = sqlanalyze->sqlcount("select count(*)  from S_OPTY", $datasource{siebeldata});')
+/

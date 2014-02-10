@@ -1,0 +1,117 @@
+VERSION 5.00
+Begin VB.PropertyPage OPTIONTEMPLATE 
+   Caption         =   "Software Element Options"
+   ClientHeight    =   3600
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4800
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3600
+   ScaleWidth      =   4800
+   Begin VB.ListBox lstval 
+      Height          =   2595
+      Left            =   2400
+      TabIndex        =   1
+      Top             =   480
+      Width           =   1815
+   End
+   Begin VB.ListBox lstkey 
+      Height          =   2595
+      Left            =   480
+      TabIndex        =   0
+      Top             =   480
+      Width           =   1815
+   End
+End
+Attribute VB_Name = "OPTIONTEMPLATE"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+Dim dataset As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+
+
+action = dobj.splitval(Data, "~", 1)
+pid = dobj.splitval(Data, "~", 2)
+
+Set dataset = dobj.returndataset("select * from sft_elmnt_comp where sft_elmnt_id = " & pid)
+Dim i As Integer
+           If Not (dataset Is Nothing) Then
+                If Not (dataset.BOF And dataset.EOF) Then
+                    dataset.MoveFirst
+                    
+                    Do While Not dataset.EOF
+                            
+                          PropertyPage.lstkey.AddItem Trim(dataset("elmnt_key").value & "")
+                          PropertyPage.lstval.AddItem Trim(dataset("elmnt_value").value & "")
+                        
+                     dataset.MoveNext
+                    Loop
+                End If
+            End If
+
+Set dataset = Nothing
+Set dobj = Nothing
+
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub lstkey_DblClick()
+    Dim dataset As adodb.Recordset
+    Dim dobj As New VadminUI.vaDataAccess
+    
+    Edit = InputBox("Edit Key", "Software Element Key", lstkey.List(lstkey.ListIndex))
+    
+    dobj.returndataset ("update sft_elmnt_comp set elmnt_key = '" & Edit & "' where elmnt_key = '" & lstkey.List(lstval.ListIndex) & "' and sft_elmnt_id = " & pid)
+    
+    lstkey.List(lstkey.ListIndex) = Edit
+    
+    Set dataset = Nothing
+    Set dobj = Nothing
+End Sub
+
+Private Sub lstval_Click()
+    Dim dataset As adodb.Recordset
+    Dim dobj As New VadminUI.vaDataAccess
+    
+    Edit = InputBox("Edit Value", "Software Element Value", lstval.List(lstval.ListIndex))
+    
+    lstval.List(lstval.ListIndex) = Edit
+    
+    dobj.returndataset ("update sft_elmnt_comp set elmnt_value = '" & Edit & "' where elmnt_key = '" & lstkey.List(lstval.ListIndex) & "' and sft_elmnt_id = " & pid)
+    
+    Set dataset = Nothing
+    Set dobj = Nothing
+
+
+End Sub

@@ -1,0 +1,43 @@
+1. Deal with the handle leak in VA2 
+2. When a TCP/iP error happens, what happens with collection?
+- seems like there an hour long gap at least)
+
+3. When a srvrmgr is shut down, what happens to srvrmgr ? (eventually it restarts)
+- we know it is an error in collection cycle, but still try to parse it (with no results probably)
+- Instead, upon error in collection cycle, lets restart ?
+
+- option for starting and running srvrmgr every time?
+(create input file0
+(open server manager with the output?)
+(run and complete)
+
+
+4. Fix the handle leak on vsrvmgr... how to do it?
+- test current code, check handle count
+
+
+5. Operations that shut down srvrmgr:
+- open it, send commands, close it
+(if value is set, open and close server manager every time)
+
+
+( line 206 - do an if (do not start session0
+208 )
+
+
+(line 278 - 280 ) use an if case
+
+line 327: refe (sends an exit now - do an if statement here)
+line 556: refe - close session, do an if here
+
+601: 609 - start a session
+
+
+
+(line 673 - 639) use an if case
+
+look for: 
+- refe (refrence to the siebel server)
+- stopandrestartsrvrmgrsession (find out where this is called)
+
+- 

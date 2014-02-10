@@ -1,0 +1,214 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgServerTask 
+   Caption         =   "Server Task"
+   ClientHeight    =   3705
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4605
+   LockControls    =   -1  'True
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3705
+   ScaleWidth      =   4605
+   Begin VB.TextBox txtCc_runmode 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1545
+      Locked          =   -1  'True
+      TabIndex        =   7
+      Top             =   1320
+      Width           =   2895
+   End
+   Begin VB.TextBox txtTk_pid 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1545
+      Locked          =   -1  'True
+      TabIndex        =   5
+      Text            =   "0"
+      Top             =   960
+      Width           =   2895
+   End
+   Begin VB.TextBox txtTk_start_time 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1545
+      Locked          =   -1  'True
+      TabIndex        =   13
+      Top             =   2790
+      Width           =   2895
+   End
+   Begin VB.TextBox txtTk_taskid 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1545
+      Locked          =   -1  'True
+      TabIndex        =   1
+      Text            =   "0"
+      Top             =   240
+      Width           =   2895
+   End
+   Begin VB.TextBox txtTk_status 
+      BackColor       =   &H8000000F&
+      Height          =   675
+      Left            =   1545
+      Locked          =   -1  'True
+      MultiLine       =   -1  'True
+      TabIndex        =   11
+      Top             =   2040
+      Width           =   2895
+   End
+   Begin VB.TextBox txtTk_disp_runstate 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1545
+      Locked          =   -1  'True
+      TabIndex        =   9
+      Top             =   1680
+      Width           =   2895
+   End
+   Begin VB.TextBox txtTk_end_time 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1545
+      Locked          =   -1  'True
+      TabIndex        =   15
+      Top             =   3150
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCc_alias 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1545
+      Locked          =   -1  'True
+      TabIndex        =   3
+      Top             =   600
+      Width           =   2895
+   End
+   Begin VB.Label Label6 
+      Caption         =   "Start Time"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   12
+      Top             =   2790
+      Width           =   1290
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Task Id"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   0
+      Top             =   240
+      Width           =   1290
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Process Id"
+      Height          =   375
+      Left            =   240
+      TabIndex        =   4
+      Top             =   960
+      Width           =   1290
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Task State"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   8
+      Top             =   1680
+      Width           =   1290
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Mode"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   6
+      Top             =   1320
+      Width           =   1290
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Task Status"
+      Height          =   375
+      Left            =   240
+      TabIndex        =   10
+      Top             =   2040
+      Width           =   1290
+   End
+   Begin VB.Label Label7 
+      Caption         =   "Component"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   2
+      Top             =   600
+      Width           =   1290
+   End
+   Begin VB.Label Label8 
+      Caption         =   "End Time"
+      Height          =   375
+      Left            =   240
+      TabIndex        =   14
+      Top             =   3150
+      Width           =   1290
+   End
+End
+Attribute VB_Name = "ppgServerTask"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+Implements IMMCPropertyPage
+
+Private action As String
+Private pid As String
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+    Dim dataset As adodb.Recordset
+    Dim initdata As Variant
+    Dim dobj As New vaDataAccess
+
+    initdata = Split(Data, "~")
+    action = initdata(0)
+    pid = initdata(1)
+
+    If action = "ACTION_EDIT" Then
+
+        If Not IsNumeric(pid) Then Exit Sub
+
+        Set dataset = dobj.GetServerTask(CLng(pid))
+        If dataset Is Nothing Then Exit Sub
+
+        With PropertyPage
+            .txtTk_taskid.Text = (dataset("tk_taskid").Value)
+            .txtCc_alias.Text = Trim(dataset("cc_alias").Value & "")
+            .txtTk_pid.Text = (dataset("tk_pid").Value & "")
+            .txtCc_runmode.Text = Trim(dataset("cc_runmode").Value & "")
+            .txtTk_disp_runstate.Text = Trim(dataset("tk_disp_runstate").Value & "")
+            .txtTk_status.Text = Trim(dataset("tk_status").Value & "")
+            .txtTk_start_time.Text = Trim(dataset("tk_start_time").Value & "")
+            .txtTk_end_time.Text = Trim(dataset("tk_end_time").Value & "")
+        End With
+
+        dataset.Close
+
+    End If
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+

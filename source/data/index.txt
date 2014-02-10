@@ -1,0 +1,5 @@
+CREATE 
+  INDEX [svname] ON server_task ([sv_name], [sft_elmnt_id], [tk_taskid])
+WITH
+    DROP_EXISTING
+ON [PRIMARY]

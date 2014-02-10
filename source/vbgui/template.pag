@@ -1,0 +1,505 @@
+VERSION 5.00
+Begin VB.PropertyPage template 
+   Caption         =   "Schedule"
+   ClientHeight    =   7620
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6660
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   7620
+   ScaleWidth      =   6660
+   Begin VB.Frame frmSchedule 
+      Caption         =   "Schedule"
+      Height          =   5535
+      Left            =   240
+      TabIndex        =   3
+      Top             =   1440
+      Width           =   6015
+      Begin VB.Frame frmhours 
+         Caption         =   "Hours"
+         Height          =   3615
+         Left            =   3120
+         TabIndex        =   14
+         Top             =   1080
+         Width           =   2295
+         Begin VB.ComboBox cmbhourstart 
+            Height          =   315
+            Left            =   120
+            Style           =   2  'Dropdown List
+            TabIndex        =   18
+            Top             =   720
+            Width           =   855
+         End
+         Begin VB.ComboBox cmbminstart 
+            Height          =   315
+            Left            =   1320
+            Style           =   2  'Dropdown List
+            TabIndex        =   17
+            Top             =   720
+            Width           =   855
+         End
+         Begin VB.ComboBox cmbhourend 
+            Height          =   315
+            Left            =   120
+            Style           =   2  'Dropdown List
+            TabIndex        =   16
+            Top             =   1680
+            Width           =   855
+         End
+         Begin VB.ComboBox cmbminend 
+            Height          =   315
+            Left            =   1320
+            Style           =   2  'Dropdown List
+            TabIndex        =   15
+            Top             =   1680
+            Width           =   855
+         End
+         Begin VB.Label Label7 
+            Caption         =   ":"
+            BeginProperty Font 
+               Name            =   "MS Sans Serif"
+               Size            =   12
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   255
+            Left            =   1080
+            TabIndex        =   24
+            Top             =   1680
+            Width           =   255
+         End
+         Begin VB.Label Label6 
+            Caption         =   ":"
+            BeginProperty Font 
+               Name            =   "MS Sans Serif"
+               Size            =   12
+               Charset         =   0
+               Weight          =   700
+               Underline       =   0   'False
+               Italic          =   0   'False
+               Strikethrough   =   0   'False
+            EndProperty
+            Height          =   255
+            Left            =   1080
+            TabIndex        =   23
+            Top             =   720
+            Width           =   255
+         End
+         Begin VB.Label Label2 
+            Caption         =   "Hour Start"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   22
+            Top             =   480
+            Width           =   735
+         End
+         Begin VB.Label Label3 
+            Caption         =   "Min Start"
+            Height          =   255
+            Left            =   1320
+            TabIndex        =   21
+            Top             =   480
+            Width           =   735
+         End
+         Begin VB.Label Label4 
+            Caption         =   "Hour End"
+            Height          =   255
+            Left            =   120
+            TabIndex        =   20
+            Top             =   1440
+            Width           =   735
+         End
+         Begin VB.Label Label5 
+            Caption         =   "Min End"
+            Height          =   255
+            Left            =   1320
+            TabIndex        =   19
+            Top             =   1440
+            Width           =   735
+         End
+      End
+      Begin VB.CheckBox chkeveryhour 
+         Caption         =   "Every Hour"
+         Height          =   255
+         Left            =   3120
+         TabIndex        =   13
+         Top             =   480
+         Width           =   1095
+      End
+      Begin VB.CheckBox chkevery_day 
+         Caption         =   "Every Day"
+         Height          =   255
+         Left            =   480
+         TabIndex        =   12
+         Top             =   480
+         Width           =   1335
+      End
+      Begin VB.Frame frmdays 
+         Caption         =   "Days"
+         Height          =   3615
+         Left            =   240
+         TabIndex        =   4
+         Top             =   1080
+         Width           =   2295
+         Begin VB.CheckBox chkSunday 
+            Caption         =   "Sunday"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   11
+            Top             =   3120
+            Width           =   975
+         End
+         Begin VB.CheckBox chkSaturday 
+            Caption         =   "Saturday"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   10
+            Top             =   2640
+            Width           =   1095
+         End
+         Begin VB.CheckBox chkFriday 
+            Caption         =   "Friday"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   9
+            Top             =   2160
+            Width           =   975
+         End
+         Begin VB.CheckBox chkthursday 
+            Caption         =   "Thursday"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   8
+            Top             =   1680
+            Width           =   1215
+         End
+         Begin VB.CheckBox chkwedensday 
+            Caption         =   "Wedensday"
+            Height          =   255
+            Left            =   240
+            TabIndex        =   7
+            Top             =   1200
+            Width           =   1215
+         End
+         Begin VB.CheckBox chktuesday 
+            Caption         =   "Tuesday"
+            Height          =   315
+            Left            =   240
+            TabIndex        =   6
+            Top             =   720
+            Width           =   1095
+         End
+         Begin VB.CheckBox chkmonday 
+            Caption         =   "Monday"
+            Height          =   375
+            Left            =   240
+            TabIndex        =   5
+            Top             =   240
+            Width           =   1815
+         End
+      End
+   End
+   Begin VB.CheckBox chkschd_every 
+      Caption         =   "Schedule Every"
+      Height          =   255
+      Left            =   360
+      TabIndex        =   2
+      Top             =   840
+      Width           =   1455
+   End
+   Begin VB.TextBox txtsch_name 
+      Height          =   285
+      Left            =   1920
+      TabIndex        =   1
+      Top             =   360
+      Width           =   3375
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Schedule Name"
+      Height          =   255
+      Left            =   360
+      TabIndex        =   0
+      Top             =   360
+      Width           =   1335
+   End
+End
+Attribute VB_Name = "template"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+
+Private m_ScopeItem As ScopeItem
+Private chkval As Boolean
+Private m_bolChangesApplied As Boolean
+
+Private Sub chkevery_day_Click()
+With PropertyPage
+    Debug.Print "validating chkevery_day, value = " & .chkevery_day.value
+    If .chkevery_day.value = 1 Then
+        .frmdays.Visible = False
+    Else
+        .frmdays.Visible = True
+    End If
+End With
+End Sub
+
+Private Sub chkeveryhour_Click()
+    With PropertyPage
+    Debug.Print "validating chkeveryhour value = " & .chkeveryhour.value
+        If .chkeveryhour.value = 1 Then
+            .frmhours.Visible = False
+        Else
+            .frmhours.Visible = True
+        End If
+     End With
+End Sub
+
+Private Sub chkschd_every_Click()
+
+With PropertyPage
+    Debug.Print "validating schedule_every, value = " & .chkschd_every.value
+    If .chkschd_every.value = 1 Then
+        .frmSchedule.Visible = False
+    Else
+        .frmSchedule.Visible = True
+    End If
+End With
+
+End Sub
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+Dim dataset As ADODB.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+Dim active As String
+Dim rtype As String
+
+
+action = dobj.splitval(Data, "~", 1)
+pid = dobj.splitval(Data, "~", 2)
+
+With PropertyPage
+
+'    .cmbhourend.AddItem "", 0
+'    .cmbhourstart.AddItem "", 0
+'    .cmbminend.AddItem "", 0
+'    .cmbminstart.AddItem "", 0
+    
+    
+    
+    For i = 0 To 9
+
+        .cmbhourstart.AddItem "0" & i, i
+        .cmbhourend.AddItem "0" & i, i
+    Next i
+    
+    For i = 10 To 23
+        .cmbhourstart.AddItem i, i
+        .cmbhourend.AddItem i, i
+    Next i
+    
+    
+    For m = 0 To 9
+        .cmbminstart.AddItem "0" & m, m
+        .cmbminend.AddItem "0" & m, m
+    Next m
+    
+    For m = 10 To 59
+        .cmbminstart.AddItem m, m
+        .cmbminend.AddItem m, m
+    Next m
+End With
+
+
+Debug.Print "Property Page Action Recieved=  " & action
+
+Select Case action
+
+  Case "ACTION_EDIT"
+            pid = dobj.splitval(Data, "~", 2)
+            Set dataset = dobj.returndataset("select * from schedule where schedule_id = " & pid)
+            
+            'active = dataset("inactive").value & ""
+            
+            With PropertyPage
+                    setchkvalue .chkschd_every, dataset("schedule_every").value & ""
+                    setchkvalue .chkmonday, dataset("monday").value & ""
+                    setchkvalue .chktuesday, dataset("tuesday").value & ""
+                    setchkvalue .chkwedensday, dataset("wednesday").value & ""
+                    setchkvalue .chkthursday, dataset("thursday").value & ""
+                    setchkvalue .chkFriday, dataset("friday").value & ""
+                    setchkvalue .chkSaturday, dataset("saturday").value & ""
+                    setchkvalue .chkSunday, dataset("sunday").value & ""
+                    
+                    .txtsch_name = Trim(dataset("schd_name").value & "")
+                    
+                    setchkvalue .chkevery_day, dataset("every_day").value & ""
+                    setchkvalue .chkeveryhour, dataset("every_hour").value & ""
+                    
+                    Call settime(.cmbhourstart, Trim(dataset("hour_start")) & "")
+                    Call settime(.cmbminstart, Trim(dataset("minute_start")) & "")
+                    Call settime(.cmbhourend, Trim(dataset("hour_end")) & "")
+                    Call settime(.cmbminend, Trim(dataset("minute_end")) & "")
+                    
+          
+'                If (active = "Y") Then
+'                    Debug.Print "true"
+'                    PropertyPage.chkActive.value = 1
+'                Else
+'                    Debug.Print "false"
+'                End If
+                
+                
+                
+            End With
+End Select
+
+End Sub
+Private Function settime(combo As ComboBox, timeval As String)
+    If timeval <> "" Then
+        combo.Text = timeval
+    End If
+
+End Function
+
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+Private Sub PropertyPage_ApplyChanges()
+Dim newsys As ADODB.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+
+Dim monday As String
+Dim tuesday As String
+Dim wedensday As String
+Dim thursday As String
+Dim friday As String
+Dim saturday As String
+Dim sunday As String
+Dim schedule_every As String
+Dim every_day As String
+Dim every_hour As String
+
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+
+With PropertyPage
+    monday = trchkval(.chkmonday)
+    tuesday = trchkval(.chktuesday)
+    wedensday = trchkval(.chkwedensday)
+    thursday = trchkval(.chkthursday)
+    friday = trchkval(.chkFriday)
+    saturday = trchkval(.chkSaturday)
+    sunday = trchkval(.chkSunday)
+    
+    
+    every_day = trchkval(.chkevery_day)
+    every_hour = trchkval(.chkeveryhour)
+    schedule_every = trchkval(.chkschd_every)
+End With
+
+Set dobj = New vaDataAccess
+  
+Select Case action
+    Case "ACTION_ADD"
+            
+            With PropertyPage
+            
+               Call dobj.add_schedule(.txtsch_name.Text, schedule_every, every_day, every_hour, monday, tuesday, wedensday, thursday, friday, saturday, sunday, .cmbhourstart.Text, .cmbminstart.Text, .cmbhourend.Text, .cmbminend.Text)
+               
+            End With
+
+          
+    Case "ACTION_EDIT"
+                        
+            With PropertyPage
+                dobj.returndataset ("update schedule set schd_name = '" & .txtsch_name.Text _
+                & "', schedule_every = '" & schedule_every _
+                & "', every_day = '" & every_day _
+                & "', every_hour = '" & every_hour _
+                & "', monday = '" & monday _
+                & "', tuesday = '" & tuesday _
+                & "', wednesday = '" & wedensday _
+                & "', thursday = '" & thursday _
+                & "', friday = '" & friday _
+                & "', saturday = '" & saturday _
+                & "', sunday = '" & sunday _
+                & "', hour_start = '" & .cmbhourstart.Text _
+                & "', hour_end = '" & .cmbhourend.Text _
+                & "', minute_start = '" & .cmbminstart.Text _
+                & "', minute_end = '" & .cmbminend.Text _
+                & "' where  schedule_id = " & pid)
+
+            End With
+
+End Select
+
+m_bolChangesApplied = True
+
+With PropertyPage
+Call m_ScopeItem.PropertyChanged(.txtsch_name.Text & "~!~")
+End With
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+Set m_ScopeItem = SelectedControls(0)
+
+End Sub
+
+Private Sub setchkvalue(chkbox As CheckBox, dbstring As String)
+
+    If InStr(dbstring, "Y") Then
+        chkbox.value = 1
+    Else
+        chkbox.value = 0
+    End If
+
+
+End Sub
+
+Private Function trchkval(chkbox As CheckBox) As String
+
+    If chkbox.value = 1 Then
+        trchkval = "Y"
+    Else
+        trchkval = ""
+    End If
+    
+End Function
+
+
+
+
+
+
+
+
+

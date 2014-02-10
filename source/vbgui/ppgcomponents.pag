@@ -1,0 +1,153 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgcomponents 
+   Caption         =   "Component"
+   ClientHeight    =   1740
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5250
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   1740
+   ScaleWidth      =   5250
+   Begin VB.TextBox txtdescription 
+      Height          =   285
+      Left            =   1800
+      MaxLength       =   100
+      TabIndex        =   3
+      Top             =   600
+      Width           =   3135
+   End
+   Begin VB.TextBox txtcomponent 
+      Height          =   285
+      Left            =   1800
+      MaxLength       =   80
+      TabIndex        =   1
+      Top             =   240
+      Width           =   3135
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Description"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   2
+      Top             =   600
+      Width           =   1455
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Component"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   0
+      Top             =   240
+      Width           =   1335
+   End
+End
+Attribute VB_Name = "ppgcomponents"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+Dim hostdb As adodb.Recordset
+Dim initdata As Variant
+Dim dobj As New vaDataAccess
+
+
+initdata = Split(Data, "~")
+action = initdata(0)
+pid = initdata(1)
+
+If action = "ACTION_EDIT" Or action = "ACTION_DELETE" Then
+            
+            Set dataset = dobj.returndataset("select * from components where components_id = " & pid)
+             
+            With PropertyPage
+                .txtcomponent = Trim(dataset("cc_alias").value) & ""
+                .txtdescription = Trim(dataset("description").value) & ""
+
+                
+            End With
+
+End If
+
+
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+Dim newhost As adodb.Recordset
+Dim dobj As vaDataAccess
+
+Set dobj = New vaDataAccess
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+
+
+Select Case action
+    Case "ACTION_ADD"
+        With PropertyPage
+            Call dobj.add_component(pid, .txtcomponent.Text, .txtdescription.Text)
+           ' Call dobj.addhost(.txtHost.Text, .txtIPAddress.Text, .txtOS.Text)
+        End With
+     
+     Case "ACTION_DELETE"
+        With PropertyPage
+            Call dobj.returndataset("delete from comp_errdef where components_id = " & pid)
+            Call dobj.returndataset("delete from components where components_id = " & pid)
+        End With
+    
+        
+    Case "ACTION_EDIT"
+        With PropertyPage
+            Call dobj.returndataset("update components set cc_alias = '" & .txtcomponent _
+            & "', description = '" & .txtdescription.Text _
+            & "' where components_id = " & pid)
+        End With
+End Select
+
+m_bolChangesApplied = True
+With PropertyPage
+    Call m_ScopeItem.PropertyChanged(.txtcomponent.Text & "~!~" & .txtdescription.Text)
+End With
+        
+        
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+Set m_ScopeItem = SelectedControls(0)
+End Sub
+
+
+
+

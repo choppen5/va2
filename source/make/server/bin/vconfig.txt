@@ -1,0 +1,25 @@
+#Virtual Administrator Central Service Config file
+
+############################################################
+#Make sure to change the CENTRALSERVER paramater to a valid Machine name or static IP address
+
+
+CENTRALSERVER = 127.0.0.1   #MAKE SURE TO CHANGE THIS PARAMETER TO the Central Server host name or static IP address
+CCPORT = 14400
+CCSERVICEPORT = 15200
+DBTYPE = MSSQL
+DEBUG = 0
+
+#DBTYPE VALUES - MSSQL,ORACLE,DB2,MYSQL
+
+###############################################################
+#ODBC Settings - Make sure the ODBC Connection to the VA2 database
+# is present on the machine, and that it is a system ODBC dtasource
+# Make sure to fill out a valid username and password.
+
+VODBC = VADMIN21	
+USERNAME = sa
+PASSWORD = sa
+
+
+

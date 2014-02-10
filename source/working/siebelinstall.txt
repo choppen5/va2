@@ -1,0 +1,20 @@
+how to download siebel server:
+
+Key questions:
+- can you install siebel 8 on windows xp?
+- can you install siebel 8 db on a sql server 2000 db?
+
+
+
+
+1st, you need on windows the Windows_ImageCreator.exe.  But that's not all you need. You also need imagecreator.jar.  So one would assume these are packaged together?  No such luck.  Download the first one 
+
+2. 
+
+
+1. if you need  Windows_ImageCreator.exe  , that comes in some installs, but there is alos a seperate package such as B34835-01 that is only 28 megs. Otherwise it is included in a much larger intaller.
+
+2. Download the enterprise server B34819-01 Part 2 of 7 
+
+3. Siebel Business Applications, Version 8.0, English Language Extension Pack (Part 6 of 7) 
+B34835-01 Part 6 of 7 

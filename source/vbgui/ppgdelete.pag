@@ -1,0 +1,66 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgdelete 
+   Caption         =   "Delete"
+   ClientHeight    =   2820
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4665
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   2820
+   ScaleWidth      =   4665
+   Begin VB.Frame Confirmation 
+      Caption         =   "Confirmation"
+      Height          =   2055
+      Left            =   240
+      TabIndex        =   0
+      Top             =   360
+      Width           =   4215
+      Begin VB.Label Label1 
+         Caption         =   "Are you sure you want to delete this object?"
+         Height          =   615
+         Left            =   600
+         TabIndex        =   1
+         Top             =   720
+         Width           =   2775
+      End
+   End
+End
+Attribute VB_Name = "ppgdelete"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+
+
+Private m_bolChangesApplied As Boolean
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+
+End Sub
+
+

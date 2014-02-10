@@ -1,0 +1,181 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgsft_elmnt_comp 
+   Caption         =   "Software Element Options"
+   ClientHeight    =   3810
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4800
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3810
+   ScaleWidth      =   4800
+   Begin VB.CommandButton btnDel 
+      Caption         =   "Delete"
+      Height          =   375
+      Left            =   1800
+      TabIndex        =   5
+      Top             =   3240
+      Width           =   1095
+   End
+   Begin VB.CommandButton btnadd 
+      Caption         =   "Add"
+      Height          =   375
+      Left            =   480
+      TabIndex        =   4
+      Top             =   3240
+      Width           =   1215
+   End
+   Begin VB.ListBox lstval 
+      Height          =   2595
+      Left            =   2400
+      TabIndex        =   3
+      Top             =   480
+      Width           =   1815
+   End
+   Begin VB.ListBox lstkey 
+      Height          =   2595
+      Left            =   480
+      TabIndex        =   1
+      Top             =   480
+      Width           =   1815
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Value"
+      Height          =   255
+      Left            =   2400
+      TabIndex        =   2
+      Top             =   120
+      Width           =   1695
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Keys"
+      Height          =   255
+      Left            =   480
+      TabIndex        =   0
+      Top             =   120
+      Width           =   1575
+   End
+End
+Attribute VB_Name = "ppgsft_elmnt_comp"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+
+Private dobj As New VadminUI.vaDataAccess
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+Private Sub btnadd_Click()
+    Dim dataset As adodb.Recordset
+'    Dim dobj As New VadminUI.vaDataAccess
+
+    Key = InputBox("New Key", "Software Element Key")
+    Value = InputBox("New Value", "Software Element Value")
+
+    lstkey.AddItem Key
+    lstval.AddItem Value
+    
+    Call dobj.add_sft_elmnt_comp(Key, Value, pid)
+    
+    
+End Sub
+
+Private Sub btnDel_Click()
+    If lstkey.ListIndex < 0 Then Exit Sub
+    If dobj.del_sft_elmnt_comp(lstkey.ItemData(lstkey.ListIndex)) Then
+        lstval.RemoveItem (lstkey.ListIndex)
+        lstkey.RemoveItem (lstkey.ListIndex)
+    End If
+End Sub
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+    Dim dataset As adodb.Recordset
+    Dim i As Integer
+'    Dim dobj As New VadminUI.vaDataAccess
+
+    action = dobj.splitval(Data, "~", 1)
+    pid = dobj.splitval(Data, "~", 2)
+
+    Set dataset = dobj.returndataset("select * from sft_elmnt_comp where sft_elmnt_id = " & pid)
+    If Not (dataset Is Nothing) Then
+        If Not (dataset.BOF And dataset.EOF) Then
+            dataset.MoveFirst
+            
+            Do While Not dataset.EOF
+                    
+'                PropertyPage.lstkey.AddItem Trim(dataset("elmnt_key").Value & "")
+'                PropertyPage.lstval.AddItem Trim(dataset("elmnt_value").Value & "")
+                With PropertyPage.lstkey
+                    .AddItem Trim(dataset("elmnt_key").Value & "")
+                    .ItemData(.NewIndex) = dataset!sft_elmnt_comp_id.Value
+                End With
+                With PropertyPage.lstval
+                    .AddItem Trim(dataset("elmnt_value").Value & "")
+                    .ItemData(.NewIndex) = dataset!sft_elmnt_comp_id.Value
+                End With
+                
+                dataset.MoveNext
+            Loop
+        End If
+     End If
+
+Set dataset = Nothing
+'Set dobj = Nothing
+
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub lstkey_DblClick()
+    
+    Edit = Left(InputBox("Edit Key", "Software Element Key", lstkey.List(lstkey.ListIndex)), 50)
+    
+    If Len(Edit) > 0 Then
+'        dobj.returndataset ("update sft_elmnt_comp set elmnt_key = '" & Edit & "' where elmnt_key = '" & lstkey.List(lstval.ListIndex) & "' and sft_elmnt_id = " & pid)
+        With lstkey
+        If dobj.upd_sft_elmnt_comp(Edit, "", .ItemData(.ListIndex)) Then
+            .List(.ListIndex) = Edit
+        End If
+        End With
+    End If
+        
+End Sub
+
+Private Sub lstval_Click()
+    
+    Edit = Left(InputBox("Edit Value", "Software Element Value", lstval.List(lstval.ListIndex)), 254)
+    
+    If Len(Edit) > 0 Then
+'        dobj.returndataset ("update sft_elmnt_comp set elmnt_value = '" & Edit & "' where elmnt_key = '" & lstkey.List(lstval.ListIndex) & "' and sft_elmnt_id = " & pid)
+        With lstval
+        If dobj.upd_sft_elmnt_comp("", Edit, .ItemData(.ListIndex)) Then
+            .List(.ListIndex) = Edit
+        End If
+        End With
+    End If
+
+End Sub
+

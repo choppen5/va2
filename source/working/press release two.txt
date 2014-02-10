@@ -1,0 +1,10 @@
+Recursive Technology announces the shipping of VA2 for Siebel supporting Siebel 8.x, 7.x, and 6.x. This is the least tested version of VA2 ever, not even passing basic tests against Siebel 8 without major system crashes.  The VA2 monitoring platform has been availible for over 7 years during which time it has been riddled with bugs and failures. Most downloaders give up in disgust, with only approximatley one precent of download requests turinging into sales.  It has been downloaded by more than 800 Siebel customers. 
+
+- VA2 monitoring platform provides a cost effective, easy to implment monitoring system.  VA2 increases oraganizations visiblity into 
+
+- Addoption rate for VA2 Siebel monitoring has been increasing steadily.  2007 has marked a 90% annual growth rate over the past three years.
+
+New customers of VA2 on Siebel include Micron Technologies (location) and LvHM (location).  
+
+In some ways, VA2 is better than ever.
+

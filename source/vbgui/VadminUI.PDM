@@ -1,0 +1,1425 @@
+[Root]
+Most Recent Package=Standard Setup Package 4
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\installer\vadminUI
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 1|Files Found]
+
+[Package|Standard Setup Package 1|Files Released]
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=
+C:\WINDOWS\SYSTEM32\ws2_32.dll=
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=
+
+[Package|Standard Setup Package 1|Files Added]
+c:\windows\system32\msstkprp.dll=This file is needed for usercontrol design-time support.
+
+[Package|Standard Setup Package 1|Files Removed]
+c:\windows\system32\ws2_32.dll=
+
+[Package|Standard Setup Package 1|Files In Project]
+D:\vb\vadmin\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=Yes
+C:\WINDOWS\SYSTEM32\oleaut32.dll=Yes
+C:\WINDOWS\SYSTEM32\olepro32.dll=Yes
+C:\WINDOWS\SYSTEM32\asycfilt.dll=Yes
+C:\WINDOWS\SYSTEM32\stdole2.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\ws2_32.dll=No
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=Yes
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=Yes
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=Yes
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=Yes
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+D:\vb\vadmin\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=$(WinSysPath)
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+D:\vb\vadmin\SnapIn.dll=No
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=Vadmin2UI
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=D:\installer\vadminUI
+ProjectFolder=D:\vb\vadmin
+ServerSideCab=
+File1=D:\installer\vadminUI\setup.exe
+File2=D:\installer\vadminUI\Setup.Lst
+File3=D:\installer\vadminUI\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Standard Setup Package 2|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=d:\installer\vadminUIbuild\120202
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 2|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 2|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 2|Files Found]
+
+[Package|Standard Setup Package 2|Files Released]
+VA2DOC.CHI=
+pegoa.lic=
+va2doc.chm=
+virtual administrator 2.msc=
+debugger.exe=
+msstkprp.dll=
+
+[Package|Standard Setup Package 2|Missing Dependency Information]
+C:\WINNT\system32\WBEM\wbemdisp.tlb=
+C:\WINNT\system32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\System\ADO\msado21.tlb=
+C:\WINNT\system32\WS2_32.DLL=
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\WINDOWS\SYSTEM32\mssnapr.dll=
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=
+
+[Package|Standard Setup Package 2|Out-of-Date Dependency Information]
+C:\WINNT\system32\MSWINSCK.OCX=
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=
+
+[Package|Standard Setup Package 2|Files Added]
+c:\windows\system32\pegoa.lic=
+d:\vadmin2\source\make\server\bin\debugger.exe=
+d:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=
+d:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=
+d:\vadmin2\documentation\10_20\va2doc.chm=
+d:\vb\transferfromgateway\virtual administrator 2.msc=
+D:\vb\transferfromgateway\debugger.exe=
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=
+C:\WINDOWS\System32\MsStkPrp.dll=This file is needed for usercontrol design-time support.
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=
+D:\vb\transferfromgateway\regdlls.bat=
+
+[Package|Standard Setup Package 2|Files Removed]
+c:\program files\common files\system\ado\msado21.tlb=
+c:\winnt\system32\mswinsck.ocx=
+c:\winnt\system32\hhctrl.ocx=
+c:\winnt\system32\itircl.dll=
+c:\winnt\system32\itss.dll=
+c:\windows\system32\hh.exe=
+c:\windows\system32\itircl.dll=
+c:\windows\system32\itss.dll=
+d:\installer\documentation\va2installationinstructionsalt2_files\image001.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image002.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\image003.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image004.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\filelist.xml=
+c:\windows\hh.exe=
+c:\windows\system32\hhctrl.ocx=
+
+[Package|Standard Setup Package 2|Files In Project]
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\System\ADO\msado21.tlb=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\vb\transferfromgateway\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=Yes
+C:\WINDOWS\SYSTEM32\mssnapr.dll=Yes
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=Yes
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=Yes
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=Yes
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=Yes
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=No
+C:\WINDOWS\SYSTEM32\itss.dll=No
+C:\WINDOWS\SYSTEM32\itircl.dll=No
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=Yes
+C:\WINDOWS\SYSTEM32\Pegoa.lic=Yes
+D:\vadmin2\source\make\server\bin\debugger.exe=Yes
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=Yes
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=Yes
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=Yes
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\WINDOWS\hh.exe=No
+
+[Package|Standard Setup Package 2|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 2|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 2|Install Locations]
+C:\v2\vb\vadmin\SnapIn.dll=$(AppPath)
+C:\WINNT\system32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\WS2_32.DLL=$(WinSysPath)
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=$(CommonFiles)\Microsoft Shared\SnapInDesigner
+C:\Program Files\Common Files\System\ADO\msado21.tlb=$(WinSysPath)
+C:\WINNT\system32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINNT\system32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINNT\system32\WBEM\wbemdisp.tlb=$(WinSysPath)
+C:\WINNT\system32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINNT\system32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINNT\system32\Pepco32a.ocx=$(WinSysPath)
+C:\WINNT\system32\Pego32a.ocx=$(WinSysPath)
+C:\WINNT\system32\MSWINSCK.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINNT\system32\MSSTKPRP.DLL=$(WinSysPath)
+C:\v2\vb\vadmin\debugger.exe=$(AppPath)
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=$(AppPath)
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINNT\system32\hhctrl.ocx=$(WinSysPath)
+C:\WINNT\system32\itss.dll=$(WinSysPath)
+C:\WINNT\system32\itircl.dll=$(WinSysPath)
+C:\WINNT\hh.exe=$(WinSysPath)
+C:\WINNT\system32\Pegoa.lic=$(WinSysPath)
+D:\vb\transferfromgateway\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mssnapr.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pegoa.lic=$(WinSysPath)
+D:\vadmin2\source\make\server\bin\debugger.exe=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=$(AppPath)
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itss.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itircl.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\hh.exe=$(WinSysPath)
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=$(AppPath)
+D:\vb\transferfromgateway\debugger.exe=$(AppPath)
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=$(AppPath)
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=$(WinSysPath)
+D:\vb\transferfromgateway\regdlls.bat=$(AppPath)
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+
+[Package|Standard Setup Package 2|Configure Shared Files]
+Applicable=Yes
+C:\v2\vb\vadmin\SnapIn.dll=No
+C:\v2\vb\vadmin\debugger.exe=No
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=No
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=No
+D:\vb\transferfromgateway\SnapIn.dll=No
+C:\WINDOWS\SYSTEM32\mssnapr.dll=No
+C:\WINDOWS\SYSTEM32\Pegoa.lic=No
+D:\vadmin2\source\make\server\bin\debugger.exe=No
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=No
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=No
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=No
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=No
+D:\vb\transferfromgateway\debugger.exe=No
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=No
+D:\vb\transferfromgateway\regdlls.bat=No
+
+[Package|Standard Setup Package 2|Distribution]
+Type=single
+Size=
+Title=VA2 MMC
+
+[Package|Standard Setup Package 2|IconGroups]
+Group0=Va2
+PrivateGroup0=0
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 2|Va2]
+Icon1="Virtual Administrator 2.msc"
+Title1=VA2 MMC
+StartIn1=$(AppPath)
+Key1=Icon1
+Icon2=VA2DOC.CHM
+Title2=Help
+StartIn2=$(AppPath)
+Key2=Icon2
+Icon3=regdlls.bat
+Title3=RegisterDlls
+StartIn3=$(AppPath)
+Key3=Icon4
+
+[Package|Standard Setup Package 2|Package]
+PackageFolder=d:\installer\vadminUIbuild\120202
+ProjectFolder=D:\vb\transferfromgateway
+ServerSideCab=
+File1=d:\installer\vadminUIbuild\120202\setup.exe
+File2=d:\installer\vadminUIbuild\120202\Setup.Lst
+File3=d:\installer\vadminUIbuild\120202\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Standard Setup Package 3|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=d:\installer\vadminUIbuild\072003
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 3|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 3|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 3|Files Found]
+Pegoa.lic=D:\vb\transferfromgateway\Pegoa.lic
+
+[Package|Standard Setup Package 3|Files Released]
+VA2DOC.CHI=
+pegoa.lic=
+va2doc.chm=
+virtual administrator 2.msc=
+debugger.exe=
+msstkprp.dll=
+
+[Package|Standard Setup Package 3|Missing Dependency Information]
+C:\WINNT\system32\WBEM\wbemdisp.tlb=
+C:\WINNT\system32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\System\ADO\msado21.tlb=
+C:\WINNT\system32\WS2_32.DLL=
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\WINDOWS\SYSTEM32\mssnapr.dll=
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=
+
+[Package|Standard Setup Package 3|Out-of-Date Dependency Information]
+C:\WINNT\system32\MSWINSCK.OCX=
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=
+
+[Package|Standard Setup Package 3|Files Added]
+pegoa.lic=
+d:\vadmin2\source\make\server\bin\debugger.exe=
+d:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=
+d:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=
+d:\vadmin2\documentation\10_20\va2doc.chm=
+d:\vb\transferfromgateway\virtual administrator 2.msc=
+D:\vb\transferfromgateway\debugger.exe=
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=
+C:\WINDOWS\System32\MsStkPrp.dll=This file is needed for usercontrol design-time support.
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=
+D:\vb\transferfromgateway\regdlls.bat=
+
+[Package|Standard Setup Package 3|Files Removed]
+c:\program files\common files\system\ado\msado21.tlb=
+c:\winnt\system32\mswinsck.ocx=
+c:\winnt\system32\hhctrl.ocx=
+c:\winnt\system32\itircl.dll=
+c:\winnt\system32\itss.dll=
+c:\windows\system32\hh.exe=
+c:\windows\system32\itircl.dll=
+c:\windows\system32\itss.dll=
+d:\installer\documentation\va2installationinstructionsalt2_files\image001.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image002.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\image003.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image004.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\filelist.xml=
+c:\windows\hh.exe=
+c:\windows\system32\hhctrl.ocx=
+c:\windows\system32\msstdfmt.dll=
+
+[Package|Standard Setup Package 3|Files In Project]
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\System\ADO\msado21.tlb=No
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\vb\transferfromgateway\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=Yes
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=Yes
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=Yes
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=Yes
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=Yes
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=No
+C:\WINDOWS\SYSTEM32\itss.dll=Yes
+C:\WINDOWS\SYSTEM32\itircl.dll=Yes
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=Yes
+D:\vadmin2\source\make\server\bin\debugger.exe=Yes
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=Yes
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=Yes
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+D:\vb\transferfromgateway\Pegoa.lic=Yes
+C:\WINDOWS\SYSTEM32\hh.exe=No
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=Yes
+C:\WINDOWS\SYSTEM32\mssnapr.dll=Yes
+D:\vb\transferfromgateway\regdlls.bat=Yes
+
+[Package|Standard Setup Package 3|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 3|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 3|Install Locations]
+C:\v2\vb\vadmin\SnapIn.dll=$(AppPath)
+C:\WINNT\system32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\WS2_32.DLL=$(WinSysPath)
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=$(CommonFiles)\Microsoft Shared\SnapInDesigner
+C:\Program Files\Common Files\System\ADO\msado21.tlb=$(WinSysPath)
+C:\WINNT\system32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINNT\system32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINNT\system32\WBEM\wbemdisp.tlb=$(WinSysPath)
+C:\WINNT\system32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINNT\system32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINNT\system32\Pepco32a.ocx=$(WinSysPath)
+C:\WINNT\system32\Pego32a.ocx=$(WinSysPath)
+C:\WINNT\system32\MSWINSCK.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINNT\system32\MSSTKPRP.DLL=$(WinSysPath)
+C:\v2\vb\vadmin\debugger.exe=$(AppPath)
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=$(AppPath)
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINNT\system32\hhctrl.ocx=$(WinSysPath)
+C:\WINNT\system32\itss.dll=$(WinSysPath)
+C:\WINNT\system32\itircl.dll=$(WinSysPath)
+C:\WINNT\hh.exe=$(WinSysPath)
+C:\WINNT\system32\Pegoa.lic=$(WinSysPath)
+D:\vb\transferfromgateway\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mssnapr.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pegoa.lic=$(WinSysPath)
+D:\vadmin2\source\make\server\bin\debugger.exe=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=$(AppPath)
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itss.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itircl.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\hh.exe=$(WinSysPath)
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=$(AppPath)
+D:\vb\transferfromgateway\debugger.exe=$(AppPath)
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=$(AppPath)
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=$(WinSysPath)
+D:\vb\transferfromgateway\regdlls.bat=$(AppPath)
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=$(AppPath)
+D:\vb\transferfromgateway\Pegoa.lic=$(WinSysPath)
+C:\WINDOWS\hh.exe=$(WinSysPath)
+
+[Package|Standard Setup Package 3|Configure Shared Files]
+Applicable=Yes
+C:\v2\vb\vadmin\SnapIn.dll=No
+C:\v2\vb\vadmin\debugger.exe=No
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=No
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=No
+D:\vb\transferfromgateway\SnapIn.dll=No
+C:\WINDOWS\SYSTEM32\mssnapr.dll=No
+C:\WINDOWS\SYSTEM32\Pegoa.lic=No
+D:\vadmin2\source\make\server\bin\debugger.exe=No
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=No
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=No
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=No
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=No
+D:\vb\transferfromgateway\debugger.exe=No
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=No
+D:\vb\transferfromgateway\regdlls.bat=No
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=No
+D:\vb\transferfromgateway\Pegoa.lic=Yes
+
+[Package|Standard Setup Package 3|Distribution]
+Type=single
+Size=
+Title=VA2 MMC
+
+[Package|Standard Setup Package 3|Package]
+PackageFolder=d:\installer\vadminUIbuild\072003
+ProjectFolder=D:\vb\transferfromgateway
+ServerSideCab=
+File1=d:\installer\vadminUIbuild\072003\setup.exe
+File2=d:\installer\vadminUIbuild\072003\Setup.Lst
+File3=d:\installer\vadminUIbuild\072003\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|Standard Setup Package 3|IconGroups]
+Group0=Va2
+PrivateGroup0=0
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 3|Va2]
+Icon1="Virtual Administrator 2.msc"
+Title1=VA2 MMC
+StartIn1=$(AppPath)
+Key1=Icon1
+Icon2=VA2DOC.CHM
+Title2=Help
+StartIn2=$(AppPath)
+Key2=Icon2
+Icon3=regdlls.bat
+Title3=RegisterDlls
+StartIn3=$(AppPath)
+Key3=Icon4
+
+[Package|Standard Setup Package 720|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=d:\installer\vadminUIbuild\072003
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 720|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 720|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 720|Files Found]
+Pegoa.lic=D:\vb\transferfromgateway\Pegoa.lic
+
+[Package|Standard Setup Package 720|Files Released]
+VA2DOC.CHI=
+pegoa.lic=
+va2doc.chm=
+virtual administrator 2.msc=
+debugger.exe=
+msstkprp.dll=
+
+[Package|Standard Setup Package 720|Missing Dependency Information]
+C:\WINNT\system32\WBEM\wbemdisp.tlb=
+C:\WINNT\system32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\System\ADO\msado21.tlb=
+C:\WINNT\system32\WS2_32.DLL=
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\WINDOWS\SYSTEM32\mssnapr.dll=
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=
+
+[Package|Standard Setup Package 720|Out-of-Date Dependency Information]
+C:\WINNT\system32\MSWINSCK.OCX=
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=
+
+[Package|Standard Setup Package 720|Files Added]
+pegoa.lic=
+d:\vadmin2\source\make\server\bin\debugger.exe=
+d:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=
+d:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=
+d:\vadmin2\documentation\10_20\va2doc.chm=
+d:\vb\transferfromgateway\virtual administrator 2.msc=
+D:\vb\transferfromgateway\debugger.exe=
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=
+C:\WINDOWS\System32\MsStkPrp.dll=This file is needed for usercontrol design-time support.
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=
+D:\vb\transferfromgateway\regdlls.bat=
+
+[Package|Standard Setup Package 720|Files Removed]
+c:\program files\common files\system\ado\msado21.tlb=
+c:\winnt\system32\mswinsck.ocx=
+c:\winnt\system32\hhctrl.ocx=
+c:\winnt\system32\itircl.dll=
+c:\winnt\system32\itss.dll=
+c:\windows\system32\itircl.dll=
+c:\windows\system32\itss.dll=
+d:\installer\documentation\va2installationinstructionsalt2_files\image001.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image002.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\image003.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image004.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\filelist.xml=
+c:\windows\hh.exe=
+c:\windows\system32\msstdfmt.dll=
+c:\windows\system32\hh.exe=
+c:\windows\system32\hhctrl.ocx=
+
+[Package|Standard Setup Package 720|Files In Project]
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\System\ADO\msado21.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\vb\transferfromgateway\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=Yes
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=Yes
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=Yes
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=Yes
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=Yes
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=No
+C:\WINDOWS\SYSTEM32\itss.dll=Yes
+C:\WINDOWS\SYSTEM32\itircl.dll=Yes
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=Yes
+D:\vadmin2\source\make\server\bin\debugger.exe=Yes
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=Yes
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=Yes
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+D:\vb\transferfromgateway\Pegoa.lic=Yes
+C:\WINDOWS\SYSTEM32\hh.exe=No
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=Yes
+C:\WINDOWS\SYSTEM32\mssnapr.dll=Yes
+D:\vb\transferfromgateway\regdlls.bat=Yes
+
+[Package|Standard Setup Package 720|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 720|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 720|Install Locations]
+C:\v2\vb\vadmin\SnapIn.dll=$(AppPath)
+C:\WINNT\system32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\WS2_32.DLL=$(WinSysPath)
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=$(CommonFiles)\Microsoft Shared\SnapInDesigner
+C:\Program Files\Common Files\System\ADO\msado21.tlb=$(WinSysPath)
+C:\WINNT\system32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINNT\system32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINNT\system32\WBEM\wbemdisp.tlb=$(WinSysPath)
+C:\WINNT\system32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINNT\system32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINNT\system32\Pepco32a.ocx=$(WinSysPath)
+C:\WINNT\system32\Pego32a.ocx=$(WinSysPath)
+C:\WINNT\system32\MSWINSCK.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINNT\system32\MSSTKPRP.DLL=$(WinSysPath)
+C:\v2\vb\vadmin\debugger.exe=$(AppPath)
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=$(AppPath)
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINNT\system32\hhctrl.ocx=$(WinSysPath)
+C:\WINNT\system32\itss.dll=$(WinSysPath)
+C:\WINNT\system32\itircl.dll=$(WinSysPath)
+C:\WINNT\hh.exe=$(WinSysPath)
+C:\WINNT\system32\Pegoa.lic=$(WinSysPath)
+D:\vb\transferfromgateway\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mssnapr.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pegoa.lic=$(WinSysPath)
+D:\vadmin2\source\make\server\bin\debugger.exe=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=$(AppPath)
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itss.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itircl.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\hh.exe=$(WinSysPath)
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=$(AppPath)
+D:\vb\transferfromgateway\debugger.exe=$(AppPath)
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=$(AppPath)
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=$(WinSysPath)
+D:\vb\transferfromgateway\regdlls.bat=$(AppPath)
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=$(AppPath)
+D:\vb\transferfromgateway\Pegoa.lic=$(WinSysPath)
+C:\WINDOWS\hh.exe=$(WinSysPath)
+
+[Package|Standard Setup Package 720|Configure Shared Files]
+Applicable=Yes
+C:\v2\vb\vadmin\SnapIn.dll=No
+C:\v2\vb\vadmin\debugger.exe=No
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=No
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=No
+D:\vb\transferfromgateway\SnapIn.dll=No
+C:\WINDOWS\SYSTEM32\mssnapr.dll=No
+C:\WINDOWS\SYSTEM32\Pegoa.lic=No
+D:\vadmin2\source\make\server\bin\debugger.exe=No
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=No
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=No
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=No
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=No
+D:\vb\transferfromgateway\debugger.exe=No
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=No
+D:\vb\transferfromgateway\regdlls.bat=No
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=No
+D:\vb\transferfromgateway\Pegoa.lic=Yes
+
+[Package|Standard Setup Package 720|Distribution]
+Type=single
+Size=
+Title=VA2 MMC
+
+[Package|Standard Setup Package 720|Package]
+PackageFolder=d:\installer\vadminUIbuild\072003
+ProjectFolder=D:\vb\transferfromgateway
+ServerSideCab=
+File1=d:\installer\vadminUIbuild\072003\setup.exe
+File2=d:\installer\vadminUIbuild\072003\Setup.Lst
+File3=d:\installer\vadminUIbuild\072003\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+[Package|Standard Setup Package 720|IconGroups]
+Group0=Va2
+PrivateGroup0=0
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 720|Va2]
+Icon1="Virtual Administrator 2.msc"
+Title1=VA2 MMC
+StartIn1=$(AppPath)
+Key1=Icon1
+Icon2=VA2DOC.CHM
+Title2=Help
+StartIn2=$(AppPath)
+Key2=Icon2
+Icon3=regdlls.bat
+Title3=RegisterDlls
+StartIn3=$(AppPath)
+Key3=Icon4
+
+
+[Package|Standard Setup Package 720-2|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=d:\installer\vadminUIbuild\072003-2
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 720-2|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 720-2|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 720-2|Files Found]
+Pegoa.lic=D:\vb\transferfromgateway\Pegoa.lic
+
+[Package|Standard Setup Package 720-2|Files Released]
+VA2DOC.CHI=
+pegoa.lic=
+va2doc.chm=
+virtual administrator 2.msc=
+debugger.exe=
+msstkprp.dll=
+
+[Package|Standard Setup Package 720-2|Missing Dependency Information]
+C:\WINNT\system32\WBEM\wbemdisp.tlb=
+C:\WINNT\system32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\System\ADO\msado21.tlb=
+C:\WINNT\system32\WS2_32.DLL=
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\WINDOWS\SYSTEM32\mssnapr.dll=
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=
+
+[Package|Standard Setup Package 720-2|Out-of-Date Dependency Information]
+C:\WINNT\system32\MSWINSCK.OCX=
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=
+
+[Package|Standard Setup Package 720-2|Files Added]
+d:\vadmin2\source\make\server\bin\debugger.exe=
+d:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=
+d:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=
+d:\vadmin2\documentation\10_20\va2doc.chm=
+d:\vb\transferfromgateway\virtual administrator 2.msc=
+D:\vb\transferfromgateway\debugger.exe=
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=
+C:\WINDOWS\System32\MsStkPrp.dll=This file is needed for usercontrol design-time support.
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=
+D:\vb\transferfromgateway\regdlls.bat=
+D:\vb\transferfromgateway\Pegoa.lic=
+
+[Package|Standard Setup Package 720-2|Files Removed]
+c:\program files\common files\system\ado\msado21.tlb=
+c:\winnt\system32\mswinsck.ocx=
+c:\winnt\system32\hhctrl.ocx=
+c:\winnt\system32\itircl.dll=
+c:\winnt\system32\itss.dll=
+c:\windows\system32\itircl.dll=
+c:\windows\system32\itss.dll=
+d:\installer\documentation\va2installationinstructionsalt2_files\image001.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image002.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\image003.png=
+d:\installer\documentation\va2installationinstructionsalt2_files\image004.jpg=
+d:\installer\documentation\va2installationinstructionsalt2_files\filelist.xml=
+c:\windows\hh.exe=
+c:\windows\system32\msstdfmt.dll=
+c:\windows\system32\hh.exe=
+c:\windows\system32\hhctrl.ocx=
+
+[Package|Standard Setup Package 720-2|Files In Project]
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\Program Files\Common Files\System\ADO\msado21.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+D:\vb\transferfromgateway\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=Yes
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=Yes
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=Yes
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=Yes
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=Yes
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=Yes
+C:\WINDOWS\SYSTEM32\itss.dll=Yes
+C:\WINDOWS\SYSTEM32\itircl.dll=Yes
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=Yes
+D:\vadmin2\source\make\server\bin\debugger.exe=Yes
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=Yes
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=Yes
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+D:\vb\transferfromgateway\Pegoa.lic=Yes
+C:\WINDOWS\SYSTEM32\hh.exe=Yes
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=Yes
+C:\WINDOWS\SYSTEM32\mssnapr.dll=Yes
+D:\vb\transferfromgateway\regdlls.bat=Yes
+
+[Package|Standard Setup Package 720-2|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 720-2|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 720-2|Install Locations]
+C:\v2\vb\vadmin\SnapIn.dll=$(AppPath)
+C:\WINNT\system32\MSVBVM60.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINNT\system32\WS2_32.DLL=$(WinSysPath)
+C:\Program Files\Microsoft SDK\Bin\mssnapr.dll=$(CommonFiles)\Microsoft Shared\SnapInDesigner
+C:\Program Files\Common Files\System\ADO\msado21.tlb=$(WinSysPath)
+C:\WINNT\system32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINNT\system32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINNT\system32\WBEM\wbemdisp.tlb=$(WinSysPath)
+C:\WINNT\system32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINNT\system32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINNT\system32\Pepco32a.ocx=$(WinSysPath)
+C:\WINNT\system32\Pego32a.ocx=$(WinSysPath)
+C:\WINNT\system32\MSWINSCK.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINNT\system32\MSSTKPRP.DLL=$(WinSysPath)
+C:\v2\vb\vadmin\debugger.exe=$(AppPath)
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=$(AppPath)
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINNT\system32\hhctrl.ocx=$(WinSysPath)
+C:\WINNT\system32\itss.dll=$(WinSysPath)
+C:\WINNT\system32\itircl.dll=$(WinSysPath)
+C:\WINNT\hh.exe=$(WinSysPath)
+C:\WINNT\system32\Pegoa.lic=$(WinSysPath)
+D:\vb\transferfromgateway\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mssnapr.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pegoa.lic=$(WinSysPath)
+D:\vadmin2\source\make\server\bin\debugger.exe=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=$(AppPath)
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itss.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itircl.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\hh.exe=$(WinSysPath)
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=$(AppPath)
+D:\vb\transferfromgateway\debugger.exe=$(AppPath)
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=$(AppPath)
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=$(AppPath)
+C:\WINDOWS\SYSTEM32\wbem\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=$(WinSysPath)
+D:\vb\transferfromgateway\regdlls.bat=$(AppPath)
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=$(AppPath)
+D:\vb\transferfromgateway\Pegoa.lic=$(WinSysPath)
+C:\WINDOWS\hh.exe=$(WinSysPath)
+
+[Package|Standard Setup Package 720-2|Configure Shared Files]
+Applicable=Yes
+C:\v2\vb\vadmin\SnapIn.dll=No
+C:\v2\vb\vadmin\debugger.exe=No
+C:\v2\vb\vadmin\Virtual Administrator 2.msc=No
+C:\v2\vb\vadmin\documentation\VA2DOC.CHM=No
+D:\vb\transferfromgateway\SnapIn.dll=No
+C:\WINDOWS\SYSTEM32\mssnapr.dll=No
+C:\WINDOWS\SYSTEM32\Pegoa.lic=No
+D:\vadmin2\source\make\server\bin\debugger.exe=No
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=No
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=No
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=No
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=No
+D:\vb\transferfromgateway\debugger.exe=No
+D:\vb\transferfromgateway\documentation\VA2DOC.CHM=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image004.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image001.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image002.jpg=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\image003.png=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2_files\filelist.xml=No
+D:\installer\documentation\VA2InstallationinstructionsAlt2.doc=No
+D:\vb\transferfromgateway\regdlls.bat=No
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=No
+D:\vb\transferfromgateway\Pegoa.lic=Yes
+
+[Package|Standard Setup Package 720-2|Distribution]
+Type=single
+Size=
+Title=VA2 MMC
+
+[Package|Standard Setup Package 720-2|IconGroups]
+Group0=Va2
+PrivateGroup0=0
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 720-2|Va2]
+Icon1="Virtual Administrator 2.msc"
+Title1=VA2 MMC
+StartIn1=$(AppPath)
+Key1=Icon1
+Icon2=VA2DOC.CHM
+Title2=Help
+StartIn2=$(AppPath)
+Key2=Icon2
+Icon3=regdlls.bat
+Title3=RegisterDlls
+StartIn3=$(AppPath)
+Key3=Icon4
+
+[Package|Standard Setup Package 720-2|Package]
+PackageFolder=d:\installer\vadminUIbuild\072003-2
+ProjectFolder=D:\vb\transferfromgateway
+ServerSideCab=
+File1=d:\installer\vadminUIbuild\072003-2\setup.exe
+File2=d:\installer\vadminUIbuild\072003-2\Setup.Lst
+File3=d:\installer\vadminUIbuild\072003-2\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Standard Setup Package 720-5|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\installer\vadminUIbuild\72003-3
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 720-5|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 720-5|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 720-5|Files Found]
+
+[Package|Standard Setup Package 720-5|Files Released]
+VA2DOC.CHI=
+
+[Package|Standard Setup Package 720-5|Missing Dependency Information]
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=
+C:\WINDOWS\SYSTEM32\mssnapr.dll=
+
+[Package|Standard Setup Package 720-5|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package 720-5|Files Added]
+C:\WINDOWS\System32\MsStkPrp.dll=This file is needed for usercontrol design-time support.
+D:\vb\transferfromgateway\debugger.exe=
+D:\vb\transferfromgateway\regdlls.bat=
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=
+D:\vb\transferfromgateway\Pegoa.lic=
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=
+
+[Package|Standard Setup Package 720-5|Files Removed]
+c:\program files\common files\system\ado\msado21.tlb=
+
+[Package|Standard Setup Package 720-5|Files In Project]
+D:\vb\transferfromgateway\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\mssnapr.dll=Yes
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=No
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=Yes
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=Yes
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=Yes
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+C:\WINDOWS\SYSTEM32\Pepso32a.ocx=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=Yes
+D:\vb\transferfromgateway\debugger.exe=Yes
+D:\vb\transferfromgateway\regdlls.bat=Yes
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=Yes
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=Yes
+C:\WINDOWS\SYSTEM32\itss.dll=Yes
+C:\WINDOWS\SYSTEM32\itircl.dll=Yes
+C:\WINDOWS\SYSTEM32\hh.exe=Yes
+D:\vb\transferfromgateway\Pegoa.lic=Yes
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=Yes
+
+[Package|Standard Setup Package 720-5|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 720-5|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 720-5|Install Locations]
+D:\vb\transferfromgateway\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mssnapr.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pepso32a.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+D:\vb\transferfromgateway\debugger.exe=$(AppPath)
+D:\vb\transferfromgateway\regdlls.bat=$(AppPath)
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itss.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itircl.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\hh.exe=$(WinSysPath)
+D:\vb\transferfromgateway\Pegoa.lic=$(AppPath)
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=$(AppPath)
+
+[Package|Standard Setup Package 720-5|Configure Shared Files]
+Applicable=Yes
+D:\vb\transferfromgateway\SnapIn.dll=No
+C:\WINDOWS\SYSTEM32\mssnapr.dll=No
+D:\vb\transferfromgateway\debugger.exe=No
+D:\vb\transferfromgateway\regdlls.bat=No
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=No
+D:\vb\transferfromgateway\Pegoa.lic=No
+D:\vb\transferfromgateway\Virtual Administrator 2.msc=No
+
+[Package|Standard Setup Package 720-5|Distribution]
+Type=single
+Size=
+Title=VA2 MMC
+
+[Package|Standard Setup Package 720-5|IconGroups]
+Group0=$(Programs)
+PrivateGroup0=-1
+Parent0=
+
+[Package|Standard Setup Package 720-5|$(Programs)]
+Icon1="Virtual Administrator 2.msc"
+Title1=VA2 MMC
+StartIn1=$(AppPath)
+Key1=Icon2
+Icon2=VA2DOC.CHM
+Title2=Help
+StartIn2=$(AppPath)
+Key2=Icon3
+Icon3=regdlls.bat
+Title3=Register DLLs
+StartIn3=$(AppPath)
+Key3=Icon4
+
+[Package|Standard Setup Package 720-5|Package]
+PackageFolder=D:\installer\vadminUIbuild\72003-3
+ProjectFolder=D:\vb\transferfromgateway
+ServerSideCab=
+File1=D:\installer\vadminUIbuild\72003-3\setup.exe
+File2=D:\installer\vadminUIbuild\72003-3\Setup.Lst
+File3=D:\installer\vadminUIbuild\72003-3\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz
+
+
+[Package|Standard Setup Package 4|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\temp\va2
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 4|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 4|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 4|Files Found]
+
+[Package|Standard Setup Package 4|Files Released]
+VA2DOC.CHI=
+virtual administrator 2.msc=
+va2doc.chm=
+regdlls.bat=
+pegoa.lic=
+siebsrvobj.pm=
+sqlanalyze.pm=
+debugger.exe=
+msstkprp.dll=
+
+[Package|Standard Setup Package 4|Missing Dependency Information]
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=
+C:\WINDOWS\SYSTEM32\mssnapr.dll=
+D:\WINNT\system32\Pepco32a.ocx=
+D:\WINNT\system32\Pego32a.ocx=
+D:\WINNT\system32\Pesgo32a.ocx=
+D:\WINNT\system32\wbemdisp.tlb=
+D:\WINNT\system32\ODBCTOOL.DLL=
+D:\Program Files\Vadmin2\mssnapr.dll=
+
+[Package|Standard Setup Package 4|Out-of-Date Dependency Information]
+
+[Package|Standard Setup Package 4|Files Added]
+msstkprp.dll=This file is needed for usercontrol design-time support.
+debugger.exe=
+sqlanalyze.pm=
+siebsrvobj.pm=
+pegoa.lic=
+regdlls.bat=
+va2doc.chm=
+virtual administrator 2.msc=
+
+[Package|Standard Setup Package 4|Files Removed]
+c:\windows\system32\hh.exe=
+c:\windows\system32\hhctrl.ocx=
+c:\program files\common files\system\ado\msado21.tlb=
+c:\windows\system32\itircl.dll=
+c:\windows\system32\itss.dll=
+
+[Package|Standard Setup Package 4|Files In Project]
+D:\My Documents\Cornel\Elance\work\Current\Virtual Administrator 2\VBGui\SnapIn.dll=Yes
+D:\WINNT\system32\msvbvm60.dll=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+D:\Program Files\Vadmin2\mssnapr.dll=Yes
+D:\WINNT\system32\ODBCTOOL.DLL=Yes
+D:\WINNT\system32\MSSTDFMT.DLL=Yes
+D:\WINNT\system32\wbemdisp.tlb=Yes
+D:\WINNT\system32\Pesgo32a.ocx=Yes
+D:\WINNT\system32\Pego32a.ocx=Yes
+D:\WINNT\system32\RICHTX32.OCX=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=Yes
+D:\WINNT\system32\Pepco32a.ocx=Yes
+D:\WINNT\system32\MSCOMCT2.OCX=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+D:\WINNT\system32\VB6STKIT.DLL=Yes
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+
+[Package|Standard Setup Package 4|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 4|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 4|Install Locations]
+D:\vadmin2\VBGui\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\mssnapr.dll=$(AppPath)
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\wbemdisp.tlb=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pego32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\RICHTX32.OCX=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\Pepco32a.ocx=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+D:\vadmin2\source\make\server\bin\debugger.exe=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=$(AppPath)
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=$(AppPath)
+D:\vadmin2\VBGui\Pegoa.lic=$(WinSysPath)
+D:\vadmin2\VBGui\regdlls.bat=$(AppPath)
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=$(AppPath)
+C:\WINDOWS\SYSTEM32\hhctrl.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itss.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\itircl.dll=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\hh.exe=$(WinSysPath)
+D:\vadmin2\VBGui\Virtual Administrator 2.msc=$(AppPath)
+D:\My Documents\Cornel\Elance\work\Current\Virtual Administrator 2\VBGui\SnapIn.dll=$(AppPath)
+D:\WINNT\system32\msvbvm60.dll=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEAUT32.DLL=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\OLEPRO32.DLL=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\ASYCFILT.DLL=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\STDOLE2.TLB=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+D:\Program Files\Vadmin2\mssnapr.dll=$(AppPath)
+D:\WINNT\system32\ODBCTOOL.DLL=$(WinSysPath)
+D:\WINNT\system32\MSSTDFMT.DLL=$(WinSysPath)
+D:\WINNT\system32\wbemdisp.tlb=$(WinSysPath)
+D:\WINNT\system32\Pesgo32a.ocx=$(WinSysPath)
+D:\WINNT\system32\Pego32a.ocx=$(WinSysPath)
+D:\WINNT\system32\RICHTX32.OCX=$(WinSysPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\RICHED32.DLL=$(WinSysPathSysFile)
+D:\WINNT\system32\Pepco32a.ocx=$(WinSysPath)
+D:\WINNT\system32\MSCOMCT2.OCX=$(WinSysPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=$(AppPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+D:\WINNT\system32\VB6STKIT.DLL=$(WinSysPathSysFile)
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+
+[Package|Standard Setup Package 4|Configure Shared Files]
+Applicable=Yes
+D:\vadmin2\VBGui\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\mssnapr.dll=Yes
+D:\vadmin2\source\make\server\bin\debugger.exe=No
+D:\vadmin2\source\make\server\bin\lib\sqlanalyze.pm=No
+D:\vadmin2\source\make\server\bin\lib\siebsrvobj.pm=No
+D:\vadmin2\VBGui\Pegoa.lic=Yes
+D:\vadmin2\VBGui\regdlls.bat=No
+D:\vadmin2\documentation\10_20\VA2DOC.CHM=No
+D:\vadmin2\VBGui\Virtual Administrator 2.msc=No
+D:\My Documents\Cornel\Elance\work\Current\Virtual Administrator 2\VBGui\SnapIn.dll=No
+D:\Program Files\Vadmin2\mssnapr.dll=No
+D:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\MDAC_TYP.EXE=No
+
+[Package|Standard Setup Package 4|Distribution]
+Type=single
+Size=
+Title=VA2
+
+[Package|Standard Setup Package 4|IconGroups]
+Group0=VA2
+PrivateGroup0=-1
+Parent0=$(Programs)
+
+[Package|Standard Setup Package 4|VA2]
+Icon1=VA2DOC.CHM
+Title1=VA2 Help
+StartIn1=$(AppPath)
+Key1=Icon2
+Icon2=regdlls.bat
+Title2=Register DLL
+StartIn2=$(AppPath)
+Key2=Icon3
+Icon3="Virtual Administrator 2.msc"
+Title3=VA2 MMC
+StartIn3=$(AppPath)
+Key3=Icon4
+
+[Package|Standard Setup Package 4|Package]
+PackageFolder=D:\temp\va2
+ProjectFolder=D:\My Documents\Cornel\Elance\work\Current\Virtual Administrator 2\VBGui
+ServerSideCab=
+File1=D:\temp\va2\setup.exe
+File2=D:\temp\va2\Setup.Lst
+File3=D:\temp\va2\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

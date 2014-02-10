@@ -1,0 +1,23 @@
+1. lsmservice - 
+-list processes - xml list of process name, args, process running
+-restart process [procname]
+	-shut down process, restart it
+
+- on shutdown, send message to vsrvmgr for exit
+
+2. srvrmgr - listen on port xxxX
+-on shutdown command, print an exit to srvrmgr session
+-from gui, 
+
+3. Registration and routing - 
+IP address of LSM stored in application object in GUI.
+(create object on install?)
+On change, send message to LSMs?
+
+or
+
+Retool databroker - 
+registers clients as central server - whatever there IP address is
+on request sends back ODBC info
+GUI sends message to databroker
+databroker routes restart message to all clients

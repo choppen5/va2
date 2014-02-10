@@ -1,0 +1,329 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgnotification_rule 
+   Caption         =   "Notification Rule"
+   ClientHeight    =   4830
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6195
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   4830
+   ScaleWidth      =   6195
+   Begin VB.Frame frmMask 
+      Caption         =   "Event Mask"
+      Height          =   2535
+      Left            =   120
+      TabIndex        =   6
+      Top             =   1680
+      Width           =   5535
+      Begin VB.TextBox txtsub_type 
+         Height          =   285
+         Left            =   1680
+         MaxLength       =   50
+         TabIndex        =   10
+         Top             =   720
+         Width           =   3615
+      End
+      Begin VB.TextBox txtEventLevel 
+         Height          =   285
+         Left            =   1680
+         MaxLength       =   20
+         TabIndex        =   9
+         Top             =   1080
+         Width           =   3615
+      End
+      Begin VB.TextBox txttype 
+         Height          =   285
+         Left            =   1680
+         MaxLength       =   50
+         TabIndex        =   8
+         Top             =   360
+         Width           =   3615
+      End
+      Begin VB.TextBox txteventstring 
+         Height          =   285
+         Left            =   1680
+         MaxLength       =   254
+         TabIndex        =   7
+         Top             =   1440
+         Width           =   3615
+      End
+      Begin VB.Label Label4 
+         Caption         =   "Event Sub Type"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   15
+         Top             =   720
+         Width           =   1815
+      End
+      Begin VB.Label Label5 
+         Caption         =   "Label5"
+         Height          =   135
+         Left            =   720
+         TabIndex        =   14
+         Top             =   1920
+         Width           =   15
+      End
+      Begin VB.Label Label6 
+         Caption         =   "Event Level"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   13
+         Top             =   1080
+         Width           =   1815
+      End
+      Begin VB.Label Label7 
+         Caption         =   "Event Type"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   12
+         Top             =   360
+         Width           =   1335
+      End
+      Begin VB.Label Label8 
+         Caption         =   "Event String"
+         Height          =   375
+         Left            =   120
+         TabIndex        =   11
+         Top             =   1440
+         Width           =   1815
+      End
+   End
+   Begin VB.CheckBox chk_active 
+      Caption         =   "Active"
+      Height          =   375
+      Left            =   1800
+      TabIndex        =   5
+      Top             =   1200
+      Width           =   1215
+   End
+   Begin VB.CheckBox chkNotify_all 
+      Caption         =   "Notify All"
+      Height          =   375
+      Left            =   240
+      TabIndex        =   4
+      Top             =   1200
+      Width           =   1215
+   End
+   Begin VB.TextBox txtmessage 
+      Height          =   285
+      Left            =   1800
+      MaxLength       =   50
+      TabIndex        =   3
+      Top             =   600
+      Width           =   3735
+   End
+   Begin VB.TextBox txtname 
+      Height          =   285
+      Left            =   1800
+      MaxLength       =   30
+      TabIndex        =   1
+      Top             =   240
+      Width           =   3735
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Message"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   2
+      Top             =   600
+      Width           =   1695
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Name"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   0
+      Top             =   240
+      Width           =   1575
+   End
+End
+Attribute VB_Name = "ppgnotification_rule"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+
+Private Sub chkNotify_all_Click()
+If PropertyPage.chkNotify_all.Value = 1 Then
+    PropertyPage.frmMask.Visible = False
+Else
+    PropertyPage.frmMask.Visible = True
+End If
+
+End Sub
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+Dim dataset As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+Dim active As String
+
+action = dobj.splitval(Data, "~", 1)
+pid = dobj.splitval(Data, "~", 2)
+
+
+Debug.Print "Property Page data recieved =  " & Data
+
+If action = "ACTION_EDIT" Or action = "ACTION_DELETE" Then
+
+            Dim nofify_all As String
+            
+            pid = dobj.splitval(Data, "~", 2)
+            Set dataset = dobj.returndataset("select * from notification_rule where note_rule_id = " & pid)
+            notify_all = Trim(dataset("notify_all").Value & "")
+            active = Trim(dataset("active").Value & "")
+            
+            Debug.Print Len(notify_all)
+            
+           
+                      
+            With PropertyPage
+                .txtName.Text = Trim(dataset("name").Value & "")
+                .txtmessage.Text = Trim(dataset("message").Value & "")
+                .txttype.Text = Trim(dataset("type").Value & "")
+                .txtsub_type.Text = Trim(dataset("ev_event_sub_type").Value & "")
+                .txteventstring.Text = Trim(dataset("ev_event_string").Value & "")
+                .txtEventLevel.Text = Trim(dataset("ev_event_level").Value & "")
+             
+
+                If (notify_all = "Y") Then
+                    Debug.Print "true"
+                    PropertyPage.chkNotify_all.Value = 1
+                Else
+                    Debug.Print "false"
+                End If
+                
+                If (active = "Y") Then
+                    Debug.Print "true"
+                    PropertyPage.chk_active.Value = 1
+                Else
+                    Debug.Print "false"
+                End If
+
+                
+               ' .txtSearch_String.Text = Trim(dataset("search_string").value & "")
+            End With
+ElseIf action = "ACTION_ADD" Then
+    PropertyPage.txtEventLevel.Text = "0"
+End If
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+
+Dim newsys As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim notify_all As String
+Dim active As String
+
+Set dobj = New vaDataAccess
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+    
+    If (PropertyPage.chkNotify_all.Value = 1) Then
+        Debug.Print "true"
+        notify_all = "Y"
+    Else
+        notify_all = "N"
+    End If
+
+    If (PropertyPage.chk_active.Value = 1) Then
+        Debug.Print "true"
+        active = "Y"
+    Else
+        active = "N"
+    End If
+
+
+
+Select Case action
+    Case "ACTION_ADD"
+            With PropertyPage
+            
+            With PropertyPage
+               Call dobj.addnotifcation_rule(.txtName.Text, .txtmessage.Text, notify_all, .txttype.Text, .txtsub_type.Text, .txtEventLevel.Text, .txteventstring.Text, active)
+            End With
+
+                
+            
+              ' Call dobj.addsft_error_def(.txtname.Text, .txtSearch_String.Text)
+            End With
+    Case "ACTION_EDIT"
+            
+            
+            With PropertyPage
+                
+                Dim eventlevel
+                If IsNumeric(.txtEventLevel.Text) Then
+                    eventlevel = CLng(.txtEventLevel.Text)
+                Else
+                    eventlevel = 0
+                End If
+                
+                dobj.returndataset ("update notification_rule set name = '" & .txtName.Text _
+                & "', message = '" & .txtmessage.Text _
+                & "', notify_all = '" & notify_all _
+                & "', type = '" & .txttype.Text _
+                & "', ev_event_sub_type = '" & .txtsub_type.Text _
+                & "', ev_event_level = " & eventlevel _
+                & ", ev_event_string = '" & .txteventstring.Text _
+                & "', active = '" & active _
+                & "' where note_rule_id = " & pid)
+            End With
+            
+    Case "ACTION_DELETE"
+        
+            dobj.returndataset ("delete from notification_reaction where note_rule_id = " & pid)
+            dobj.returndataset ("delete from notification_rule where note_rule_id = " & pid)
+            
+            
+
+End Select
+
+m_bolChangesApplied = True
+
+With PropertyPage
+Call m_ScopeItem.PropertyChanged(.txtName.Text & "~!~")
+End With
+
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+Set m_ScopeItem = SelectedControls(0)
+
+End Sub
+
+Private Sub txtev_sft_elmnt_id_Change()
+
+End Sub
+

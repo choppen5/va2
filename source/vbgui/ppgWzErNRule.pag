@@ -1,0 +1,266 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgWzErNRule 
+   Caption         =   "Notification Rule"
+   ClientHeight    =   3405
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4800
+   LockControls    =   -1  'True
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3405
+   ScaleWidth      =   4800
+   Begin VB.TextBox txtName 
+      Height          =   360
+      Left            =   1440
+      MaxLength       =   50
+      TabIndex        =   2
+      Top             =   720
+      Width           =   2685
+   End
+   Begin VB.CheckBox chkActive 
+      Caption         =   "&Active"
+      Height          =   285
+      Left            =   240
+      TabIndex        =   3
+      Top             =   1170
+      Value           =   1  'Checked
+      Width           =   1755
+   End
+   Begin VB.TextBox txtEvSubType 
+      Height          =   360
+      Left            =   1440
+      MaxLength       =   70
+      TabIndex        =   9
+      Top             =   2400
+      Width           =   2685
+   End
+   Begin VB.TextBox txtErrLevel 
+      Height          =   360
+      Left            =   1440
+      MaxLength       =   50
+      TabIndex        =   5
+      Top             =   1560
+      Width           =   2685
+   End
+   Begin VB.TextBox txtEvType 
+      Height          =   360
+      Left            =   1440
+      MaxLength       =   50
+      TabIndex        =   7
+      Top             =   1980
+      Width           =   2685
+   End
+   Begin VB.CheckBox chkReaction 
+      Caption         =   "Do you want a &reaction for this event, besides email?"
+      Height          =   285
+      Left            =   240
+      TabIndex        =   10
+      Top             =   3090
+      Width           =   4455
+   End
+   Begin VB.CheckBox chkNotify 
+      Caption         =   "Do you want to be n&otified when this event occurs?"
+      Height          =   285
+      Left            =   240
+      TabIndex        =   0
+      Top             =   270
+      Value           =   1  'Checked
+      Width           =   4275
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Na&me:"
+      Height          =   240
+      Left            =   240
+      TabIndex        =   1
+      Top             =   780
+      Width           =   1185
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Error &Level:"
+      Height          =   240
+      Left            =   240
+      TabIndex        =   4
+      Top             =   1620
+      Width           =   1185
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Event &Type:"
+      Height          =   240
+      Left            =   240
+      TabIndex        =   6
+      Top             =   2040
+      Width           =   1185
+   End
+   Begin VB.Label Label4 
+      Caption         =   "Event Su&btype:"
+      Height          =   240
+      Left            =   240
+      TabIndex        =   8
+      Top             =   2460
+      Width           =   1185
+   End
+End
+Attribute VB_Name = "ppgWzErNRule"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Implements IWizardPage
+Implements IMMCPropertyPage     'For enable(disable) Back and Next buttons
+
+Private ConfigData As clsEventWzData
+Private PSheet As SnapInLib.MMCPropertySheet
+Private ButtonState As SnapInLib.WizardPageButtonConstants     'Next is disable or enable
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+    Set PSheet = PropertySheet
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Activate(EnableBack As Boolean, NextOrFinish As SnapInLib.WizardPageButtonConstants, FinishText As String)
+    EnableBack = True
+
+#If Debugging Then
+    ButtonState = EnabledNextButton
+#Else
+    ButtonState = IIf(IsNext(), EnabledNextButton, DisabledNextButton) 'NextOrFinish
+#End If
+
+'    SetNext
+    NextOrFinish = ButtonState ' EnabledNextButton
+End Sub
+
+Private Sub IWizardPage_Back(NextPage As Long)
+
+End Sub
+
+Private Sub IWizardPage_Finish(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Next(NextPage As Long)
+    If chkNotify.value <> 1 Or chkReaction <> 1 Then NextPage = 5
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+    With ConfigData
+        .Notify = chkNotify.value = 1
+        .NotRuleName = txtName.Text
+        .NotActive = chkActive.value = 1
+        .NErrLevel = txtErrLevel.Text
+        .NEventType = txtEvType.Text
+        .NEventSubType = txtEvSubType.Text
+        .React = chkReaction.value = 1
+    End With
+End Sub
+
+Private Sub PropertyPage_GotFocus()
+    SetFocusCtrl txtName
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+
+    On Error Resume Next
+    Set ConfigData = SelectedControls(0)
+    If ConfigData Is Nothing Then
+        Set ConfigData = SelectedControls(0).Tag
+    End If
+
+    GetDefaultVals
+
+End Sub
+
+Private Sub GetDefaultVals()
+    With ConfigData
+        txtName.Text = "Rule: " & .EventType
+        txtErrLevel.Text = .ErrLevel
+        txtEvType.Text = .EventType
+        txtEvSubType.Text = .EventSubType
+    End With
+End Sub
+
+Private Sub SetNext()
+    Dim blnIsNext As Boolean
+
+#If Debugging Then
+    Exit Sub
+#End If
+
+    blnIsNext = IsNext()
+'    If Len(txtName.Text) > 0 Then IsNext = True
+    'It is to prevent unnecessary calls of PSheet.SetWizardButtons
+    If blnIsNext And ButtonState = DisabledNextButton Then
+        PSheet.SetWizardButtons True, EnabledNextButton
+        ButtonState = EnabledNextButton
+    ElseIf Not blnIsNext And ButtonState = EnabledNextButton Then
+        PSheet.SetWizardButtons True, DisabledNextButton
+        ButtonState = DisabledNextButton
+    End If
+    
+End Sub
+
+Private Sub txtErrLevel_GotFocus()
+    SelTextbox txtErrLevel
+End Sub
+
+Private Sub txtEvType_GotFocus()
+    SelTextbox txtEvType
+End Sub
+
+Private Sub txtEvSubType_GotFocus()
+    SelTextbox txtEvSubType
+End Sub
+
+Private Sub chkNotify_Click()
+    SetNotifyState chkNotify = 1
+End Sub
+
+Private Sub txtName_Change()
+    SetNext
+End Sub
+
+Private Sub txtName_GotFocus()
+    SelTextbox txtName
+End Sub
+
+Private Sub SetNotifyState(ByVal IsNotify As Boolean)
+    Dim BackColor As SystemColorConstants
+
+    txtName.Enabled = IsNotify
+    txtErrLevel.Enabled = IsNotify
+    txtEvType.Enabled = IsNotify
+    txtEvSubType.Enabled = IsNotify
+    chkActive.Enabled = IsNotify
+    chkReaction.Enabled = IsNotify
+    BackColor = IIf(IsNotify, vbWindowBackground, vbButtonFace)
+    txtName.BackColor = BackColor
+    txtErrLevel.BackColor = BackColor
+    txtEvType.BackColor = BackColor
+    txtEvSubType.BackColor = BackColor
+End Sub
+
+Private Function IsNext() As Boolean
+    If Len(txtName.Text) > 0 Then IsNext = True
+End Function
+

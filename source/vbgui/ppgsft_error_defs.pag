@@ -1,0 +1,220 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgsft_error_defs 
+   Caption         =   "Error Definitions"
+   ClientHeight    =   2820
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5070
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   2820
+   ScaleWidth      =   5070
+   Begin VB.TextBox txtsub_type 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   50
+      TabIndex        =   9
+      Top             =   2160
+      Width           =   2895
+   End
+   Begin VB.TextBox txtevent_type 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   50
+      TabIndex        =   8
+      Top             =   1800
+      Width           =   2895
+   End
+   Begin VB.TextBox txtevent_level 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   50
+      TabIndex        =   6
+      Text            =   "0"
+      Top             =   1440
+      Width           =   2895
+   End
+   Begin VB.TextBox txtName 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   50
+      TabIndex        =   1
+      Top             =   120
+      Width           =   2895
+   End
+   Begin VB.TextBox txtSearch_String 
+      Height          =   885
+      Left            =   1560
+      MaxLength       =   254
+      MultiLine       =   -1  'True
+      TabIndex        =   2
+      Top             =   480
+      Width           =   2895
+   End
+   Begin VB.Label Label6 
+      Caption         =   "Event Type"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   7
+      Top             =   1800
+      Width           =   1455
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Event Level"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   5
+      Top             =   1440
+      Width           =   1455
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Event Sub Type"
+      Height          =   375
+      Left            =   120
+      TabIndex        =   4
+      Top             =   2160
+      Width           =   1575
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Name"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   3
+      Top             =   120
+      Width           =   1335
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Search String"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   0
+      Top             =   480
+      Width           =   1335
+   End
+End
+Attribute VB_Name = "ppgsft_error_defs"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+
+
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+Dim dataset As ADODB.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+
+action = dobj.splitval(Data, "~", 1)
+pid = dobj.splitval(Data, "~", 2)
+
+
+Debug.Print "Property Page Action Recieved=  " & action
+
+If action = "ACTION_EDIT" Or action = "ACTION_DELETE" Then
+            pid = dobj.splitval(Data, "~", 2)
+            Set dataset = dobj.returndataset("select * from sft_error_defs where error_defs_id = " & pid)
+            
+            If Not (dataset.BOF And dataset.EOF) Then
+                With PropertyPage
+                    .txtName = Trim(dataset("name").value & "")
+                    .txtSearch_String = Trim(dataset("search_string").value & "")
+                    .txtevent_level = Trim(dataset("ev_level").value & "")
+                    .txtevent_type = Trim(dataset("ev_type").value & "")
+                    .txtsub_type = Trim(dataset("ev_sub_type").value & "")
+                    
+                End With
+            End If
+End If
+
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+Dim newsys As ADODB.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim Name As String
+Dim search_string As String
+Dim eventlevel As String
+Dim sub_type As String
+Dim evttype As String
+
+Set dobj = New vaDataAccess
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+  
+Name = dobj.padQuotes(PropertyPage.txtName.Text)
+search_string = dobj.padQuotes(PropertyPage.txtSearch_String.Text)
+eventlevel = dobj.padQuotes(PropertyPage.txtevent_level.Text)
+sub_type = dobj.padQuotes(PropertyPage.txtsub_type.Text)
+evttype = dobj.padQuotes(PropertyPage.txtevent_type.Text)
+
+
+Select Case action
+    Case "ACTION_ADD"
+            With PropertyPage
+               Call dobj.addsft_error_def(Name, search_string, evttype, eventlevel, sub_type)
+            End With
+    Case "ACTION_EDIT"
+            
+            With PropertyPage
+                dobj.returndataset ("update sft_error_defs set name = '" & Name _
+                & "', search_string = '" & search_string _
+                & "', ev_level = '" & eventlevel _
+                & "', ev_sub_type = '" & sub_type _
+                & "', ev_type = '" & evttype _
+                & "' where error_defs_id = " & pid)
+            End With
+            
+    Case "ACTION_DELETE"
+        Call dobj.returndataset("delete from comp_errdef where error_defs_id = " & pid)
+        Call dobj.returndataset("delete from sft_error_defs where error_defs_id = " & pid)
+        
+    
+End Select
+
+m_bolChangesApplied = True
+
+With PropertyPage
+Call m_ScopeItem.PropertyChanged(.txtName.Text & "~!~" & .txtSearch_String.Text)
+End With
+
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+Set m_ScopeItem = SelectedControls(0)
+
+End Sub
+
+Private Sub txtevent_level_LostFocus()
+    txtevent_level.Text = StringToLong(txtevent_level.Text)
+End Sub

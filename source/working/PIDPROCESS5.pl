@@ -1,0 +1,372 @@
+use Win32::IProcess qw(
+PROCESS_QUERY_INFORMATION PROCESS_VM_READ INHERITED INHERITED DIGITAL NOPATH
+); 
+
+use Win32::API;
+use Getopt::Long;
+use Array::Compare;
+use vadmin::data1;
+use strict;
+use Log::Logger;
+
+my $lh = new Log::Logger "pidprocess5.log" ;				# global log file
+my $host = 'IBMT42';
+my $debug = 0; 
+
+#todo:
+# 1. call other memory sub routine
+# 2. change pid process so it inserts instead of only updating
+
+my $datasession = vadmin::data1::odbcsess($debug,$lh,'VADMIN21','sa','sa') ;
+my %prevrunning;
+my $taskreset = 0;
+my $pidcompare = Array::Compare->new;
+
+# Define some contants
+my $DWORD_SIZE = 4;
+my $PROC_ARRAY_SIZE = 100;
+my $MODULE_LIST_SIZE = 200;
+
+my $nopsapi; #true if we can not load psapi.dll
+my $usepsapi; #check if we are using psapi..
+
+# Define some Win32 API constants
+my $PROCESS_QUERY_INFORMATION = 0x0400;
+my $PROCESS_VM_READ = 0x0010;
+my $OpenProcess = new Win32::API( 'kernel32.dll', 'OpenProcess', ['N','I','N'], 'N' ) || $lh->log_print("Can not openprocess");
+my $CloseHandle = new Win32::API( 'kernel32.dll', 'CloseHandle', ['N'], 'I' ) || $lh->log_print("Can not openprocess");
+my $GetProcessMemoryInfo = new Win32::API( 'psapi.dll', 'GetProcessMemoryInfo', ['N','P','N'], 'I' ) || ($lh->log_print("Can not link GetProcessMemoryInfo()") and $nopsapi = 1);
+my $EnumProcesses = new Win32::API( 'psapi.dll', 'EnumProcesses', ['P','N','P'], 'I' ) || ($lh->log_print("Can not link EnumProcesses") and $nopsapi = 1);
+
+my $EnumProcessModules = new Win32::API( 'psapi.dll', 'EnumProcessModules', ['N','P','N','P'], 'I' ) || ($lh->log_print("Can not link EnumProcessModules") and $nopsapi = 1);
+my $GetModuleBaseName = new Win32::API( 'psapi.dll', 'GetModuleBaseName', ['N','N','P','N'], 'N' ) || ($lh->log_print("Can not link GetModuleBaseName")and $nopsapi = 1 );
+my $GetProcessTimes = new Win32::API('kernel32', 'GetProcessTimes',['I','P','P','P','P'], 'I') || ($lh->log_print("Can not link GetProcessTimes ") and $nopsapi = 1);
+
+
+
+
+if (!$nopsapi) {
+	$usepsapi = 1;
+} else {
+	$usepsapi = 0;
+	$lh->log_print("WARNING!! No psapi.dll installed on system. Advise downloading from Microsft for improved performance.");
+}
+
+
+while (1) {
+	my @runningpids = &printprocesses();
+	sleep(2);
+}
+
+
+
+sub printprocesses {
+
+	my (@EnumInfo,$i,$Info);	
+	my @running;
+	my $update;
+	my $noupdate;
+		
+	my $obj;		#used if we have to use IProc		
+	my @EnumInfo;	#list of pids
+
+
+	if ($usepsapi) {
+		@EnumInfo = GetPidList();
+	} else {
+		$obj=new Win32::IProcess || $lh->log_print("Can not create an IProcess object.."); 
+		$obj->EnumProcesses(\@EnumInfo);
+	}
+
+	my $numprocs = scalar(@EnumInfo);
+
+	
+
+	if ($debug ) {$lh->log_print("Number of processes returned (excludes System Idle Process 0 and system process 4) = $numprocs")};
+
+	#change the for loop to only expect a pid
+
+
+	for($i=0;$i<$numprocs;$i++)
+		{
+			
+			my $Hnd;
+			my $TimeInfo;
+			#initialize variables
+			my $procname;
+			my $pid;
+			my $cputime; #combine cpu user and kerenel time
+			my $usersecs;
+			my $kernelsecs;
+			my $creationtime;
+			my $pagefaults;
+			my $workingset; #physical memory
+			my $pagefile; #virgual memory
+			my %procmem;
+
+
+			my %Proc; #hash that holds the variables for process information
+			#we are either useing psapi or not, set the variable names.  some systems such as NT 4.0 and 2000 don't necesarilly have psapi installed.  Unfortunately, then we have to use iproc.pm which has filehandle in pagefault leaks.
+
+			if ($usepsapi) {
+				
+				$pid = $EnumInfo[$i];
+				# do not gather information about pid 0 (system idle) or 4 (system) processes
+				if ($pid==0 || $pid==4) {
+					next;
+				}
+
+
+				%Proc = &GetProcessInfo($pid);
+				$pagefaults = $Proc{workingsetpeak};
+				$workingset = $Proc{workingset} /1024;
+				$pagefile = $Proc{pagefileuse}/ 1024;
+				$procname = $Proc{name};
+				$kernelsecs = $Proc{kerneltime};
+				$usersecs =	$Proc{usertime};
+				$cputime = $usersecs + $kernelsecs;
+
+			} else {
+				
+				if ($debug) {"Warning, using iproc.dll not psapi.dll! Advise installing psapi.dll\n"};
+				
+				$obj->Open($EnumInfo[$i]->{ProcessId},PROCESS_QUERY_INFORMATION | PROCESS_VM_READ,INHERITED,\$Hnd); 
+				$obj->GetStatus($Hnd,\$TimeInfo,DIGITAL);
+				#call the GetProcessMeminfo - unfortunately this has a handle leak, but use it where there is no psapi dll
+				$obj->GetProcessMemInfo($EnumInfo[$i]->{ProcessId},\$Info);
+
+				#added to close handles
+				$obj->CloseHandle($Hnd);
+				
+				
+
+				$pid = $EnumInfo[$i]->{ProcessId};
+				$procname = $EnumInfo[$i]->{ProcessName};
+
+				$pagefaults = $Info->{PageFaultCount};
+				$workingset = $Info->{WorkingSetSize}/1024;
+				$pagefile= $Info->{PagefileUsage}/1024;
+
+				my @usertime = split(":",$TimeInfo->{UserTime});
+				$usersecs = convert_to_seconds($usertime[0],$usertime[1],$usertime[2],$usertime[3]);
+				my  @kerneltime = split(":",$TimeInfo->{KernelTime});
+				$kernelsecs = convert_to_seconds($kerneltime[0],$kerneltime[1],$kerneltime[2],$kerneltime[3]);
+				$cputime = $usersecs + $kernelsecs;
+				
+			}
+						
+			
+			
+			if ($debug ) {$lh->log_print("Proc Name = $procname  Process Id = $pid. User seconds = $usersecs. Kernel Seconds = $kernelsecs. CPU Time = $cputime pagefaults = $pagefaults workingset =$workingset pagefile= $pagefile")};
+
+
+
+			push @running,$pid;  #will return @running                             
+			my %running;
+					
+							
+			$running{$pid} = [$pid,$procname,undef,$cputime,$kernelsecs,$usersecs,$workingset,$pagefaults,$pagefile,undef,undef];
+
+			
+			
+			if ($taskreset) {
+				#&vadmin::data1::updatepid($datasession, $debug, $lh,$host,@{$running{$pid}});	
+			}	
+			
+
+			if (%prevrunning) 
+			{  #will be untrue on first run
+						if ($pidcompare->compare(\@{$running{$pid}},\@{$prevrunning{$pid}})) {
+							if ($debug) {$lh->log_print("MATCHES ARRAY - DO NOT UPDATE $pid")};	
+							$noupdate++;
+						} 
+						else 
+						{ # does not match, insert record   
+							if ($debug) {$lh->log_print("NO MATCH ARRAY - UPDATE $pid ")};
+							#print "PREVOUS ARRAY = @{$prevrunning{$pid}\n";
+							#print "NEW ARRAY = @{$running{$pid}}\n";
+							$update++;
+							#&vadmin::data1::updatepid($datasession, $debug, $lh,$host,@{$running{$pid}});	
+						}		 			
+			} 
+			else 
+			 { #no previous hash, insert everything
+					if ($debug) {$lh->log_print("NO PREVIOUS ARRAY -UPDATE $pid ")};
+					#&vadmin::data1::updatepid($datasession, $debug, $lh,$host,@{$running{$pid}});	
+			 }
+						
+
+			if (%prevrunning) {delete $prevrunning{$pid}}
+					$prevrunning{$pid} = [$pid,$procname,undef,$cputime,$kernelsecs,$usersecs,$workingset,$pagefaults,$pagefile,undef,undef];
+					%running = undef;
+
+			if ($debug) {$lh->log_print("Process updates = $update Process noupdates = $noupdate")}; 
+
+		} # end enum processes
+
+		$obj = undef;
+		(@EnumInfo,$i,$Info) = undef;
+	
+	return @running;
+
+}
+
+
+sub GetProcessInfo()
+{
+    my( $Pid ) = shift;
+	
+    my( %ProcInfo );
+
+    $ProcInfo{name} = "unknown";
+    $ProcInfo{pid}  = $Pid;
+
+    my( $hProcess ) = $OpenProcess->Call( $PROCESS_QUERY_INFORMATION | $PROCESS_VM_READ, 0, $Pid );
+    if( $hProcess)
+    {
+        my( $BufferSize ) = $MODULE_LIST_SIZE * $DWORD_SIZE;
+        my( $MemStruct ) = MakeBuffer( $BufferSize );
+        my( $iReturned ) = MakeBuffer( $BufferSize );      
+		
+     
+        if( $EnumProcessModules->Call( $hProcess, $MemStruct, $BufferSize, $iReturned ) )
+        {
+            my( $StringSize ) = 255 * ( ( Win32::API::IsUnicode() )? 2 : 1 );
+            my( $ModuleName ) = MakeBuffer( $StringSize );
+            my( @ModuleList ) = unpack( "L*", $MemStruct );
+            my $hModule = $ModuleList[0];
+            my $TotalChars;
+
+            # Like EnumProcesses() divide $Returned by the # of bytes in an HMODULE
+            # (which is the same as a DWORD)
+            # and that is the number of module handles returned.
+            # In this case we only want 1; the first returned in the array is
+            # always the module of the process (typically an executable).
+            $iReturned = unpack( "L", $iReturned ) / $DWORD_SIZE;
+
+            if( $TotalChars = $GetModuleBaseName->Call( $hProcess, $hModule, $ModuleName, $StringSize ) )
+            {
+                $ProcInfo{name} = FixString( $ModuleName );
+            }
+            else
+            {
+                $ProcInfo{name} = "unknown";
+            }
+		}		
+		
+		my $BufSize = 10 * $DWORD_SIZE;
+        $MemStruct = pack( "L10", ( $BufSize, split( "", 0 x 9 ) ) );
+
+		
+		if( $GetProcessMemoryInfo->Call( $hProcess, $MemStruct, $BufSize ) )
+        {
+          my( @MemStats ) = unpack( "L10", $MemStruct );
+          $ProcInfo{workingsetpeak} = $MemStats[2];
+          $ProcInfo{workingset} = $MemStats[3];
+          $ProcInfo{pagefileuse} = $MemStats[8];
+          $ProcInfo{pagefileusepeak} = $MemStats[9];
+			
+		
+		}
+
+		#now get cpu info
+
+		$GetProcessTimes = new Win32::API('kernel32', 'GetProcessTimes',[qw(I P P P P)], 'I') or print'Failed to get GetProcessTimes: ', Win32::FormatMessage (Win32::GetLastError ());
+
+		my $lpCreationTime = pack 'I2', 0, 0;   # 100ns since 1/1/1601
+		my $lpExitTime = pack 'I2', 0, 0;
+		my $lpKernelTime = pack 'I2', 0, 0;
+		my $lpUserTime = pack 'I2', 0, 0;
+ 
+		my $ret = $GetProcessTimes->Call($hProcess, $lpCreationTime, $lpExitTime,$lpKernelTime, $lpUserTime) or print  "Call GetProcessTimes: ",Win32::FormatMessage (Win32::GetLastError ());
+		
+		my @kerneltime = reverse unpack 'I2', $lpKernelTime;
+		my @usertime  =  reverse unpack 'I2', $lpUserTime;
+		
+		$ProcInfo{kerneltime} = $kerneltime[1] / 10000000;
+		$ProcInfo{usertime} = $usertime[1] / 10000000;
+
+        $CloseHandle->Call( $hProcess );
+    }
+    return( %ProcInfo );
+}
+
+
+sub GetPidList()
+{
+	
+    my( @PidList );
+    my $ProcArrayLength = $PROC_ARRAY_SIZE;
+    my $iIterationCount = 0;
+    my $ProcNum;
+    my $pProcArray;
+
+    do
+    {
+        my $ProcArrayByteSize;
+        my $pProcNum = MakeBuffer( $DWORD_SIZE );
+        #print "Reset the number of processes since we later use it to test\n";
+        # if we worked or not
+        $ProcNum = 0;
+        $ProcArrayLength = $PROC_ARRAY_SIZE * ++$iIterationCount;
+        $ProcArrayByteSize = $ProcArrayLength * $DWORD_SIZE;
+        # Create a buffer
+        $pProcArray = MakeBuffer( $ProcArrayByteSize );
+		#print "about to call enumprocesses\n";
+        if( 0 != $EnumProcesses->Call( $pProcArray, $ProcArrayByteSize, $pProcNum ) )
+        {
+            # Get the number of bytes used in the array
+            # Check this out -- divide by the number of bytes in a DWORD
+            # and we have the number of processes returned!
+            $ProcNum = unpack( "L", $pProcNum ) / $DWORD_SIZE;
+            #print "Total procs: $ProcNum\n";
+        }
+    } while( $ProcNum >= $ProcArrayLength );
+
+   if( 0 != $ProcNum )
+    {
+        # Let's play with each PID
+        # First we must unpack each PID from the returned array
+        @PidList = unpack( "L$ProcNum", $pProcArray );
+    }
+	
+    return( @PidList );
+}
+
+
+
+
+sub MakeBuffer
+{
+    my( $BufferSize ) = @_;
+    return( "\x00"  x $BufferSize );
+}
+
+sub FixString
+{
+    my( $String ) = @_;
+    $String =~ s/(.)\x00/$1/g if( Win32::API::IsUnicode() );
+    return( unpack( "A*", $String ) );
+}
+
+sub FormatNumber
+{
+    my( $Number ) = @_;
+    while ($Number =~ s/^(-?\d+)(\d{3})/$1,$2/){};
+    return( $Number );
+}
+
+
+sub convert_to_seconds {
+	my ($hours,$mins,$secs,$milsecs) = @_;
+
+	$milsecs = "." . $milsecs; #gotta love perl...automagically understands what i'm saying here
+	$secs += $milsecs;
+
+    $secs += $mins * 60;
+	$secs += $hours * 3600;
+	return $secs;
+}
+
+
+

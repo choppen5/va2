@@ -1,0 +1,315 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgWzAddSchedule 
+   Caption         =   "Add Schedule"
+   ClientHeight    =   3735
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4875
+   LockControls    =   -1  'True
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3735
+   ScaleWidth      =   4875
+   Begin VB.CommandButton cmdSetDetails 
+      Caption         =   "Setup &Details..."
+      Enabled         =   0   'False
+      Height          =   340
+      Left            =   2970
+      TabIndex        =   9
+      Top             =   1530
+      Width           =   1440
+   End
+   Begin VB.CheckBox chk24x7 
+      Caption         =   "24*7 &all hour schedule"
+      Height          =   285
+      Left            =   240
+      TabIndex        =   4
+      Top             =   1560
+      Value           =   1  'Checked
+      Width           =   2535
+   End
+   Begin VB.OptionButton optExistSched 
+      Caption         =   "&Select existing Schedule"
+      Enabled         =   0   'False
+      Height          =   255
+      Left            =   240
+      TabIndex        =   5
+      Top             =   2130
+      Width           =   2505
+   End
+   Begin VB.OptionButton optNewSched 
+      Caption         =   "A&dd new Schedule"
+      Height          =   285
+      Left            =   240
+      TabIndex        =   1
+      Top             =   750
+      Value           =   -1  'True
+      Width           =   2505
+   End
+   Begin VB.ComboBox cmbSchedules 
+      BackColor       =   &H8000000F&
+      Enabled         =   0   'False
+      Height          =   315
+      Left            =   1680
+      Style           =   2  'Dropdown List
+      TabIndex        =   7
+      Top             =   2430
+      Width           =   3105
+   End
+   Begin VB.TextBox txtName 
+      Height          =   360
+      Left            =   1680
+      MaxLength       =   50
+      TabIndex        =   3
+      Top             =   1080
+      Width           =   3105
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Na&me for Schedule:"
+      Height          =   240
+      Left            =   240
+      TabIndex        =   2
+      Top             =   1140
+      Width           =   1455
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Finish Wizard"
+      Height          =   285
+      Left            =   240
+      TabIndex        =   8
+      Top             =   3400
+      Width           =   3645
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Schedule"
+      Height          =   240
+      Left            =   240
+      TabIndex        =   6
+      Top             =   2460
+      Width           =   1185
+   End
+   Begin VB.Label lblSubTitle 
+      Caption         =   "Define a schedule for your administrator"
+      Height          =   390
+      Left            =   240
+      TabIndex        =   0
+      Top             =   270
+      Width           =   4140
+   End
+End
+Attribute VB_Name = "ppgWzAddSchedule"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Implements IWizardPage
+Implements IMMCPropertyPage
+
+Private ConfigData As clsConfigData
+Private PSheet As SnapInLib.MMCPropertySheet
+Private ButtonState As SnapInLib.WizardPageButtonConstants     'Next is disable or enable
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+    Set PSheet = PropertySheet
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Activate(EnableBack As Boolean, NextOrFinish As SnapInLib.WizardPageButtonConstants, FinishText As String)
+    EnableBack = True
+
+#If Debugging Then
+    ButtonState = EnabledNextButton
+#Else
+    ButtonState = DisabledNextButton 'NextOrFinish
+#End If
+
+    SetNext
+    NextOrFinish = ButtonState ' EnabledNextButton
+End Sub
+
+Private Sub IWizardPage_Back(NextPage As Long)
+
+End Sub
+
+Private Sub IWizardPage_Finish(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Next(NextPage As Long)
+'    With ConfigData
+'        .Sch7x24 = chk24x7.value = 1
+'        If optNewSched.value Then
+'            .SchName = txtName.Text
+'            .SchID = 0
+'        Else
+'            .SchName = cmbSchedules.Text
+'            .SchID = cmbSchedules.ItemData(cmbSchedules.ListIndex)
+'        End If
+'        .SaveAll
+'    End With
+End Sub
+
+Private Sub chk24x7_Click()
+    cmdSetDetails.Enabled = chk24x7.value <> 1
+    If chk24x7.value = 0 Then Call cmdSetDetails_Click
+End Sub
+
+Private Sub cmdSetDetails_Click()
+    Dim fSched As frmWzSchedule
+    
+    Set fSched = New frmWzSchedule
+    With fSched
+        .chkevery_day.value = Abs(CBool(ConfigData.SchDayOfWeek And SchEvery))
+        .chkMonday.value = Abs(CBool(ConfigData.SchDayOfWeek And SchMonday))
+        .chkTuesday.value = Abs(CBool(ConfigData.SchDayOfWeek And SchTuesday))
+        .chkWedensday.value = Abs(CBool(ConfigData.SchDayOfWeek And SchWedensday))
+        .chkThursday.value = Abs(CBool(ConfigData.SchDayOfWeek And SchThursday))
+        .chkFriday.value = Abs(CBool(ConfigData.SchDayOfWeek And SchFriday))
+        .chkSaturday.value = Abs(CBool(ConfigData.SchDayOfWeek And SchSaturday))
+        .chkSunday.value = Abs(CBool(ConfigData.SchDayOfWeek And SchSunday))
+        .dtpTimeStart.value = ConfigData.SchTimeStart
+        .dtpTimeEnd.value = ConfigData.SchTimeEnd
+        .Show vbModal
+        If .IsOK Then
+            ConfigData.SchDayOfWeek = _
+                .chkevery_day.value * SchEvery Or _
+                .chkMonday.value * SchMonday Or _
+                .chkTuesday.value * SchTuesday Or _
+                .chkWedensday.value * SchWedensday Or _
+                .chkThursday.value * SchThursday Or _
+                .chkFriday.value * SchFriday Or _
+                .chkSaturday.value * SchSaturday Or _
+                .chkSunday.value * SchSunday
+            ConfigData.SchTimeStart = .dtpTimeStart.value
+            ConfigData.SchTimeEnd = .dtpTimeEnd.value
+        End If
+    End With
+
+End Sub
+
+Private Sub optExistSched_Click()
+    SetNext
+    NewOrExist optNewSched.value
+    SetFocusCtrl cmbSchedules
+End Sub
+
+Private Sub optNewSched_Click()
+    SetNext
+    NewOrExist optNewSched.value
+    SetFocusCtrl txtName
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+    With ConfigData
+        .Sch7x24 = chk24x7.value = 1
+        If optNewSched.value Then
+            .SchName = txtName.Text
+            .SchID = 0
+        Else
+            .SchName = cmbSchedules.Text
+            .SchID = cmbSchedules.ItemData(cmbSchedules.ListIndex)
+        End If
+    End With
+End Sub
+
+Private Sub PropertyPage_GotFocus()
+    SetFocusCtrl txtName
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+
+    On Error Resume Next
+    Set ConfigData = SelectedControls(0)
+    If ConfigData Is Nothing Then
+        Set ConfigData = SelectedControls(0).Tag
+    End If
+
+    LoadSchedList
+
+End Sub
+
+Private Sub NewOrExist(ByVal IsNew As Boolean)
+    txtName.Enabled = IsNew
+    chk24x7.Enabled = IsNew
+    txtName.BackColor = IIf(IsNew, vbWindowBackground, vbButtonFace)
+    
+    cmbSchedules.Enabled = Not IsNew
+    cmbSchedules.BackColor = IIf(IsNew, vbButtonFace, vbWindowBackground)
+End Sub
+
+Private Sub LoadSchedList()
+On Error GoTo ErroroHandler
+    Dim rs As adodb.Recordset
+    Dim dobj As New VadminUI.vaDataAccess
+
+    cmbSchedules.Clear
+
+    Set rs = dobj.GetSchedList()
+    With rs
+        Do Until .EOF
+            cmbSchedules.AddItem Trim(!schd_name & "")
+            cmbSchedules.ItemData(cmbSchedules.NewIndex) = !schedule_id
+            .MoveNext
+        Loop
+    End With
+    If cmbSchedules.ListCount > 0 Then
+        cmbSchedules.ListIndex = 0
+        optExistSched.Enabled = True
+    End If
+ 
+    Exit Sub
+ErroroHandler:
+    ErrorH 0
+    Exit Sub
+End Sub
+
+Private Sub txtName_Change()
+    SetNext
+End Sub
+
+Private Sub SetNext()
+    Dim IsNext As Boolean
+
+#If Debugging Then
+    Exit Sub
+#End If
+    
+    If optNewSched.value Then
+        If Len(txtName.Text) > 0 Then IsNext = True
+    Else
+        IsNext = True
+    End If
+    'It is to prevent unnecessary calls of PSheet.SetWizardButtons
+    If IsNext And ButtonState = DisabledNextButton Then
+        PSheet.SetWizardButtons True, EnabledNextButton
+        ButtonState = EnabledNextButton
+    ElseIf Not IsNext And ButtonState = EnabledNextButton Then
+        PSheet.SetWizardButtons True, DisabledNextButton
+        ButtonState = DisabledNextButton
+    End If
+    
+End Sub
+
+Private Sub txtName_GotFocus()
+    SelTextbox txtName
+End Sub

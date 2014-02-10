@@ -1,0 +1,432 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgsft_err_deff 
+   Caption         =   "Application User"
+   ClientHeight    =   3930
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5535
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3930
+   ScaleWidth      =   5535
+   Begin VB.CommandButton cmdRemoveUser 
+      Caption         =   "<<"
+      Height          =   375
+      Left            =   2520
+      TabIndex        =   3
+      Top             =   1440
+      Width           =   495
+   End
+   Begin VB.CommandButton cmdAddUser 
+      Caption         =   ">>"
+      Height          =   375
+      Left            =   2520
+      TabIndex        =   2
+      Top             =   960
+      Width           =   495
+   End
+   Begin VB.ListBox lstselected 
+      Height          =   2790
+      Left            =   3120
+      TabIndex        =   1
+      Top             =   840
+      Width           =   2055
+   End
+   Begin VB.ListBox lstchoices 
+      Height          =   2790
+      Left            =   360
+      TabIndex        =   0
+      Top             =   840
+      Width           =   2055
+   End
+   Begin VB.Label lblApplicationName 
+      Height          =   255
+      Left            =   360
+      TabIndex        =   6
+      Top             =   120
+      Width           =   4095
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Component Error Defs"
+      Height          =   255
+      Left            =   3120
+      TabIndex        =   5
+      Top             =   600
+      Width           =   1695
+   End
+   Begin VB.Label lblchocies 
+      Caption         =   "All Error Definitions"
+      Height          =   255
+      Left            =   360
+      TabIndex        =   4
+      Top             =   600
+      Width           =   1575
+   End
+End
+Attribute VB_Name = "ppgsft_err_deff"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Private m_ScopeItem As ScopeItem
+Private m_rsAdded As adodb.Recordset
+Private m_rsRemoved As adodb.Recordset
+
+Implements IMMCPropertyPage
+
+Dim action As String
+Dim pid
+
+Dim bolChangesApplied As Boolean
+Private m_strApplicationID As String
+
+Private Sub cmdAddUser_Click()
+Dim choiceId As String
+Dim keyval
+
+Dim intCount As Integer
+
+    choiceId = PropertyPage.lstchoices.Text
+    
+    For intCount = 0 To PropertyPage.lstselected.ListCount
+        If (PropertyPage.lstselected.List(intCount) = choiceId) Then
+            '*** Item already is in the application user list ***
+            Exit Sub
+        End If
+    Next
+    PropertyPage.lstselected.AddItem PropertyPage.lstchoices.Text
+    
+    keyval = Split(choiceId, ":")
+    
+ '   m_rsAdded.Open
+    
+
+    m_rsAdded.AddNew
+    m_rsAdded("components_id").value = pid
+    m_rsAdded("error_defs_id").value = keyval(0)
+    m_rsAdded("choiceID").value = Trim(choiceId)
+
+    
+    '*** Delete the entries out of the removed recordset, if there are any ***
+    m_rsRemoved.Filter = "choiceID = '" & choiceId & "' "
+    If Not (m_rsRemoved.BOF And m_rsRemoved.EOF) Then
+        m_rsRemoved.Delete (adAffectCurrent)
+    End If
+    m_rsRemoved.Filter = ""
+End Sub
+
+Private Sub cmdRemoveUser_Click()
+Dim choiceId As String
+Dim keyval
+
+choiceId = PropertyPage.lstselected.Text
+keyval = Split(choiceId, ":")
+
+    If (PropertyPage.lstselected.ListIndex >= 0) Then
+        choiceId = PropertyPage.lstselected.Text
+        PropertyPage.lstselected.RemoveItem (PropertyPage.lstselected.ListIndex)
+        
+        m_rsRemoved.AddNew
+        m_rsRemoved("components_id").value = pid
+        m_rsRemoved("error_defs_id").value = keyval(0)
+        m_rsRemoved("choiceID").value = Trim(choiceId)
+            
+        '*** Delete the entries out of the added recordset, if there are any ***
+        m_rsAdded.Filter = "choiceID = '" & choiceId & "' "
+        If Not (m_rsAdded.BOF And m_rsAdded.EOF) Then
+        m_rsAdded.Delete (adAffectCurrent)
+        End If
+        m_rsAdded.Filter = ""
+    End If
+End Sub
+
+Private Sub IMMCPropertyPage_Cancel()
+    'MsgBox "Cancel"
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+
+Dim dataset As adodb.Recordset
+Dim currentdataset As adodb.Recordset
+
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+Dim active As String
+Dim rtype As String
+
+pid = dobj.splitval(Data, "~", 2)
+
+Set dataset = dobj.returndataset("select * from sft_error_defs")
+Dim i As Integer
+           If Not (dataset Is Nothing) Then
+                If Not (dataset.BOF And dataset.EOF) Then
+                    dataset.MoveFirst
+                    
+                    Do While Not dataset.EOF
+                        PropertyPage.lstchoices.AddItem dataset("error_defs_id").value & ": " & dataset("name").value & "", i
+                        i = i + 1
+                        dataset.MoveNext
+                    Loop
+                End If
+            End If
+
+
+    
+    'Lookup only the application users and populate the right list box
+    Set currentdataset = dobj.returndataset("select t2.name, t2.error_defs_id from sft_err_deff t1,sft_error_defs t2 where " _
+    & "t1.error_defs_id = t2.error_defs_id and t1.sft_elmnt_id = " & pid)
+
+    
+    If Not (currentdataset Is Nothing) Then
+        If Not (currentdataset.BOF And currentdataset.EOF) Then
+            currentdataset.MoveFirst
+            Do While Not currentdataset.EOF
+                PropertyPage.lstselected.AddItem currentdataset("error_defs_id").value & ": " & currentdataset("name").value
+                currentdataset.MoveNext
+            Loop
+        End If
+    End If
+    
+    Set m_rsAdded = dobj.create_comp_err
+    Set m_rsRemoved = dobj.create_comp_err
+    
+    
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+    
+End Sub
+
+Private Sub lstAllUsers_Click()
+
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+Dim dobj As New VadminUI.vaDataAccess
+Dim madechanges As Boolean
+Dim sft_elmnt_id As Integer
+'Dim objApplicationUser As ApplicationSecurity.clsApplicationUser
+
+   If (bolChangesApplied = False) Then
+
+        If Not (m_rsRemoved.BOF And m_rsRemoved.EOF) Then
+            m_rsRemoved.MoveFirst
+            
+            Do While Not m_rsRemoved.EOF
+                '*** Deletes the current row in the recordset from the database ***
+                Call dobj.returndataset("delete from sft_err_deff where sft_elmnt_id = " & m_rsRemoved("components_id").value _
+                & " and error_defs_id = " & m_rsRemoved("error_defs_id").value)
+                sft_elmnt_id = m_rsRemoved("components_id").value
+                
+                m_rsRemoved.MoveNext
+                
+            Loop
+            
+            madechanges = True
+        End If
+        
+        If Not (m_rsAdded.BOF And m_rsAdded.EOF) Then
+            m_rsAdded.MoveFirst
+            
+            Do While Not m_rsAdded.EOF
+                '*** Adds the current row in the recordset to the database ***
+                
+                
+                Call dobj.returndataset("insert into sft_err_deff(sft_elmnt_id,error_defs_id) values (" _
+                & m_rsAdded("components_id").value & "," _
+                & m_rsAdded("error_defs_id").value & ")")
+                
+                 sft_elmnt_id = m_rsAdded("components_id").value
+                
+                m_rsAdded.MoveNext
+            Loop
+            madechanges = True
+            
+        End If
+        
+        Set dobj = Nothing
+        
+        If madechanges = True Then
+            sendlogchange (sft_elmnt_id)
+        End If
+        
+        
+        bolChangesApplied = True
+        
+        With PropertyPage
+            Call m_ScopeItem.PropertyChanged(pid & "~!~")
+        End With
+    End If
+
+
+
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+    Set m_ScopeItem = SelectedControls(0)
+End Sub
+
+Sub sendlogchange(sft_elmnt_id As Integer)
+
+Dim IPAddr As Long
+Dim rc As Long
+Dim Host As String
+Dim stat As String
+Dim StartupData As WSADataType
+Dim SocketNum As Long
+Dim ReadSock As Long
+Dim SocketBuffer As sockaddr
+Dim ReadSockBuffer As sockaddr
+Dim ReadBuffer As String * 2048
+Dim dobj As New VadminUI.vaDataAccess
+Dim program 'program will be the string we send to the ccserver
+Dim sqlstr As String
+Dim rptrs As adodb.Recordset
+Dim ccport
+Dim cchost
+Dim vlsmport
+Dim vlsmhost
+Dim connect_tcp As Boolean
+
+
+
+Dim x As Single
+Dim Y As Single
+Dim bytes As Long
+
+
+rc = WSACleanup()
+
+rc = WSAStartup(&H101, StartupData)
+If rc = SOCKET_ERROR Then
+    Debug.Print "SOCKET_ERROR"
+    'ConsoleMsgBox "SOCKET_ERROR"
+ Exit Sub
+End If
+    
+    
+program = "CCOK" 'default
+    
+
+sqlstr = "select t1.host, t1.port from sft_elmnt t1 where t1.type = 'v2centralserver'"
+Set rptrs = dobj.returndataset(sqlstr)
+
+If Not (rptrs Is Nothing) Then
+                If Not (rptrs.BOF And rptrs.EOF) Then
+                    rptrs.MoveFirst
+                    ccport = Trim(rptrs("port").value)
+                    cchost = Trim(rptrs("host").value)
+                    'password = Trim(rptrs("password").value)
+                    
+                End If
+End If
+    
+Debug.Print "ccHost = " & cchost
+Debug.Print "ccPort = " & ccport
+
+
+'if sft_elmnt_id is passed in we are checking on a software element
+If sft_elmnt_id > 0 Then
+        sqlstr = "select t1.host, t1.port from sft_elmnt t1, sft_elmnt t2 where t2.host = " _
+      & "t1.host and t1.type = 'vlsm' and t2.sft_elmnt_id = " & sft_elmnt_id
+    
+    
+    Set rptrs = dobj.returndataset(sqlstr)
+    
+    If Not (rptrs Is Nothing) Then
+                    If Not (rptrs.BOF And rptrs.EOF) Then
+                        rptrs.MoveFirst
+                        vlsmport = Trim(rptrs("port").value & "")
+                        vlsmhost = Trim(rptrs("host").value & "")
+                        'password = Trim(rptrs("password").value)
+                        
+                    End If
+    End If
+    
+    'do not check elements that do not resolve a host correctly
+    If (vlsmhost = "") Then
+        connect_tcp = True
+        Exit Sub
+    End If
+        
+    program = "RESTART APPLOG WATCHER:" & vlsmhost & ":" & vlsmport & ":EOM"
+End If
+
+
+Debug.Print "message to CC = " & program
+
+    IPAddr = GetHostByNameAlias(cchost)
+    If IPAddr = -1 Then
+        stat = "Cannot locate host " + cchost
+        Debug.Print stat
+        Exit Sub
+    End If
+    SocketNum = socket(AF_INET, SOCK_STREAM, 0)
+    If SocketNum = SOCKET_ERROR Then
+        stat = "Cannot Create Socket."
+        Debug.Print stat
+        Exit Sub
+    End If
+    SocketBuffer.sin_family = AF_INET
+    SocketBuffer.sin_port = htons(ccport)
+    SocketBuffer.sin_addr = IPAddr
+    SocketBuffer.sin_zero = String$(8, 0)
+    rc = connect(SocketNum, SocketBuffer, Len(SocketBuffer))
+    If rc = SOCKET_ERROR Then
+        closesocket SocketNum
+        stat = "Connect rejected"
+        Debug.Print stat
+        MsgBox "WARNING! THE CENTRAL SERVER CAN NOT BE CONTACTED.  MAKE SURE THE CENTRAL SERVICE IS RUNNING ON" _
+        & vbCrLf & "THE HOST: " & cchost & " PORT: " & ccport, 48
+        connect_tcp = False
+        Exit Sub
+    End If
+    
+    rc = SendData(SocketNum, program & vbCrLf)
+    
+     bytes = recv(SocketNum, ReadBuffer, 2048, 0)
+    If bytes > 0 Then
+        program = Left$(ReadBuffer, bytes)
+        stat = "Data Read"
+        Debug.Print stat
+        Debug.Print program
+        If InStr(program, "VLSMISOK") > 0 Then
+            Debug.Print "EVERY THING IS OK!!!"
+            connect_tcp = True
+        End If
+    ElseIf WSAGetLastError() <> WSAEWOULDBLOCK Then
+        x = WSAAsyncSelect(SocketNum, 0, ByVal &H202, ByVal FD_CONNECT Or FD_ACCEPT)
+        stat = "Socket Closed"
+        If InStr(program, Chr$(13)) <> 0 Then
+            program = Left$(program, InStr(program, Chr$(13)) - 1)
+        End If
+        Debug.Print "would block..."
+        Debug.Print stat
+        
+        MsgBox "WARNING! The LSM That supports this Software Element could not be confirmed to be running." _
+        & vbCrLf & " Make sure the LSM Service is running on the HOST: " & vlsmhost & " PORT: " & vlsmport, 48
+     
+        'closesocket (ReadSock)
+        connect_tcp = False
+    End If
+
+Set dobj = Nothing
+
+
+End Sub
+

@@ -1,0 +1,164 @@
+
+1. compile new versions with changes and vnumbers
+2. package, zip, ftp
+3. create zip file for changed exes for France
+4. respond to email
+5. contact portugal and tell them about the fix
+
+- updated the versions on the website
+- write blog posting about the new version
+
+
+1. reactions are sent in from LSM
+2. There are multiple reactions
+3. When the VLSM starts up it tries to execute reaction
+- fix:  Only allow one reaction (id per host?) on insert...
+- or, delete reactions of the same type after executing
+
+-- get sql statement to check if rule is there (look at sql)
+-- write if statement, return sql to see if it is there
+
+
+
+- (check the reaction insert code....) may work... 
+- VA2 harvester, change procdeure if there is a reaction for a command don't wait for response
+(don't know about this...)
+
+
+
+Issue: if there are many reactions stored up for a server, when the server restarts it will execute
+the reaction over and over.
+
+
+workplan:
+change vadmin21::sendsysmsg
+- do a query on reaction_id, $sv_name, $host 
+- do not insert if matches.
+
+
+
+Issue:
+- When sending a reaction to a siebel server, VA2 waits to parse the output. There is no
+response.
+
+- potential fix - do not wait for output of reaction commands
+ - requires deep code changes...
+
+
+Issue: 
+NT Services are not monitored if no Siebel Server and LSM is installed on the machine
+
+
+Issue:
+--  Reactions are not fired unless a VA2 Siebel server is running on it?
+	--  move code to VLSM process (only non Siebel server ones)
+	-- move getnex to vlsm service
+		- find out the NT Service checking, could be the same area as bat file
+
+
+todo:  add polling interval to the vlsm
+add check_services and next 
+- or, change vsrvrmgr so it accepts no parameters for start up
+-- if no Siebel server is passed in, only execute the ntservice and reaction code
+
+-- change the startup vlsm so it starts vsrvmgr with appserver names, or no name if there are no servers on that host
+
+
+
+- line 44 - create no variable
+- line 56, change to accept no parameters if so
+- line 184, do an if statement to see if we are running as a siebel server or not
+- down to lines 207 
+- move variables
+- lines 236, before if &checksiebsrvr(), add Siebel server check
+- else, only do 
+	&check_services;
+	&getnex;
+
+
+
+Vlsm changes:
+1. create new variable on  
+2. change arguments -  port first, second appserver, third instance
+
+
+
+Other issues:
+- question about web services:
+ - here is the requirement:  The log into windows who opens MMC must have administrative access
+ to the target computer, for example:
+
+MMC is running on local pc, logged as Admin1 to windows.
+Web Server is on MHIS66TGTPRDW1 
+Admin1 has administrative control of MHIS66TGTPRDW1 
+The host is filled out for the Web server
+When host is filled out and present, opening the Services tab on the software element should show the
+nt services running on that host, in this example MHIS66....
+
+
+
+
+The LSM must be installed on that service and have an ODBC connection VA2.  Then you can test by 
+stopping the service, and check weather events or restarts are generated.
+
+
+3/About global reactivity:
+
+
+There are different scenarios were events and reactions will be processed.  There is also generally the time
+that an Event is generated, and in some cases a Reaction, which is the response to the event.
+
+Here are some examples:
+
+-- Shut down a service VA2 is monitoring
+	-- Event generation time
+		- stopping a service, such as Siebel service, may take a minute or two (depending on env)
+		- VA2 LSM will check the service status according to the Poll interval
+		- event generation will happen at the Poll interval
+		- Default Poll interval is 30 seconds.		
+		- Event generation will happen.  According to the settings, VA2 may try restarting.  
+	-- Reaction time 
+		- Executed with poll interval on the central server
+
+
+-- Log event error:
+	- Event Generation:
+		- real time, the error in the log should generate an event immediatly
+	- Reaction
+		- Executed with poll interval on the central server
+
+
+-- Siebel Component failure:
+	- Event Generation:
+		LSM:
+		- Siebel component status is harvested at the poll interval 
+		- Plus harvest time for component status.  
+		- Harvest time depends on how many Siebel tasks, components, etc running for that server
+		- After components and task status is collected, compared against Notification rules
+		VA2 Central Server
+		- At Poll Interval, the VA2 Central server executes Analysis rules
+		- The particular Analysis Rule timing may execute (1 minute to 1 week) to check component status for example
+		- Event generated as result of the Analysis Rule
+	- Reaction
+		- Fired in response to the Analysis Rule generating an event
+
+4/ About regular perl expression in search string: 
+	- (give an example of this)
+
+
+5/About some functions: 
+	- try this (need to send the patch)
+
+6/ What is the difference from Purge Processed Events and Purge All Events ?   
+- There is a Processed flag that gets set when an Event is emailed.  The clear all processed deletes already emailed
+events.  Clear all events deletes all events.
+
+
+
+
+- issue: addding new component, does not go into effect unless LSM is restarted?
+- Mon Sep  3 11:00:56 2007: RECIEVED A RESTART MESSAGE.  MUST RESTART LSM TO MONITOR FOR ERROR
+
+
+
+

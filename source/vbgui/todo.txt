@@ -1,0 +1,160 @@
+program timings:
+8:00 - 11:20
+finished schedule addition
+started and finished analysis rule creation
+started and finished (- improvements) collector node creation
+
+Priority list:
+X-make sure that the current code base is useable
+X-add statistic OCX to view statistics
+X-add description edit ability on statistics
+X- Clean up sft_error_defs interface - use sft_error_defs for event creation
+X- add delete to nodes	
+- add Many to Many relationships:
+
+sft_error_defs to sft_elmnt
+X- sft_error_defs to components
+X- reaction to notification_rule
+X -Communication_server to administrators
+
+- add M to 1 relationships:
+X administrators to schedules (may need to add schedules to administrators) 
+X sft_error_defs to analysis_rule (create m to m) (fix the evalrunner to handle this)
+X-add the ability to choose a service in the sft_elmnt_dialog
+X-add the ability to choose a host in the sft_elmnt dialog
+X-add description to statistic object
+
+WEEK 1 (ENDING JUNE 4)
+X -add folder objects for sub elements (12:10 5/29)
+X -add sub type to the error_insert xml procedure (2:00 5/29 - and added event time)
+X -add sft_elemnt_id to the error_def ppg... (add the id id or the name?) - this was dumb, need to add m to m instead
+X-add node for events, menu options for clearing events
+
+X-add menu item to remove statistics
+x-add registry items for connections - including the datasource used by the snapin
+X-organize then add system variables - time interval
+X-allow adjustment of collector/analysis_rule timeout values (lots of backend work for this)
+X-add perl debuger - will run and check a statistic/analysis rule on command.(spawn a shell comand for this??)
+
+
+X-allow any application/service to be monitored/logs (whoa!! huge scope creep )
+X--remove databroker
+X--add vlogmon to the service, make files
+X--add app_err_deff to sft_elmnts
+X--add 
+
+
+
+WEEK 2 (ENDING JUNE 11)
+
+X-create/test install pakages
+X-clean up messages coming from vapplogmon and vpidmon - explicitly add applications added and pid's tracked in non debug mode
+
+
+X-add icons to gui
+X-add icon to snapin control, change snapin name
+
+(defered)-add odbc datasources on install (probably won't do this)
+
+X-change vsrmgr to use tcp/ip for shutdown and server commands....
+(defered)-create protocol for shutting down siebsrvr, vlogmon process, etc, and report on their status
+X-use perl registry functions so service does not need a config file in windows system32
+
+
+
+X-change text size limit on each property page field to match db field def.
+X-port and test db sources (oracle)
+X-test for MSSQL 7 Compliance after Oracle port
+
+
+
+
+WEEK 3 (ENDING JUNE 18) (I can walk agian!!)
+Backend: 
+
+X-GET The ducking STATISTIC VIEW WOKRING!!! (this wasted the entire day of 6/12, but got it working! (v4))
+X- Add dirwatcherdll to setup package
+X--add schema object and gui objects for datasources
+X-improve the inc/dir handling in perl for use statements
+
+ 
+X-configure all sorts of usefull Analysis Rules and statistics (ongoing)
+X-add XML import features
+
+X-modify debugger so it uses a relative path for debugger exectuion(use registry value) (repackage with installer)
+
+X-standardize per node what values are shown in the list view -is it every column? (probably)
+X(communication server)
+X(administrators)
+X(schedules)
+X(statistics)
+
+X-change dir for each app to include docs, bin, log
+X-change vadmin.config to vadmin.txt
+
+x-add charts for component/process memory use
+
+X-combine vpidmon vsrvrmgr and lsmexec - change local routing ability
+
+X -add components that represent vadmin components and status (build protocol for such)
+
+X - fix vapplogmon so it notices when dirs are removed
+
+X -fix vlogmon to work with new dll
+X -add cpu tracking
+
+-add cpu tracking graph
+
+app monitoring features:
+X-Optional Service Monitoring
+X-Optional restart
+
+X-Add notification rule for service/appication failure - (send notification for failed events)
+
+-add log file name/filter option to error definitions
+-add process tracking for apps? 
+
+
+-port for siebel 7(1 week!!!)
+
+-web site stuff - contact form capturing, email list, download center
+-Startup wizard: adds hosts, administrators, schedules,
+-create setup test - send a test communication to adminsitrator
+
+-add audit of execution time for analysis rules (week 1 freature)
+-show audit trail of notifications/reactions fired
+-create a statistic->events module (need to revist this)
+-change routing ability to include the ability to route to an admin instead of schedule (new schema objects)
+
+
+-add intersection tables to add statistics and analysis rules under: hosts, sft_elmnts
+-add category to statistics/collectors?
+
+-add test script/task that tests configuration items , like email, application paths etc
+-create wizards for the following actions 
+
+
+-create wizard to make statistics out of WMI objects??
+-create wizard to make analysis rules out of statistics
+-create wizard for importing analisys rules and collectors
+-show a view of hosts that shows sft_elmnts per host
+-show a view of hosts that shows statistics per host
+-show events per sft_elmnt/host
+
+
+
+-create ubiquitious statistic tracker
+
+-Begin Siebel 7 Conversion/testing (this is a week of work alone)
+
+WEEK 4 (Ending JUNE 25th)
+-Finsh Siebel 7 conversion
+
+-write documentation
+
+Week 5
+-Do test installs and support (Workshare, Kevin?)
+
+X-Do install tests and porting on MYSQL and Oracle DB's
+X-Create install packages and test Packages
+

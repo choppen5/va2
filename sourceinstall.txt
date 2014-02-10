@@ -1,0 +1,110 @@
+steps to prepare va2 source onanother computer
+
+prereqs:
+
+perl (5.6 build 633+ (perlapp does not work with 5.8)) 
+
+1. install active perl from acitvestate
+- install from vadmin2\thirdparty\activestate\ActivePerl-5.8.6.811-MSWin32-x86-122208
+
+2. Install perl DevKit from AcitveState
+- install from \vadmin\thirdparty\PDK-4.0.0.401.msi
+
+3. Install pdk license file
+- install from \vadmin\thirdparty\SB614642AE-PLDK40S-PG.exe
+  
+4. copy the vadmin directory from vadmin2\source\make\vadmin to perl\site\lib
+
+
+5.  Install the following perl packages using ppm:
+
+VCS:
+
+	a. Error
+	b. Log-Logger - then replace \Perl\site\lib\Logger.pm with \vadmin2\source\hardtofindperl\log\Logger.pm
+	
+	d. frontier-rpc
+	e. date-calc	
+	f. array-compare
+	g. win32-api
+	h. dbi
+	g. dbd-odbc
+
+
+6. Mail-sender - package isn't availble via ppm.  Install from C:\vadmin2\source\hardtofindperl\mail-sender\Mail-Sender-0.8.10
+ - makefile.pl
+ - nmake
+ - nmake test
+ - nmake install
+
+
+6. Install iprocess.pm- vadmin2\source\hardtofindperl\iprocess - Install with ppm, follow the readme instructions.
+7. The iprocess.pm installed has been modified - it looks for the dlls in a local directory.  Replace
+the iprocess.pm (in perl\site\lib\win32) file with the one found in vadmin2\source\hardtofindperl\iprocess\modifiediprocess.pm
+
+
+9. RegSvr32 the DirWatcherATL.dll in the vadmin2\source\dirwatcher\
+
+
+
+8. test all the executibles (requires a valid VA2 repository for many components..)
+
+
+10. Modify if necessary (will be for perlsvc calls) the vadmin2\source\make\client\makelma.bat file, run it.  should produce
+new .exe's according to the bat if perlapp is in place etc.
+
+11. Modify C:\vadmin2\source\make\server\bin\makecentralservice.bat,run.
+
+Known ok errors for perlapp calls:
+Convert/EBCDIC.pm:
+        error: Can't locate Convert/EBCDIC.pm
+        refby: C:/Perl/site/lib/Net/Cmd.pm
+Authen/NTLM.pm:
+        error: Can't locate Authen/NTLM.pm
+        refby: C:/Perl/site/lib/LWP/Authen/Ntlm.pm
+SetDualVar.pm:
+        error: Can't locate SetDualVar.pm
+        refby: C:/Perl/site/lib/Win32/TieRegistry.pm
+
+
+
+VB install
+
+1.	Install VB6
+2.	Install service pack 5 for vb 6 found at: http://msdn.microsoft.com/vstudio/downloads/updates/sp/vs6/sp5/sp5_vb_en.aspx
+3.	Install SDK: http://www.microsoft.com/downloads/details.aspx?FamilyId=A55B6B43-E24F-4EA3-A93E-40C0EC4F68E5&displaylang=en (this contains the snapin MMC for VB)
+4.	Follow the following instructions for installing the snapin designer for VB: http://msdn.microsoft.com/library/default.asp?url=/library/en-us/mmc/mmc/vb_mmc_snap_in_designer_for_visual_basic.asp
+
+From MS install notes:
+Note  If the New Project dialog doesn't present a SnapIn project, then copy the files located in your C:\Program Files\Microsoft Platform SDK\Samples\SysMgmt\MMC\Visual Basic\Template\ directory to your C:\Program Files\Microsoft Visual Studio\VB98\Template\Projects\ directory. Additionally, for the snap-in designer to run properly, you must register the mmcproxy.dll, mssnapd.ocx, and mssnapr.dll files. These files are in the C:\Program Files\Microsoft Platform SDK\bin folder, and they can be registered by using the regsvr32 command. Substitute equivalent paths if your installation of the Platform SDK or Visual Basic did not use the paths listed here.
+
+
+5.	After installing the snapin designer, do a regsvr32 on mmcproxy.dll, mssnapr.dll, msnapd.ocx
+6.	Once these are installed, the source project listed at:  \vadmin2\vbgui\VadminUI.vbp should be open-able.  an error saying that it can not open the snapin control means that steps 1-5 were not performed correctly.
+
+7.  Install ProEssentials (graphing components):
+-\vadmin2\thirdparty\proessentials v3\disk1\setup.exe
+
+
+Other installs:
+1. visual CHM (help manual maker)
+-\vadmin2\thirdparty\visualCHM
+
+2. InstallerGD (install package maker)
+-\vadmin2\thirdparty\installerGD
+
+3. DDS Install:
+\vadmin\thridparty\dds
+-license for unzip is included in text file
+
+
+DB Install:
+
+Install MSQL 2000 eval version - or SQL Server 2000 version if availible
+
+
+
+
+
+
+

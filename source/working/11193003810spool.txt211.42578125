@@ -1,0 +1,10 @@
+﻿
+srvrmgr:IBMT42> list tasks for IBMT42
+
+
+list tasks for IBMT42
+SBL-ADM-01018: Specified task does not exist
+
+srvrmgr:IBMT42> 
+
+srvrmgr:IBMT42> spool off

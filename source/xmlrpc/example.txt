@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<methodCall>
+<methodName>errorinsert</methodName>
+<params>
+<param><value><string></string></value></param>
+<param><value><string></string></value></param>
+<param><value><string>LOW DISK SPACE ON C: -  Percentage free = 0.068728086902913
+</string></value></param>
+<param><value><i4>0</i4></value></param>
+<param><value><string>DiskSpaceLow</string></value></param>
+<param><value><string>K6Z7E4</string></value></param>
+<param><value><string>7/18/2003 18:56:6</string></value></param>
+<param><value><i4>4</i4></value></param>
+<param><value><string></string></value></param>
+<param><value><string></string></value></param>
+<param><value><i4>1</i4></value></param>
+</params>
+</methodCall>
+
+$sft_elmnt_id,$server,$event_string,$usr_event_level,$usr_event_type,$usr_event_sub_type,$event_time,$error_defs_id,$cc_alias,$host,$analysis_rule_id

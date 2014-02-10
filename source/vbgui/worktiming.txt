@@ -1,0 +1,65 @@
+8:40
+changed root name of node to nd_reaction_root
+addded new other node, nd_reaction
+
+8:53 
+added code on scopeitems_expand to call fill_reactions
+defined fill_reactions sub to query db and fill the nodes for reactions
+
+9:12
+had breakfast, created ppg_reaction
+
+
+9:26
+add to views_addtopmenuitems - cases for root and reaction
+add to views_createpropertypages -cases for root and reaction
+tested popup, it works.
+
+
+9:41
+working on edit code, started break for pt
+9:51 finished break
+
+10:56
+edit does not work for editing with quotes -looking for a solution
+
+11:45
+took hour off to talk to moreover
+
+12:05
+may have found solution to quote probelm!
+
+12:16
+added refresh code in views_refresh and scopeitem_property changed to refresh the veiws
+
+1:50
+added translation code for reaction types to text
+added host picklist
+
+2:13 finished ability to add reactions
+
+next steps:
+add communication servers
+add administrators
+add schedules
+add analysis rules
+add statistics
+
+add ability to add: 
+reactions to notification rules
+error defs to components (and applications?)
+
+
+2:15
+4:18 - break
+
+4:33
+created root and child nodes
+4:43
+added scopeitem expand and fillcomunications sub
+
+6:13
+finished comserver testing for add,edit, refresh
+
+8:09
+added adminstrator node, subnode, edit code

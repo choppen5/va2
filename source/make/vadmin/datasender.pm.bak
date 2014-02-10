@@ -1,0 +1,31 @@
+package vadmin::datasender;
+
+use strict;
+use IO::Socket;
+use constant MAX_MSG_LEN  => 5000;
+my $msg_in;
+
+sub new {
+	my $class = shift;
+	my $self = {
+				DESTHOST => shift,
+				DESTPORT => shift,
+				SOCKET => undef
+				
+	};
+
+	$self->{SOCKET}= IO::Socket::INET->new(Proto=>'udp',PeerAddr=>"$self->{DESTHOST}:$self->{DESTPORT}")or warn $@;
+
+	bless($self);
+	return $self;
+}
+
+
+sub sendchange {
+	my $self = shift;
+	
+	$sock->{SOCKET}->send("DATACHANGE")                  or warn "send() failed: $!";
+	$sock = undef;
+}
+
+1;

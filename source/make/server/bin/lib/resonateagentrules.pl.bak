@@ -1,0 +1,42 @@
+package resonateagentrules;
+use siebsrvobj;
+use sqlanalyze;
+
+# take in enterprise name to start
+#1. appserver -> ip map - take in a hash of ip addresses to appservernames combo
+
+#methods
+
+#2. return total number of rules 
+#3. return total number of rules per ip/appserver
+#4. return total number of rules per component
+#5. return number of mts processes per component(pass in appserver name and component name)
+#6. compare resonate rules from appserver component to resonate ip component
+#7. take ip map, list of components, compare list of components to ip map
+
+sub newobj { 
+	
+	my $class = shift;
+	my $self = {
+		DATASESSION => shift,
+		DEBUG => shift,
+		GATEWAY => shift
+	}; 
+	# return the resonate id for the gateway - there should only be one resonate per gateway (and only one gateway per host
+	my $sql = "select t1.sft_elmnt_id \"sft_elmnt_id\" from sft_elmnt t1, sft_elmnt t2 where t1.parent_elmnt_id = t2.sft_elmnt_id and  t2.type = 'gateway' and t1.type = 'resonate'";
+	my $self{RESONATEID} = sqlanalyze->returnsinglevalue($self->{DATASESSION},$self->{DEBUG},$sql,"sft_elmnt_id");
+	print "resonateid  = $self{RESONATEID} \n";
+	bless($self);
+	return $self;		
+}
+
+sub totalrules {
+	my $self = shift;
+	my $resonateid = $self->{RESONATEID};
+
+	my $sql = "select count(*) \"count\" from resonate_ar where sft_elmnt_id = '$resonateid'";  
+	my $rulecount = sqlanalyze->sqlcount($self->{DATASESSION},$self->{DEBUG},$sql);
+
+	return $rulecount;
+
+}

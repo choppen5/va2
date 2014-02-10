@@ -1,0 +1,36 @@
+#Virtual Administrator LSM Config file
+
+##################################################################################################
+# Adjust the CENTRALSERVER and CCPORT to point to the installed Central Server
+
+
+CENTRALSERVER = 127.0.0.1   #MAKE SURE TO CHANGE THIS PARAMETER TO the Central Server host name or static IP address
+CCPORT = 14400
+VSRVRMGRPORT = 7004
+VLSMPORT = 15400
+DBTYPE = MSSQL
+TASKSYNC = 1
+STARTPAUSE = 5
+RESTARTPAUSE = 30
+DEBUG = 1
+GROWTHWAIT = 10
+SIEBELCOMPTIMEOUT = 30
+SIEBELCOMPGROWTHTIME = 2
+SIEBELTASKTIMEOUT = 90
+SIEBELTASKGROWTHTIME = 3
+COLLECTSIEBELSESSION = TRUE
+SIEBELSESSIONTIMEOUT = 90
+SIEBELSESSIONGROWTHTIME = 3
+
+
+#7004
+#DBTYPE VALUES - MSSQL,ORACLE,DB2,MYSQL
+
+###############################################################
+#ODBC Settings - Make sure the ODBC Connection to the VA2 database
+# is present on the machine, and that it is a system ODBC dtasource
+
+VODBC = VADMIN21
+USERNAME = sa
+PASSWORD = sa
+

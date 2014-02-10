@@ -1,0 +1,7 @@
+log
+MSG:RESTART WATCHER:EOM
+
+test
+test3
+test4
+test5

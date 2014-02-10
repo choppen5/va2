@@ -1,0 +1,104 @@
+[Root]
+Most Recent Package=Standard Setup Package 1
+
+
+[Package|Standard Setup Package 1|Root]
+SubWizProgID=PDWizard.SetupPkgSubWiz
+BuildFolder=D:\installer\vadminUI
+Controls Design-Time Support=Yes
+
+[Package|Standard Setup Package 1|Configure DAO ISAMs]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure DAO ODBC]
+JetWorkspace=
+ODBCDirect=
+
+[Package|Standard Setup Package 1|Files Found]
+
+[Package|Standard Setup Package 1|Files Released]
+
+[Package|Standard Setup Package 1|Missing Dependency Information]
+C:\Program Files\Microsoft Visual Studio\Common\Tools\APE\ODBCTOOL.DLL=
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=
+C:\WINDOWS\SYSTEM32\ws2_32.dll=
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=
+
+[Package|Standard Setup Package 1|Out-of-Date Dependency Information]
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=
+
+[Package|Standard Setup Package 1|Files Added]
+c:\windows\system32\msstkprp.dll=This file is needed for usercontrol design-time support.
+
+[Package|Standard Setup Package 1|Files Removed]
+
+[Package|Standard Setup Package 1|Files In Project]
+D:\vb\vadmin\SnapIn.dll=Yes
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=Yes
+C:\WINDOWS\SYSTEM32\oleaut32.dll=Yes
+C:\WINDOWS\SYSTEM32\olepro32.dll=Yes
+C:\WINDOWS\SYSTEM32\asycfilt.dll=Yes
+C:\WINDOWS\SYSTEM32\stdole2.tlb=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=Yes
+C:\WINDOWS\SYSTEM32\ws2_32.dll=Yes
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=Yes
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=Yes
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=Yes
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=Yes
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=Yes
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=Yes
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=Yes
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=Yes
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=Yes
+
+[Package|Standard Setup Package 1|Configure Registry Files]
+Applicable=No
+
+[Package|Standard Setup Package 1|Configure Remote Servers]
+Applicable=No
+
+[Package|Standard Setup Package 1|Install Locations]
+D:\vb\vadmin\SnapIn.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\msvbvm60.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\oleaut32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\olepro32.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\asycfilt.dll=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\stdole2.tlb=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\Redist\COMCAT.DLL=$(WinSysPathSysFile)
+C:\WINDOWS\SYSTEM32\ws2_32.dll=$(WinSysPath)
+D:\Program Files\Microsoft SDK\Bin\mssnapr.dll=$(CommonFiles)\Microsoft Shared\SnapInDesigner
+C:\Program Files\Common Files\SYSTEM\ADO\msado21.tlb=$(WinSysPath)
+C:\Program Files\Microsoft Visual Studio\Common\Tools\APE\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\Pesgo32a.ocx=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\PEGRP32a.dll=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP.EXE=$(AppPath)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\SETUP1.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\VB6STKIT.DLL=$(WinSysPathSysFile)
+C:\Program Files\Microsoft Visual Studio\VB98\Wizards\PDWizard\ST6UNST.EXE=$(WinPath)
+C:\WINDOWS\SYSTEM32\MSSTKPRP.DLL=$(WinSysPath)
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=$(AppPath)
+C:\WINDOWS\SYSTEM32\ODBCTOOL.DLL=$(WinSysPath)
+C:\WINDOWS\SYSTEM32\MSSTDFMT.DLL=$(WinSysPath)
+
+[Package|Standard Setup Package 1|Configure Shared Files]
+Applicable=Yes
+D:\vb\vadmin\SnapIn.dll=No
+C:\Program Files\Common Files\Microsoft Shared\SnapInDesigner\mssnapr.dll=No
+
+[Package|Standard Setup Package 1|Distribution]
+Type=single
+Size=
+Title=VadminUI
+
+[Package|Standard Setup Package 1|Package]
+PackageFolder=D:\installer\vadminUI
+ProjectFolder=D:\vb\vadmin
+ServerSideCab=
+File1=D:\installer\vadminUI\setup.exe
+File2=D:\installer\vadminUI\Setup.Lst
+File3=D:\installer\vadminUI\SnapIn.CAB
+Handler1=PDWizard.FolderDplySubWiz
+Handler2=PDWizard.WebPostDplySubWiz

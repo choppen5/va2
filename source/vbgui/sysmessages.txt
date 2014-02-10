@@ -1,0 +1,22 @@
+known system variables:
+
+
+
+1.Execution interval - determines collection interval for srvrmgr,pids,vsar interval updater
+
+2.Purge event options:
+
+- purge all processed events(this should be moved per notification rule)
+- purge processed events > x numbers
+
+3. Purge (archive??) statistics
+- purge stastics > records
+- purge statistcs > time
+
+4.
+- Warn on unprocessed events =  1 or 10 
+
+Registry Values:
+ODBC
+Username
+Password

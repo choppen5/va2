@@ -1,0 +1,2 @@
+insert into notification_rule (note_rule_id,name, message,notify_all,active,type,ev_event_sub_type,ev_event_level,ev_event_string) values (3,'Siebel Proc Exited with Error!','Siebel Process exited with Error','N','Y','Process exited with error','','','')
+/

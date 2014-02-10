@@ -1,0 +1,34 @@
+Define default nodes, other nodes for each view?
+
+change components to display nodes - under nodes attach analysis rules
+
+add menu items:add, modify, objects
+add statisics ocx's
+
+wizards for creating analyis rules from WMI data
+
+hosts
+reactions
+analysis_rules
+reaction groups
+errordefinitions
+notification rules
+reactions
+communiction servers
+administrators
+schedules
+analyisrules
+statistics
+
+
+
+Define class functions to retrieve data per node
+
+figure out how to dynamically add a node, pre defined node I guess, fill the node with data
+
+Class functions:
+getdata
+
+user abilities:
+add data, including new applications
+add text and into analysis rules

@@ -1,0 +1,124 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgsft_mng_sys 
+   Caption         =   "Managed Software System"
+   ClientHeight    =   1530
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4950
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   1530
+   ScaleWidth      =   4950
+   Begin VB.TextBox txtsoftmngsys 
+      Height          =   285
+      Left            =   2040
+      MaxLength       =   50
+      TabIndex        =   0
+      Top             =   360
+      Width           =   2535
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Software System"
+      Height          =   375
+      Left            =   360
+      TabIndex        =   1
+      Top             =   360
+      Width           =   1335
+   End
+End
+Attribute VB_Name = "ppgsft_mng_sys"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid As Integer
+
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+Dim dataset As New adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+
+action = dobj.splitval(Data, "~", 1)
+
+
+'Call dobj.setconstring("SMonitorODBC", "sa")
+
+
+
+If action = "ACTION_EDIT" Or action = "ACTION_DELETE" Then
+            pid = dobj.splitval(Data, "~", 2)
+            Set dataset = dobj.returndataset("select * from sft_mng_sys where sft_mng_sys_id = " & pid)
+            With PropertyPage
+                .txtsoftmngsys.Text = Trim(dataset("name").value)
+            End With
+End If
+
+
+'PropertyPage.lbldisplay.Caption = "test"
+
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+Dim newsys As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+
+Set dobj = New vaDataAccess
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+
+
+Select Case action
+    Case "ACTION_ADD"
+            Call dobj.addsys(PropertyPage.txtsoftmngsys.Text)
+    Case "ACTION_EDIT"
+            Call dobj.editsys(pid, PropertyPage.txtsoftmngsys.Text)
+    Case "ACTION_DELETE"
+            Call dobj.del_child_sft_mng_sys(pid)
+End Select
+            
+            
+        
+m_bolChangesApplied = True
+
+With PropertyPage
+Call m_ScopeItem.PropertyChanged(PropertyPage.txtsoftmngsys.Text)
+End With
+        
+
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+Set m_ScopeItem = SelectedControls(0)
+
+End Sub

@@ -1,0 +1,314 @@
+VERSION 5.00
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Begin VB.PropertyPage ppgreaction 
+   Caption         =   "Reaction"
+   ClientHeight    =   5625
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   8955
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   5625
+   ScaleWidth      =   8955
+   Begin RichTextLib.RichTextBox txtrule_def 
+      Height          =   3255
+      Left            =   480
+      TabIndex        =   11
+      Top             =   1320
+      Width           =   8055
+      _ExtentX        =   14208
+      _ExtentY        =   5741
+      _Version        =   393217
+      TextRTF         =   $"ppgreaction.pgx":0000
+   End
+   Begin VB.ComboBox cmbsv_name 
+      Height          =   315
+      Left            =   5160
+      TabIndex        =   10
+      Top             =   840
+      Width           =   1695
+   End
+   Begin VB.ComboBox cmbhost 
+      Height          =   315
+      Left            =   5160
+      TabIndex        =   7
+      Top             =   240
+      Width           =   1695
+   End
+   Begin VB.TextBox txterror 
+      Height          =   495
+      Left            =   480
+      MultiLine       =   -1  'True
+      TabIndex        =   6
+      Top             =   4800
+      Width           =   8055
+   End
+   Begin VB.ComboBox cmbType 
+      Height          =   315
+      ItemData        =   "ppgreaction.pgx":0084
+      Left            =   1920
+      List            =   "ppgreaction.pgx":0086
+      TabIndex        =   3
+      Top             =   840
+      Width           =   1815
+   End
+   Begin VB.CheckBox chkActive 
+      Caption         =   "Active"
+      Height          =   255
+      Left            =   7320
+      TabIndex        =   2
+      Top             =   240
+      Width           =   1215
+   End
+   Begin VB.TextBox txtname 
+      Height          =   285
+      Left            =   1920
+      MaxLength       =   20
+      TabIndex        =   0
+      Top             =   240
+      Width           =   1815
+   End
+   Begin VB.Label S 
+      Caption         =   "Siebel Server"
+      Height          =   255
+      Left            =   3960
+      TabIndex        =   9
+      Top             =   840
+      Width           =   975
+   End
+   Begin VB.Label lblHost 
+      Caption         =   "Host"
+      Height          =   255
+      Left            =   3960
+      TabIndex        =   8
+      Top             =   240
+      Width           =   1095
+   End
+   Begin VB.Label lblError 
+      Caption         =   "Error"
+      Height          =   255
+      Left            =   480
+      TabIndex        =   5
+      Top             =   4560
+      Width           =   975
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Type"
+      Height          =   255
+      Left            =   600
+      TabIndex        =   4
+      Top             =   840
+      Width           =   975
+   End
+   Begin VB.Label lblName 
+      Caption         =   "Name"
+      Height          =   255
+      Left            =   600
+      TabIndex        =   1
+      Top             =   240
+      Width           =   975
+   End
+End
+Attribute VB_Name = "ppgreaction"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+Dim dataset As ADODB.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+Dim active As String
+Dim rtype As String
+
+
+With PropertyPage
+    .cmbType.AddItem "Perl"
+    .cmbType.AddItem "Bat"
+    .cmbType.AddItem "Siebel"
+End With
+
+
+Set dataset = dobj.returndataset("select * from host")
+Dim i As Integer
+           If Not (dataset Is Nothing) Then
+                If Not (dataset.BOF And dataset.EOF) Then
+                    dataset.MoveFirst
+                    
+                    Do While Not dataset.EOF
+                        PropertyPage.cmbhost.AddItem dataset("hostname").value, i
+                        i = i + 1
+                        dataset.MoveNext
+                    Loop
+                End If
+            End If
+
+
+Set dataset = dobj.returndataset("select name from sft_elmnt where type = 'appserver'")
+i = 0
+           If Not (dataset Is Nothing) Then
+                If Not (dataset.BOF And dataset.EOF) Then
+                    dataset.MoveFirst
+                    
+                    Do While Not dataset.EOF
+                        PropertyPage.cmbsv_name.AddItem dataset("name").value, i
+                        i = i + 1
+                        dataset.MoveNext
+                    Loop
+                End If
+            End If
+
+action = dobj.splitval(Data, "~", 1)
+pid = dobj.splitval(Data, "~", 2)
+
+
+Debug.Print "Property Page Action Recieved=  " & action
+
+If action = "ACTION_EDIT" Or action = "ACTION_DELETE" Then
+            pid = dobj.splitval(Data, "~", 2)
+            Set dataset = dobj.returndataset("select * from reaction where reaction_id = " & pid)
+            
+            active = dataset("active").value & ""
+            rtype = Trim(dataset("type").value & "")
+            
+            
+            
+            With PropertyPage
+                .txtName = Trim(dataset("name").value & "")
+                .txterror = Trim(dataset("error").value) & ""
+                .txtrule_def = Trim(dataset("rule_def").value) & ""
+                .cmbhost.Text = Trim(dataset("host_specific").value) & ""
+                .cmbsv_name.Text = Trim(dataset("sv_name").value & "")
+                
+                
+                If (active = "Y") Then
+                    Debug.Print "true"
+                    PropertyPage.chkActive.value = 1
+                Else
+                    Debug.Print "false"
+                End If
+                
+                Debug.Print "rtype = " & rtype
+                Select Case rtype
+                    Case "2"
+                        .cmbType.Text = "Perl"
+                    Case "4"
+                        .cmbType.Text = "Bat"
+                    Case "3"
+                        .cmbType.Text = "Siebel"
+                End Select
+
+                
+                
+            End With
+End If
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+Private Sub PropertyPage_ApplyChanges()
+Dim newsys As ADODB.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim active As String
+Dim rtype As String
+Dim rule_def As String
+Dim ErrorText As String
+
+
+Set dobj = New vaDataAccess
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+    
+    If (PropertyPage.chkActive.value = 1) Then
+        Debug.Print "true"
+        active = "Y"
+    Else
+        active = "N"
+    End If
+  
+  
+      
+    Select Case PropertyPage.cmbType.Text
+        Case "Perl"
+            rtype = "2"
+        Case "Bat"
+            rtype = "4"
+        Case "Siebel"
+            rtype = "3"
+    End Select
+
+    rule_def = dobj.padQuotes(PropertyPage.txtrule_def.Text)
+
+Select Case action
+    Case "ACTION_ADD"
+            
+            With PropertyPage
+               Call dobj.add_reaction(.txtName.Text, rtype, rule_def, .cmbhost.Text, active, .cmbsv_name.Text, .txterror.Text)
+            End With
+
+
+    Case "ACTION_EDIT"
+            With PropertyPage
+                ErrorText = dobj.padQuotes(.txterror.Text)
+            
+                dobj.returndataset ("update reaction set name = '" & .txtName.Text _
+                & "', rule_def = '" & rule_def _
+                & "', active = '" & active _
+                & "', type = '" & rtype _
+                & "', host_specific = '" & .cmbhost.Text _
+                & "', sv_name = '" & .cmbsv_name.Text _
+                & "', error = '" & ErrorText _
+                & "' where reaction_id = " & pid)
+            End With
+    
+    Case "ACTION_DELETE"
+                
+            dobj.returndataset ("delete from notification_reaction where reaction_id = " & pid)
+            dobj.returndataset ("delete from reaction where reaction_id = " & pid)
+                
+
+End Select
+
+m_bolChangesApplied = True
+
+With PropertyPage
+Call m_ScopeItem.PropertyChanged(.txtName.Text & "~!~")
+End With
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+Set m_ScopeItem = SelectedControls(0)
+
+End Sub
+
+
+

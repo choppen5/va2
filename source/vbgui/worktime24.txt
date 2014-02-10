@@ -1,0 +1,10 @@
+Added menu to snapin, gave name
+added code on menu click
+added code on views_createpropertypage to launch property page
+created template ppg from previous add remove
+add new template ppg, changed name to ppgnotification_reaction
+
+5:45
+
+changed the code in ppgnote...initilize.  should select intersection records, untested
+5:53

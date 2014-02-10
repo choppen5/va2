@@ -1,0 +1,85 @@
+<xml xmlns:s='uuid:BDC6E3F0-6DA3-11d1-A2A3-00AA00C14882'
+	xmlns:dt='uuid:C2F41010-65B3-11d1-A29F-00AA00C14882'
+	xmlns:rs='urn:schemas-microsoft-com:rowset'
+	xmlns:z='#RowsetSchema'>
+<s:Schema id='RowsetSchema'>
+	<s:ElementType name='row' content='eltOnly'>
+		<s:AttributeType name='collector_id' rs:number='1' rs:writeunknown='true'>
+			<s:datatype dt:type='int' dt:maxLength='4' rs:precision='10' rs:fixedlength='true' rs:maybenull='false'/>
+		</s:AttributeType>
+		<s:AttributeType name='type' rs:number='2' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='10' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='rule_def' rs:number='3' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='4000'/>
+		</s:AttributeType>
+		<s:AttributeType name='error' rs:number='4' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='254' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='name' rs:number='5' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='100' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='odbc' rs:number='6' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='50' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='active' rs:number='7' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='1' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='sft_elmnt_id' rs:number='8' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='int' dt:maxLength='4' rs:precision='10' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='host_id' rs:number='9' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='int' dt:maxLength='4' rs:precision='10' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='description' rs:number='10' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='string' rs:dbtype='str' dt:maxLength='100' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:AttributeType name='execution_interval' rs:number='11' rs:nullable='true' rs:writeunknown='true'>
+			<s:datatype dt:type='int' dt:maxLength='4' rs:precision='10' rs:fixedlength='true'/>
+		</s:AttributeType>
+		<s:extends type='rs:rowbase'/>
+	</s:ElementType>
+</s:Schema>
+<rs:data>
+	<z:row collector_id='4' type='Perl      ' rule_def='
+my $WMIServices = Win32::OLE-&#x3e;GetObject( &#x22;winmgmts:{impersonationLevel=impersonate,(security)}//.&#x22; ) || die;
+
+my $computerobj = $WMIServices-&#x3e;ExecQuery (&#x22;Select  LastBootUpTime from Win32_OperatingSystem&#x22;);
+
+foreach  my $key (in ($computerobj)) {
+	
+	print &#x22;$key-&#x3e;{LastBootUpTime}\n&#x22;;
+	ConvWMITime($key-&#x3e;{LastBootUpTime});
+
+}
+
+
+sub ConvWMITime {
+	my $wmiTime = shift;
+
+	my $yr = substr($wmiTime,0,4);
+	my $mo = substr($wmiTime,4,2);
+	my $dy = substr($wmiTime,6,2);
+	my $hr = substr($wmiTime,8,2);
+	my $mn = substr($wmiTime,10,2);
+	my $sec = substr($wmiTime,12,2);
+
+	print &#x22;year = $yr, $mo, $dy $hr:$mn:$sec&#x22;;
+
+my   ($gsec,$gmin,$ghour,$gmday,$gmon,$gyear) = gmtime;
+
+	print &#x22;year = $gyear\n&#x22;; 
+	$gyear= $gyear + 1900;
+	$gmon = $gmon + 1;
+
+ 	my ($dd,$dh,$dm,$ds) = Date::Calc::Delta_DHMS(  $yr,$mo,$dy,$hr,$mn,$sec,  $gyear,$gmon,$gmday,$ghour,$gmin,$gsec);
+
+	print &#x22;date difference:\ndays diff = $dd\nhoursiff = $dh\nminsdiff = $dm\nsecs diff = $ds\n&#x22;; 
+$retval = $dh;
+}'
+		 error='                                                                                                                                                                                                                                                              '
+		 name='WMI Uptime                                                                                          ' active='N'
+		 description='Wrong Number hours that Central Server has been running -via WMI                                    '
+		 execution_interval='1'/>
+</rs:data>
+</xml>

@@ -1,0 +1,85 @@
+program timings:
+8:00 - 11:20
+finished schedule addition
+started and finished analysis rule creation
+started and finished (- improvements) collector node creation
+
+Priority list:
+X-make sure that the current code base is useable
+X-add statistic OCX to view statistics
+X-add description edit ability on statistics
+X- Clean up sft_error_defs interface - use sft_error_defs for event creation
+X- add delete to nodes	
+- add Many to Many relationships:
+
+sft_error_defs to sft_elmnt
+X- sft_error_defs to components
+X- reaction to notification_rule
+X -Communication_server to administrators
+
+- add M to 1 relationships:
+X administrators to schedules (may need to add schedules to administrators) 
+X sft_error_defs to analysis_rule (create m to m) (fix the evalrunner to handle this)
+X-add the ability to choose a service in the sft_elmnt_dialog
+X-add the ability to choose a host in the sft_elmnt dialog
+X-add description to statistic object
+
+WEEK 1 (ENDING JUNE 4)
+-add folder objects for sub elements
+-add sub type to the error_insert xml procedure
+-add sft_elemnt_id to the error_def ppg... (add the id id or the name?)
+-add node for events, menu options for clearing events
+-organize then add system variables - time interval
+-add schema object and gui objects for datasources
+-allow adjustment of collector/analysis_rule timeout values (lots of backend work for this)
+-show audit trail of notifications/reactions fired
+-add components that represent vadmin components and status
+-add registry items for connections - including the datasource used by the snapin
+-add XML import features
+
+
+WEEK 2 (ENDING JUNE 11)
+-add host to statistic?
+-standardize per node what values are shown in the list view -is it every column? (probably)
+-add property pages for sft_elmnts sub components
+-create wizards for the following actions 
+-Startup wizard: adds hosts, administrators, schedules,
+-create setup test - send a test communication to adminsitrator
+-create wizard to make statistics out of WMI objects??
+-create wizard to make analysis rules out of statistics
+-create wizard for importing analisys rules and collectors
+-add perl debuger - will run and check a statistic/analysis rule on command.(spawn a shell comand for this??)
+-show a view of hosts that shows sft_elmnts per host
+-show a view of hosts that shows statistics per host
+-show events per sft_elmnt/host
+
+
+WEEK 3 (ENDING JUNE 18) (I can walk agian!!)
+Backend: 
+-use sft_error_defs for analysis rule insertion (week1)
+-allow any application/service to be monitored/logs (whoa!! huge scope creep here...)
+-add audit of execution time for analysis rules (week 1 freature)
+-create a statistic->events module (used by week 2 wizard)
+-configure all sorts of usefull Analysis Rules and statistics (ongoing)
+-Begin Siebel 7 Conversion/testing (this is a week of work alone)
+
+WEEK 4 (Ending JUNE 25th)
+-Finsh Siebel 7 conversion
+-Do install tests and porting on MYSQL and Oracle DB's
+-Create install packages and test Packages
+-write documentation
+
+Week 5
+-Do test installs and support (Workshare, Kevin?)
+
+
+-Add barking spider command
+-make backend bigger and squishier
+
+241156
+
+-give your favorite person a besito
+-more besitos
+-and one more
+-*smmooooochy* for the smartest, most hardest working gimpy i know. 
+

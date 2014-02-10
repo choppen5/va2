@@ -1,0 +1,7 @@
+
+
+$remainder = 10800 % 7;
+print $remainder;
+
+
+

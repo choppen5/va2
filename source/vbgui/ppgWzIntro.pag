@@ -1,0 +1,115 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgWzIntro 
+   Caption         =   "VA2 Setup Wizard"
+   ClientHeight    =   3180
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   6420
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3180
+   ScaleWidth      =   6420
+   Begin VB.TextBox Text1 
+      Appearance      =   0  'Flat
+      BackColor       =   &H8000000A&
+      BorderStyle     =   0  'None
+      Height          =   1170
+      Left            =   120
+      MultiLine       =   -1  'True
+      TabIndex        =   1
+      TabStop         =   0   'False
+      Text            =   "ppgWzIntro.pgx":0000
+      Top             =   3210
+      Visible         =   0   'False
+      Width           =   6795
+   End
+   Begin VB.Label Label7 
+      Caption         =   "-"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   8
+      Top             =   1650
+      Width           =   165
+   End
+   Begin VB.Label Label4 
+      Caption         =   "An email address, for the administrator who will receive alerts"
+      Height          =   315
+      Left            =   420
+      TabIndex        =   7
+      Top             =   1650
+      Width           =   5985
+   End
+   Begin VB.Label Label6 
+      Caption         =   "-"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   6
+      Top             =   1140
+      Width           =   165
+   End
+   Begin VB.Label Label5 
+      Caption         =   "-"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   5
+      Top             =   810
+      Width           =   165
+   End
+   Begin VB.Label Label3 
+      Caption         =   "does your smtp require a username/authentication?  If so, what is the username and password"
+      Height          =   465
+      Left            =   420
+      TabIndex        =   4
+      Top             =   1140
+      Width           =   5985
+   End
+   Begin VB.Label Label2 
+      Caption         =   "you will need the address of your SMTP server (for example smtp.mail.yahoo.com)"
+      Height          =   285
+      Left            =   420
+      TabIndex        =   3
+      Top             =   810
+      Width           =   5865
+   End
+   Begin VB.Label Label1 
+      Caption         =   "If you have all the required information, continue, otherwise cancel"
+      Height          =   360
+      Left            =   240
+      TabIndex        =   2
+      Top             =   2400
+      Width           =   5100
+   End
+   Begin VB.Label lblSubTitle 
+      Caption         =   "What you will need for this wizard:"
+      Height          =   300
+      Left            =   240
+      TabIndex        =   0
+      Top             =   270
+      Width           =   3915
+   End
+End
+Attribute VB_Name = "ppgWzIntro"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Implements IWizardPage
+
+Private Sub IWizardPage_Activate(EnableBack As Boolean, NextOrFinish As SnapInLib.WizardPageButtonConstants, FinishText As String)
+    EnableBack = False
+    NextOrFinish = EnabledNextButton
+End Sub
+
+Private Sub IWizardPage_Back(NextPage As Long)
+
+End Sub
+
+Private Sub IWizardPage_Finish(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Next(NextPage As Long)
+
+End Sub
+

@@ -1,0 +1,495 @@
+VERSION 5.00
+Object = "{3B7C8863-D78F-101B-B9B5-04021C009402}#1.2#0"; "RICHTX32.OCX"
+Begin VB.PropertyPage ppgcollector 
+   Caption         =   "Satistic Collector"
+   ClientHeight    =   5550
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   11055
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   5550
+   ScaleWidth      =   11055
+   Begin VB.CheckBox chkNoTimeOut 
+      Caption         =   "No Time Out"
+      Height          =   255
+      Left            =   9240
+      TabIndex        =   13
+      Top             =   840
+      Width           =   1215
+   End
+   Begin RichTextLib.RichTextBox txtrule_def 
+      Height          =   3015
+      Left            =   480
+      TabIndex        =   12
+      Top             =   1320
+      Width           =   10095
+      _ExtentX        =   17806
+      _ExtentY        =   5318
+      _Version        =   393217
+      TextRTF         =   $"ppgcollector.pgx":0000
+   End
+   Begin VB.CommandButton cmddebug 
+      Caption         =   "Launch Debugger"
+      Height          =   255
+      Left            =   6840
+      TabIndex        =   11
+      Top             =   840
+      Width           =   2055
+   End
+   Begin VB.ComboBox cmbex_interval 
+      Height          =   315
+      Left            =   4920
+      Style           =   2  'Dropdown List
+      TabIndex        =   10
+      Top             =   840
+      Width           =   1695
+   End
+   Begin VB.TextBox txtdescription 
+      Height          =   285
+      Left            =   4920
+      MaxLength       =   100
+      TabIndex        =   8
+      Top             =   240
+      Width           =   3975
+   End
+   Begin VB.TextBox txterror 
+      Height          =   615
+      Left            =   480
+      MultiLine       =   -1  'True
+      ScrollBars      =   2  'Vertical
+      TabIndex        =   6
+      Top             =   4680
+      Width           =   10215
+   End
+   Begin VB.ComboBox cmbType 
+      Height          =   315
+      Left            =   1320
+      Style           =   2  'Dropdown List
+      TabIndex        =   3
+      Top             =   840
+      Width           =   1815
+   End
+   Begin VB.CheckBox chkActive 
+      Caption         =   "Active"
+      Height          =   255
+      Left            =   9240
+      TabIndex        =   2
+      Top             =   240
+      Width           =   855
+   End
+   Begin VB.TextBox txtname 
+      Height          =   285
+      Left            =   1320
+      MaxLength       =   100
+      TabIndex        =   0
+      Top             =   240
+      Width           =   1815
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Execution Interval"
+      Height          =   255
+      Left            =   3480
+      TabIndex        =   9
+      Top             =   840
+      Width           =   1335
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Description"
+      Height          =   255
+      Left            =   3480
+      TabIndex        =   7
+      Top             =   240
+      Width           =   975
+   End
+   Begin VB.Label lblError 
+      Caption         =   "Error"
+      Height          =   255
+      Left            =   480
+      TabIndex        =   5
+      Top             =   4320
+      Width           =   975
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Type"
+      Height          =   255
+      Left            =   600
+      TabIndex        =   4
+      Top             =   840
+      Width           =   615
+   End
+   Begin VB.Label lblName 
+      Caption         =   "Name"
+      Height          =   255
+      Left            =   600
+      TabIndex        =   1
+      Top             =   240
+      Width           =   615
+   End
+End
+Attribute VB_Name = "ppgcollector"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid
+Dim addFrom As String
+
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+Private Sub chkActive_Click()
+PropertyPage.txterror = ""
+End Sub
+
+Private Sub cmddebug_Click()
+
+Dim newsys As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim active As String
+Dim sNoTimeOut As String '01/25/2004:Somu Added
+Dim rtype As String
+Dim rule_def As String
+Dim Name As String
+Dim description As String
+Dim ErrorText As String
+
+
+uid = GetRegSetting(HKEY_LOCAL_MACHINE, APPKEY, "UID", "")
+pwd = GetRegSetting(HKEY_LOCAL_MACHINE, APPKEY, "PWD", "")
+dns = GetRegSetting(HKEY_LOCAL_MACHINE, APPKEY, "DNS", "")
+
+' pid = splitval(Selection.ScopeItems(1).key, "~", 1)
+installpath = GetRegSetting(HKEY_LOCAL_MACHINE, APPKEY, "INSTALLPATH", "")
+
+
+    If (PropertyPage.chkActive.Value = 1) Then
+        Debug.Print "true"
+        active = "Y"
+    Else
+        active = "N"
+    End If
+    
+    '01/25/2004:Somu Added
+    If (PropertyPage.chkNoTimeOut.Value = 1) Then
+        Debug.Print "true"
+        sNoTimeOut = "Y"
+    Else
+        sNoTimeOut = "N"
+    End If
+  
+    rule_def = dobj.padQuotes(PropertyPage.txtrule_def.Text)
+    Name = dobj.padQuotes(PropertyPage.txtName.Text)
+    description = dobj.padQuotes(PropertyPage.txtdescription.Text)
+    execution_interval = translate_comboto_interval(PropertyPage.cmbex_interval.Text)
+    
+
+Select Case action
+    Case "ACTION_ADD"
+
+'11/1/2007 wtf? This was commented out and causing major issues. Not sure when why it was commented
+            With PropertyPage
+               pid = dobj.add_collector(Name, .cmbType.Text, rule_def, active, sNoTimeOut, execution_interval, description)
+            End With
+        Dim SftID As Long
+        Dim HostID As Long
+        Dim CompID As Long
+        Dim FolderID As Long
+
+        Select Case addFrom
+        Case "sft"
+            SftID = CLng(pid)
+        Case "host"
+            HostID = CLng(pid)
+        Case "comp"
+            CompID = CLng(pid)
+        Case "folder"
+            FolderID = CLng(pid)
+        End Select
+        
+        With PropertyPage
+           Call dobj.add_collector(Name, .cmbType.Text, rule_def, active, sNoTimeOut, execution_interval, description, FolderID, SftID, HostID, CompID)
+        End With
+
+        action = "ACTION_EDIT"
+
+    Case "ACTION_EDIT"
+
+            With PropertyPage
+                ErrorText = dobj.padQuotes(.txterror.Text)
+                dobj.returndataset ("update collector set name = '" & Name _
+                & "', rule_def = '" & rule_def _
+                & "', active = '" & active _
+                & "', notimeout = '" & sNoTimeOut _
+                & "', type = '" & .cmbType.Text _
+                & "', description = '" & description _
+                & "', execution_interval = " & execution_interval _
+                & ", error = '" & ErrorText _
+                & "' where collector_id = " & pid)
+                '01/25/2004:Somu Added "sNoTimeOut" and modified related code.
+            End With
+            
+End Select
+
+Debug.Print installpath & "\debugger.exe " & Chr(34) & "STAT" & Chr(34) & " " & Chr(34) & pid & Chr(34) & " " & Chr(34) & dns & Chr(34) & " " & Chr(34) & uid & Chr(34) & " " & Chr(34) & pwd & Chr(34)
+
+Debug.Print "installpath: " & installpath
+'replace hardcoded path to relative path
+Shell installpath & "\debugger.exe " & Chr(34) & "STAT" & Chr(34) & " " & Chr(34) & pid & Chr(34) & " " & Chr(34) & dns & Chr(34) & " " & Chr(34) & uid & Chr(34) & " " & Chr(34) & pwd & Chr(34), WindowStyle:=vbNormalFocus
+
+End Sub
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+Dim dataset As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+Dim active As String
+Dim sNoTimeOut As String
+Dim rtype As String
+
+
+With PropertyPage
+
+    .cmbType.AddItem "Perl"
+    
+    .cmbex_interval.AddItem "1 Min", 0
+    .cmbex_interval.AddItem "5 Min", 1
+    .cmbex_interval.AddItem "30 Min", 2
+    .cmbex_interval.AddItem "1 Hour", 3
+    .cmbex_interval.AddItem "4 Hours", 4
+    .cmbex_interval.AddItem "12 Hours", 5
+    .cmbex_interval.AddItem "24 Hours", 6
+    .cmbex_interval.AddItem "1 Week", 7
+    
+End With
+
+
+'action = dobj.splitval(Data, "~", 1)
+'pid = dobj.splitval(Data, "~", 2)
+
+Dim arr
+arr = Split(Data, "~")
+action = arr(0)
+pid = arr(1)
+If UBound(arr) > 1 Then
+    addFrom = arr(2)
+End If
+
+Debug.Print "Property Page Action Recieved=  " & action
+
+Select Case action
+Case "ACTION_EDIT", "ACTION_DELETE"
+    pid = dobj.splitval(Data, "~", 2)
+    Set dataset = dobj.returndataset("select * from collector where collector_id = " & pid)
+    
+    
+     If Not (dataset.BOF And dataset.EOF) Then
+
+  
+        active = dataset("active").Value & ""
+        sNoTimeOut = dataset("notimeout").Value & ""
+        rtype = Trim(dataset("type").Value & "")
+        
+
+                With PropertyPage
+            
+                    .txtName = Trim(dataset("name").Value & "")
+                    .txterror = Trim(dataset("error").Value) & ""
+                    .txtrule_def = Trim(dataset("rule_def").Value) & ""
+                    If Len(Trim(dataset("type").Value)) > 0 Then .cmbType.Text = Trim(dataset("type").Value)
+                    .txtdescription = Trim(dataset("description").Value & "")
+                    
+                    If (active = "Y") Then
+                        Debug.Print "true"
+                        PropertyPage.chkActive.Value = 1
+                    End If
+                    If (sNoTimeOut = "Y") Then
+                        Debug.Print "true"
+                        PropertyPage.chkNoTimeOut.Value = 1
+                    End If
+                    
+                    execution_interval = dataset("execution_interval").Value & ""
+            
+                    .cmbex_interval = translate_interval(execution_interval)
+               End With
+    End If
+End Select
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+Private Sub PropertyPage_ApplyChanges()
+Dim newsys As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim active As String
+Dim sNoTimeOut As String '01/25/2004:Somu Added
+Dim rtype As String
+Dim rule_def As String
+Dim Name As String
+Dim description As String
+Dim ErrorText As String
+
+Set dobj = New vaDataAccess
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+    
+    If (PropertyPage.chkActive.Value = 1) Then
+        Debug.Print "true"
+        active = "Y"
+    Else
+        active = "N"
+    End If
+  
+    '01/25/2004:Somu Added
+    If (PropertyPage.chkNoTimeOut.Value = 1) Then
+        Debug.Print "true"
+        sNoTimeOut = "Y"
+    Else
+        sNoTimeOut = "N"
+    End If
+  
+    rule_def = dobj.padQuotes(PropertyPage.txtrule_def.Text)
+    Name = dobj.padQuotes(PropertyPage.txtName.Text)
+    description = dobj.padQuotes(PropertyPage.txtdescription.Text)
+    execution_interval = translate_comboto_interval(PropertyPage.cmbex_interval.Text)
+    
+
+Select Case action
+    Case "ACTION_ADD"
+
+        Dim SftID As Long
+        Dim HostID As Long
+        Dim CompID As Long
+        Dim FolderID As Long
+        
+        Select Case addFrom
+        Case "sft"
+            SftID = CLng(pid)
+        Case "host"
+            HostID = CLng(pid)
+        Case "comp"
+            CompID = CLng(pid)
+        Case "folder"
+            FolderID = CLng(pid)
+        End Select
+        
+        With PropertyPage
+           Call dobj.add_collector(Name, .cmbType.Text, rule_def, active, sNoTimeOut, execution_interval, description, FolderID, SftID, HostID, CompID)
+        End With
+
+    Case "ACTION_EDIT"
+                        
+            With PropertyPage
+                ErrorText = dobj.padQuotes(.txterror.Text)
+                dobj.returndataset ("update collector set name = '" & Name _
+                & "', rule_def = '" & rule_def _
+                & "', active = '" & active _
+                & "', notimeout = '" & sNoTimeOut _
+                & "', type = '" & .cmbType.Text _
+                & "', description = '" & description _
+                & "', execution_interval = " & execution_interval _
+                & ", error = '" & ErrorText _
+                & "' where collector_id = " & pid)
+                '01/25/2004:Somu Added "sNoTimeOut" and modified related code.
+            End With
+            
+    Case "ACTION_DELETE"
+        dobj.returndataset ("delete from stat_vals where collector_id = " & pid)
+        dobj.returndataset ("delete from collector where collector_id = " & pid)
+
+End Select
+
+m_bolChangesApplied = True
+dobj.add_system_msg ("STATUPD") 'send a system message that an analysis rule has been updated
+
+
+With PropertyPage
+Call m_ScopeItem.PropertyChanged(.txtName.Text & "~!~")
+End With
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+Set m_ScopeItem = SelectedControls(0)
+
+End Sub
+
+Function translate_interval(ByVal dbinterval) As String
+
+Dim retval As String
+Select Case dbinterval
+    Case 1
+        retval = "1 Min"
+    Case 5
+        retval = "5 Min"
+    Case 30
+        retval = "30 Min"
+    Case 60
+        retval = "1 Hour"
+    Case 240
+        retval = "4 Hours"
+    Case 720
+        retval = "12 Hours"
+    Case 1440
+        retval = "24 Hours"
+    Case 10080
+        retval = "1 Week"
+    Case Else
+        retval = "1 Min"
+End Select
+    
+    translate_interval = retval
+    
+End Function
+
+Function translate_comboto_interval(combotext As String) As Integer
+
+Dim retval As Integer
+Select Case combotext
+    Case "1 Min"
+        retval = 1
+    Case "5 Min"
+        retval = 5
+    Case "30 Min"
+        retval = 30
+    Case "1 Hour"
+        retval = 60
+    Case "4 Hours"
+        retval = 240
+    Case "12 Hours"
+        retval = 720
+    Case "24 Hours"
+        retval = 1440
+    Case "1 Week"
+        retval = 10080
+    Case Else
+        retval = 1
+
+End Select
+    translate_comboto_interval = retval
+
+End Function
+

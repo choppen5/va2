@@ -1,0 +1,276 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgWzErReaction 
+   Caption         =   "Reaction Page"
+   ClientHeight    =   2460
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4290
+   LockControls    =   -1  'True
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   2460
+   ScaleWidth      =   4290
+   Begin VB.CommandButton cmdNew 
+      Caption         =   "&Details..."
+      Enabled         =   0   'False
+      Height          =   340
+      Left            =   1440
+      TabIndex        =   5
+      Top             =   1980
+      Width           =   1180
+   End
+   Begin VB.ComboBox cmbReactions 
+      Height          =   315
+      Left            =   1440
+      Style           =   2  'Dropdown List
+      TabIndex        =   2
+      Top             =   1110
+      Width           =   2685
+   End
+   Begin VB.OptionButton optNewReaction 
+      Caption         =   "&Add new Reaction"
+      Height          =   285
+      Left            =   240
+      TabIndex        =   1
+      Top             =   1620
+      Width           =   2505
+   End
+   Begin VB.OptionButton optExistReaction 
+      Caption         =   "&Select existing Reaction"
+      Height          =   255
+      Left            =   240
+      TabIndex        =   0
+      Top             =   780
+      Value           =   -1  'True
+      Width           =   2505
+   End
+   Begin VB.Label lblSubTitle 
+      Caption         =   "Enter Reaction information"
+      Height          =   390
+      Left            =   240
+      TabIndex        =   4
+      Top             =   270
+      Width           =   3720
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Administrator"
+      Height          =   240
+      Left            =   240
+      TabIndex        =   3
+      Top             =   1140
+      Width           =   1185
+   End
+End
+Attribute VB_Name = "ppgWzErReaction"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Implements IWizardPage
+Implements IMMCPropertyPage     'For enable(disable) Back and Next buttons
+
+Private ConfigData As clsEventWzData
+Private PSheet As SnapInLib.MMCPropertySheet
+Private ButtonState As SnapInLib.WizardPageButtonConstants     'Next is disable or enable
+
+Private Sub cmdNew_Click()
+On Error GoTo ErrorHandler
+    Dim fReaction As frmReaction
+    Dim dobj As New VadminUI.vaDataAccess
+    
+    Set fReaction = New frmReaction
+    With fReaction
+        LoadRsToCmb dobj.GetHostsList, .cmbhost
+        LoadRsToCmb dobj.GetSeibelList, .cmbsv_name
+        .cmbsv_name.ListIndex = -1
+        .chkActive.value = Abs(ConfigData.ReactActive)
+        .txterror.Text = ConfigData.ReactError
+        If Len(ConfigData.ReactHost) > 0 Then .cmbhost.Text = ConfigData.ReactHost
+        .txtName.Text = ConfigData.ReactName
+        .txtrule_def.Text = ConfigData.ReactRuleDef
+        If Len(ConfigData.ReactSrv) > 0 Then .cmbsv_name.Text = ConfigData.ReactSrv
+        If ConfigData.ReactType > 0 Then .cmbType.ListIndex = ComboListIndexByItemDate(.cmbType, ConfigData.ReactType)
+        .Show vbModal
+        If .IsOK Then
+            ConfigData.ReactActive = .chkActive.value = 1
+            ConfigData.ReactError = .txterror.Text
+            ConfigData.ReactHost = .cmbhost.Text
+            ConfigData.ReactName = .txtName.Text
+            ConfigData.ReactRuleDef = .txtrule_def.Text
+            ConfigData.ReactSrv = .cmbsv_name.Text
+            If .cmbType.ListIndex < 0 Then ConfigData.ReactType = 0 Else ConfigData.ReactType = .cmbType.ItemData(.cmbType.ListIndex)
+        End If
+    End With
+    SetNext
+
+    Exit Sub
+ErrorHandler:
+    ErrorH 1
+    Exit Sub
+End Sub
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+    Set PSheet = PropertySheet
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Activate(EnableBack As Boolean, NextOrFinish As SnapInLib.WizardPageButtonConstants, FinishText As String)
+    EnableBack = True
+
+#If Debugging Then
+    ButtonState = EnabledNextButton
+#Else
+    ButtonState = IIf(IsNext(), EnabledNextButton, DisabledNextButton) 'NextOrFinish
+#End If
+
+'    SetNext
+    NextOrFinish = ButtonState ' EnabledNextButton
+End Sub
+
+Private Sub IWizardPage_Back(NextPage As Long)
+
+End Sub
+
+Private Sub IWizardPage_Finish(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Next(NextPage As Long)
+
+End Sub
+
+Private Sub optExistReaction_Click()
+    SetReactionStatus True
+End Sub
+
+Private Sub optNewReaction_Click()
+    SetReactionStatus False
+    cmdNew_Click
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+    With ConfigData
+        If optExistReaction.value Then
+            If cmbReactions.ListIndex >= 0 Then
+                .ReactID = cmbReactions.ItemData(cmbReactions.ListIndex)
+            End If
+            .ReactName2 = cmbReactions.Text
+        Else
+            .ReactID = 0
+        End If
+    End With
+End Sub
+
+Private Sub PropertyPage_GotFocus()
+On Error GoTo ErrorHandler
+    Static flagNotFirst As Boolean
+    SetFocusCtrl optExistReaction
+
+    If Not flagNotFirst Then
+        flagNotFirst = True
+        If Not optExistReaction.Enabled Then
+            optNewReaction.value = True
+        End If
+    End If
+
+    Exit Sub
+ErrorHandler:
+    ErrorH 2
+    Exit Sub
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+
+    On Error Resume Next
+    Set ConfigData = SelectedControls(0)
+    If ConfigData Is Nothing Then
+        Set ConfigData = SelectedControls(0).Tag
+    End If
+
+    LoadReactionsList
+
+End Sub
+
+Private Sub SetNext()
+    Dim blnIsNext As Boolean
+
+#If Debugging Then
+    Exit Sub
+#End If
+
+    If PSheet Is Nothing Then
+        Exit Sub
+    End If
+
+    blnIsNext = IsNext()
+    'It is to prevent unnecessary calls of PSheet.SetWizardButtons
+    If blnIsNext And ButtonState = DisabledNextButton Then
+        PSheet.SetWizardButtons True, EnabledNextButton
+        ButtonState = EnabledNextButton
+    ElseIf Not blnIsNext And ButtonState = EnabledNextButton Then
+        PSheet.SetWizardButtons True, DisabledNextButton
+        ButtonState = DisabledNextButton
+    End If
+    
+End Sub
+
+Private Sub LoadReactionsList()
+On Error GoTo ErroroHandler
+    Dim rs As adodb.Recordset
+    Dim dobj As New VadminUI.vaDataAccess
+
+    cmbReactions.Clear
+
+    Set rs = dobj.GetReactionsList()
+    With rs
+        Do Until .EOF
+            cmbReactions.AddItem Trim(!Name & "")
+            cmbReactions.ItemData(cmbReactions.NewIndex) = !reaction_id
+            .MoveNext
+        Loop
+    End With
+    If cmbReactions.ListCount > 0 Then
+        cmbReactions.ListIndex = 0
+    Else
+        optExistReaction.Enabled = False
+'        optNewReaction.value = True
+    End If
+ 
+    Exit Sub
+ErroroHandler:
+    ErrorH 3
+    Exit Sub
+End Sub
+
+Private Sub SetReactionStatus(ByVal IsExistReaction As Boolean)
+    cmbReactions.Enabled = IsExistReaction
+    cmbReactions.BackColor = IIf(IsExistReaction, vbWindowBackground, vbButtonFace)
+    cmdNew.Enabled = Not IsExistReaction
+    SetNext
+End Sub
+
+Private Function IsNext() As Boolean
+    If optExistReaction.value Or Len(ConfigData.ReactName) > 0 Then IsNext = True
+End Function
+
+

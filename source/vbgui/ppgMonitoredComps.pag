@@ -1,0 +1,220 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgMonitoredComps 
+   Caption         =   "Monitored Components"
+   ClientHeight    =   3195
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   4860
+   LockControls    =   -1  'True
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   3195
+   ScaleWidth      =   4860
+   Begin VB.TextBox txtCp_max_tas 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   9
+      Top             =   1590
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCp_num_run 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   7
+      Top             =   1230
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCp_disp_run_state 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   5
+      Top             =   870
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCp_end_time 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   15
+      Top             =   2670
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCp_start_time 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   13
+      Top             =   2310
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCp_actv_mt 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   11
+      Top             =   1950
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCc_name 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   3
+      Top             =   510
+      Width           =   2895
+   End
+   Begin VB.TextBox txtCc_alias 
+      BackColor       =   &H8000000F&
+      Height          =   285
+      Left            =   1815
+      Locked          =   -1  'True
+      MaxLength       =   255
+      TabIndex        =   1
+      Top             =   150
+      Width           =   2895
+   End
+   Begin VB.Label Label6 
+      Caption         =   "Running Tasks"
+      Height          =   255
+      Left            =   135
+      TabIndex        =   6
+      Top             =   1230
+      Width           =   1815
+   End
+   Begin VB.Label Label5 
+      Caption         =   "Component State"
+      Height          =   255
+      Left            =   135
+      TabIndex        =   4
+      Top             =   870
+      Width           =   1815
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Max Tasks"
+      Height          =   375
+      Left            =   135
+      TabIndex        =   8
+      Top             =   1590
+      Width           =   1815
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Start Time"
+      Height          =   255
+      Left            =   135
+      TabIndex        =   12
+      Top             =   2310
+      Width           =   1815
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Running MTS Procs"
+      Height          =   255
+      Left            =   135
+      TabIndex        =   10
+      Top             =   1950
+      Width           =   1815
+   End
+   Begin VB.Label Label4 
+      Caption         =   "End Time"
+      Height          =   375
+      Left            =   135
+      TabIndex        =   14
+      Top             =   2670
+      Width           =   1815
+   End
+   Begin VB.Label Label7 
+      Caption         =   "Component Alias"
+      Height          =   255
+      Left            =   135
+      TabIndex        =   0
+      Top             =   150
+      Width           =   1815
+   End
+   Begin VB.Label Label8 
+      Caption         =   "Component Name"
+      Height          =   375
+      Left            =   135
+      TabIndex        =   2
+      Top             =   510
+      Width           =   1815
+   End
+End
+Attribute VB_Name = "ppgMonitoredComps"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+Implements IMMCPropertyPage
+
+Private action As String
+Private pid As String
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+    Dim dataset As adodb.Recordset
+    Dim initdata As Variant
+    Dim dobj As New vaDataAccess
+
+    initdata = Split(Data, "~")
+    action = initdata(0)
+    pid = initdata(1)
+
+    If action = "ACTION_EDIT" Then
+
+        If Not IsNumeric(pid) Then Exit Sub
+
+        Set dataset = dobj.GetMonitoredComps(CLng(pid))
+        If dataset Is Nothing Then Exit Sub
+
+        With PropertyPage
+            .txtCc_name.Text = (dataset("cc_name").Value)
+            .txtCc_alias.Text = Trim(dataset("cc_alias").Value & "")
+            .txtCp_disp_run_state.Text = (dataset("cp_disp_run_state").Value & "")
+            .txtCp_num_run.Text = Trim(dataset("cp_num_run").Value & "")
+            .txtCp_max_tas.Text = Trim(dataset("cp_max_tas").Value & "")
+            .txtCp_actv_mt.Text = Trim(dataset("cp_actv_mt").Value & "")
+            .txtCp_start_time.Text = Trim(dataset("cp_start_time").Value & "")
+            .txtCp_end_time.Text = Trim(dataset("cp_end_time").Value & "")
+        End With
+
+        dataset.Close
+
+    End If
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+

@@ -1,0 +1,14 @@
+//Charles Oppneheimer
+//should be run for VA2 systems that were installed before 10/26/2004
+
+
+//adds support for collector archiving
+alter table collector add parent_sft_elmnt_id integer,
+    parent_collector_id integer,
+    archive_field   char(1),
+    archive_interval char(1),
+    archive_description char(50)
+
+// adds support for host noping option
+alter table hosts add no_ping char(1)
+

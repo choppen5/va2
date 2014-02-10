@@ -1,0 +1,18 @@
+
+$line = "GenericLog	GenericError	1	0	2007-07-16 22:23:04	(sasess.cpp (597)";
+
+if ($line =~ /GenericError/) {
+	print "matched GenericError!\n";
+}
+
+if ($line =~ /this|sasess/) {
+	print "matched this or sasess!\n";
+}
+
+if ($line =~ /GenericError.*sasess/) {
+	print "matched this AND sasess!\n";
+}
+
+if ($line =~ /\w+.\w+\s/) {
+	print "matched a word then a period .  followed by a word, then a space, ie sasess.cpp \n";
+}

@@ -1,0 +1,382 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgsft_sft_elmnt 
+   Caption         =   "Software Element"
+   ClientHeight    =   6195
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5940
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   6195
+   ScaleWidth      =   5940
+   Begin VB.Frame Frame1 
+      Caption         =   "Service Settings"
+      Height          =   2655
+      Left            =   120
+      TabIndex        =   15
+      Top             =   2880
+      Width           =   4215
+      Begin VB.CheckBox chksend_event 
+         Caption         =   "Send Event"
+         Height          =   255
+         Left            =   240
+         TabIndex        =   20
+         Top             =   2040
+         Width           =   1215
+      End
+      Begin VB.CheckBox chkrestart 
+         Caption         =   "Restart"
+         Height          =   375
+         Left            =   240
+         TabIndex        =   19
+         Top             =   1440
+         Width           =   1455
+      End
+      Begin VB.ComboBox cmbservice 
+         Height          =   315
+         Left            =   1560
+         TabIndex        =   17
+         Top             =   360
+         Width           =   2535
+      End
+      Begin VB.CheckBox chkmonitor_service 
+         Caption         =   "Monitor Service"
+         Height          =   495
+         Left            =   240
+         TabIndex        =   16
+         Top             =   840
+         Width           =   1815
+      End
+      Begin VB.Label label5 
+         Caption         =   "Service Name"
+         Height          =   255
+         Left            =   120
+         TabIndex        =   18
+         Top             =   360
+         Width           =   1455
+      End
+   End
+   Begin VB.TextBox txtlogdir 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   254
+      TabIndex        =   12
+      Top             =   1920
+      Width           =   2535
+   End
+   Begin VB.ComboBox cmbhost 
+      Height          =   315
+      Left            =   1560
+      TabIndex        =   11
+      Top             =   1200
+      Width           =   2535
+   End
+   Begin VB.TextBox txtexe 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   50
+      TabIndex        =   10
+      Top             =   2280
+      Width           =   2535
+   End
+   Begin VB.TextBox txtInstallDir 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   254
+      TabIndex        =   8
+      Top             =   1560
+      Width           =   2535
+   End
+   Begin VB.TextBox txtType 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   20
+      TabIndex        =   5
+      Top             =   840
+      Width           =   2535
+   End
+   Begin VB.TextBox txtDescription 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   50
+      TabIndex        =   3
+      Top             =   480
+      Width           =   2535
+   End
+   Begin VB.TextBox txtName 
+      Height          =   285
+      Left            =   1560
+      MaxLength       =   50
+      TabIndex        =   0
+      Top             =   120
+      Width           =   2535
+   End
+   Begin VB.Label Label7 
+      Caption         =   "Must End with \"
+      Height          =   255
+      Left            =   4320
+      TabIndex        =   14
+      Top             =   1920
+      Width           =   1335
+   End
+   Begin VB.Label Label6 
+      Caption         =   "Log Dir"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   13
+      Top             =   1920
+      Width           =   1335
+   End
+   Begin VB.Label label4 
+      Caption         =   ".exe"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   9
+      Top             =   2280
+      Width           =   1455
+   End
+   Begin VB.Label label 
+      Caption         =   "Install Dir"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   7
+      Top             =   1560
+      Width           =   1335
+   End
+   Begin VB.Label Label3 
+      Caption         =   "Host"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   6
+      Top             =   1200
+      Width           =   1455
+   End
+   Begin VB.Label Label2 
+      Caption         =   "Type"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   4
+      Top             =   840
+      Width           =   1335
+   End
+   Begin VB.Label Label1 
+      Caption         =   "Description"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   2
+      Top             =   480
+      Width           =   1215
+   End
+   Begin VB.Label Name 
+      Caption         =   "Name"
+      Height          =   255
+      Left            =   120
+      TabIndex        =   1
+      Top             =   120
+      Width           =   1215
+   End
+End
+Attribute VB_Name = "ppgsft_sft_elmnt"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Implements IMMCPropertyPage
+Dim action As String
+Dim pid As Integer
+
+Private m_ScopeItem As ScopeItem
+
+Private m_bolChangesApplied As Boolean
+
+Private Sub cmbservice_GotFocus()
+ cmbservice.Clear
+    
+ If PropertyPage.cmbhost.Text <> "" Then
+        objstr = "winmgmts:{impersonationLevel=impersonate}!//" & Trim(PropertyPage.cmbhost.Text)
+            
+            Debug.Print objstr
+            
+        On Error Resume Next
+            For Each service In _
+            GetObject(objstr).ExecQuery _
+                ("Select * from Win32_Service")
+            
+            PropertyPage.cmbservice.AddItem service.Name
+        
+         Next
+End If
+
+End Sub
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+
+Private Sub sendata()
+    
+ 
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+
+
+Dim dataset As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+Dim initdata As Variant
+
+
+action = dobj.splitval(Data, "~", 1)
+pid = dobj.splitval(Data, "~", 2)
+
+Set dataset = dobj.returndataset("select * from host")
+Dim i As Integer
+           If Not (dataset Is Nothing) Then
+                If Not (dataset.BOF And dataset.EOF) Then
+                    dataset.MoveFirst
+                    
+                    Do While Not dataset.EOF
+                        PropertyPage.cmbhost.AddItem dataset("hostname").value & "", i
+                        i = i + 1
+                        dataset.MoveNext
+                    Loop
+                End If
+            End If
+
+action = dobj.splitval(Data, "~", 1)
+pid = dobj.splitval(Data, "~", 2)
+
+
+Debug.Print "Property Page Action Recieved=  " & action
+
+
+
+  If (action = "ACTION_EDIT" Or action = "ACTION_DELETE") Then
+            pid = dobj.splitval(Data, "~", 2)
+            Set dataset = dobj.returndataset("select * from sft_elmnt where sft_elmnt_id = " & pid)
+            If Not (dataset Is Nothing) Then
+                If Not (dataset.BOF And dataset.EOF) Then
+                        With PropertyPage
+                            .txtName = Trim(dataset("name").value & "")
+                            .txtdescription = Trim(dataset("description").value & "")
+                            .txttype = Trim(dataset("type").value & "")
+                            .cmbhost.Text = Trim(dataset("host").value & "")
+                            .txtInstallDir = Trim(dataset("installdir").value & "")
+                            .txtlogdir.Text = Trim(dataset("logdir").value & "")
+                            .txtexe = Trim(dataset("exe").value & "")
+                            .cmbservice.Text = Trim(dataset("service_name").value & "")
+                            
+                            Call translatecheck(.chkmonitor_service, dataset("monitor_service").value & "")
+                            Call translatecheck(.chkrestart, dataset("restart_service").value & "")
+                            Call translatecheck(.chksend_event, dataset("send_event").value & "")
+                            
+                            
+                            
+                            
+                           
+                        End With
+                End If
+            End If
+            
+                               
+    End If
+
+
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub PropertyPage_ApplyChanges()
+
+Dim newsys As adodb.Recordset
+Dim dobj As New VadminUI.vaDataAccess
+
+
+Set dobj = New vaDataAccess
+
+    If (m_bolChangesApplied = True) Then
+        'this event is firing twice on OK click???
+        Exit Sub
+    End If
+
+
+Select Case action
+    Case "ACTION_ADD"
+            With PropertyPage
+                Call dobj.add_sft_elmnt(0, pid, .txtName.Text, .txtdescription.Text, .txttype.Text, .cmbhost.Text, _
+                .txtInstallDir.Text, .txtlogdir, .txtexe.Text, .cmbservice.Text, checktovalue(.chkmonitor_service), _
+                checktovalue(.chkrestart), checktovalue(.chksend_event))
+                
+            End With
+    Case "ACTION_EDIT"
+            With PropertyPage
+                Call dobj.editsft_elmnt(pid, .txtName.Text, .txtdescription.Text, .txttype.Text, .cmbhost.Text, _
+                .txtInstallDir.Text, .txtlogdir.Text, .txtexe.Text, _
+                .cmbservice.Text, checktovalue(.chkmonitor_service), _
+                checktovalue(.chkrestart), checktovalue(.chksend_event))
+                
+            End With
+    Case "ACTION_ADD_TOP"
+            With PropertyPage
+                Call dobj.add_sft_elmnt(1, pid, .txtName.Text, .txtdescription.Text, .txttype.Text, .cmbhost.Text, _
+                .txtInstallDir.Text, .txtlogdir.Text, .txtexe.Text, .cmbservice.Text, _
+                checktovalue(.chkmonitor_service), _
+                checktovalue(.chkrestart), checktovalue(.chksend_event))
+            End With
+            
+    Case "ACTION_DELETE"
+            With PropertyPage
+                Call dobj.del_child_sft_elmnts(pid)
+            End With
+            
+End Select
+
+m_bolChangesApplied = True
+
+With PropertyPage
+Call m_ScopeItem.PropertyChanged(PropertyPage.txtName.Text & ":" & PropertyPage.txttype.Text)
+End With
+        
+
+
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+    Set m_ScopeItem = SelectedControls(0)
+End Sub
+
+Private Sub translatecheck(checkbox As checkbox, value As String)
+
+    If (value = "Y") Then
+        Debug.Print "true"
+        checkbox.value = 1
+    End If
+
+
+End Sub
+
+Private Function checktovalue(checkbox As checkbox) As String
+
+    If checkbox.value = 1 Then
+        checktovalue = "Y"
+    Else
+        checktovalue = "N"
+    End If
+    
+End Function
+

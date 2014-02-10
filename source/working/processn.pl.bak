@@ -1,0 +1,14 @@
+#!c:/perl/bin/perl.exe
+# This is a test scrip
+use Data::Dumper;
+use Win32::Process::Info;
+
+my $pi = Win32::Process::Info->new(undef,'NT');
+my @info = $pi->GetProcInfo();
+print Dumper [ @info ];
+		
+		for my $pid (@info){
+			#print $pid->{"Name"}."\n";
+
+		}
+

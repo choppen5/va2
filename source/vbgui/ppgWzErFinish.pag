@@ -1,0 +1,142 @@
+VERSION 5.00
+Begin VB.PropertyPage ppgWzErFinish 
+   Caption         =   "Finish page"
+   ClientHeight    =   2790
+   ClientLeft      =   0
+   ClientTop       =   0
+   ClientWidth     =   5295
+   LockControls    =   -1  'True
+   PaletteMode     =   0  'Halftone
+   ScaleHeight     =   2790
+   ScaleWidth      =   5295
+   Begin VB.Label lblOutput 
+      Height          =   1815
+      Left            =   240
+      TabIndex        =   1
+      Top             =   270
+      Visible         =   0   'False
+      Width           =   5025
+   End
+   Begin VB.Label lblSuccessfully 
+      Caption         =   "Event routing setup completed successfully!"
+      Height          =   345
+      Left            =   240
+      TabIndex        =   0
+      Top             =   2400
+      Width           =   5025
+   End
+End
+Attribute VB_Name = "ppgWzErFinish"
+Attribute VB_GlobalNameSpace = False
+Attribute VB_Creatable = True
+Attribute VB_PredeclaredId = False
+Attribute VB_Exposed = True
+Option Explicit
+
+Implements IWizardPage
+Implements IMMCPropertyPage
+
+Private ConfigData As clsEventWzData
+'Private PSheet As SnapInLib.MMCPropertySheet
+
+Private Sub IMMCPropertyPage_Cancel()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Close()
+
+End Sub
+
+Private Sub IMMCPropertyPage_GetDialogUnitSize(Height As Variant, Width As Variant)
+
+End Sub
+
+Private Sub IMMCPropertyPage_Help()
+
+End Sub
+
+Private Sub IMMCPropertyPage_Initialize(ByVal Data As Variant, ByVal PropertySheet As SnapInLib.MMCPropertySheet)
+'    Set PSheet = PropertySheet
+    PropertySheet.ChangeCancelToClose
+End Sub
+
+Private Sub IMMCPropertyPage_QueryCancel(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Activate(EnableBack As Boolean, NextOrFinish As SnapInLib.WizardPageButtonConstants, FinishText As String)
+
+    EnableBack = False
+
+    NextOrFinish = EnabledFinishButton
+    FinishText = "OK"
+#If Debugging Then
+    PropertyPage_GotFocus
+#Else
+'    PSheet.ChangeCancelToClose
+#End If
+
+End Sub
+
+Private Sub IWizardPage_Back(NextPage As Long)
+
+End Sub
+
+Private Sub IWizardPage_Finish(Allow As Boolean)
+
+End Sub
+
+Private Sub IWizardPage_Next(NextPage As Long)
+
+End Sub
+
+Private Sub lblAddedCommSrv_Click()
+
+End Sub
+
+Private Sub PropertyPage_GotFocus()
+
+    Dim str As String
+    Static flag As Boolean
+
+    If Not flag Then
+        flag = True
+        With ConfigData
+
+        .SaveAll
+
+        If Not .NoAnRule Then
+            str = "Analysis Rule """ & .AnRuleName & """ will generate events """ & .ErrName & """" & vbCrLf
+        Else
+            str = "Created event """ & .ErrName & """" & vbCrLf
+        End If
+
+        If .Notify And .NotRuleID > 0 Then
+            str = str & vbCrLf & "Notification Rule """ & .NotRuleName & """ will route """ & .ErrName & """ via Communication Server" & vbCrLf
+
+            If .React Then
+                str = str & vbCrLf & "Reaction """ & .ReactName & """ will be executed in response to """ & .ErrName & """" & vbCrLf
+            End If
+        End If
+
+        lblOutput.Caption = str
+        lblOutput.Visible = True
+
+        lblSuccessfully.Visible = .ErrID > 0
+
+        End With
+
+    End If
+End Sub
+
+Private Sub PropertyPage_SelectionChanged()
+
+    On Error Resume Next
+    Set ConfigData = SelectedControls(0)
+    If ConfigData Is Nothing Then
+        Set ConfigData = SelectedControls(0).Tag
+    End If
+
+End Sub
+
+
